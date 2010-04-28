@@ -1,4 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require 'ostruct'
 
 describe "Analytical" do
   before(:each) do
@@ -9,6 +10,7 @@ describe "Analytical" do
   describe 'on initialization' do
     class DummyForInit
       extend Analytical
+      def request; OpenStruct.new(:'ssl?'=>true); end
     end
 
     it 'should have the default options' do

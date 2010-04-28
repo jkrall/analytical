@@ -19,24 +19,14 @@ module Analytical
     end
   end
 
-  class Api
-    attr_accessor :options, :modules
-
-    def initialize(options={})
-      @options = options
-      @modules = @options[:modules].inject({}) do |h, m|
-        h[m] = "Analytical::#{m.to_s.camelize}::Api".constantize.new(self)
-        h
-      end
-    end
-  end
-
   module InstanceMethods
     # any method placed here will apply to instances
 
-
     def analytical
-      @analytical ||= Analytical::Api.new self.class.analytical_options
+      options = self.class.analytical_options.merge({
+        :ssl => request.ssl?
+      })
+      @analytical ||= Analytical::Api.new options
     end
   end
 
