@@ -1,6 +1,6 @@
 = Analytical
 
-Rails engine gem for managing multiple analytics services in your rails app.
+Rails gem for managing multiple analytics services in your rails app.
 Initial service implementations include: Google Analytics, Clicky[http://getclicky.com], and KISSMetrics[http://kissmetrics.com].
 
 == Note on Patches/Pull Requests
