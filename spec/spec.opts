@@ -1,1 +1,5 @@
 --color
+--loadby mtime
+--reverse
+--diff unified
+--backtrace
