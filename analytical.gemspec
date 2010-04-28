@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joshua Krall"]
-  s.date = %q{2010-04-27}
-  s.description = %q{Rails gem for managing multiple analytics services in your rails app.}
+  s.date = %q{2010-04-28}
+  s.description = %q{Gem for managing multiple analytics services in your rails app.}
   s.email = %q{josh@transfs.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -41,7 +41,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.6}
-  s.summary = %q{Rails gem for managing multiple analytics services in your rails app.}
+  s.summary = %q{Gem for managing multiple analytics services in your rails app.}
   s.test_files = [
     "spec/analytical/api_spec.rb",
      "spec/analytical_spec.rb",

@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "analytical"
-    gem.summary = %Q{Rails gem for managing multiple analytics services in your rails app.}
-    gem.description = %Q{Rails gem for managing multiple analytics services in your rails app.}
+    gem.summary = %Q{Gem for managing multiple analytics services in your rails app.}
+    gem.description = %Q{Gem for managing multiple analytics services in your rails app.}
     gem.email = "josh@transfs.com"
     gem.homepage = "http://github.com/jkrall/analytical"
     gem.authors = ["Joshua Krall"]
