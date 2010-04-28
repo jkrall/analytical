@@ -5,13 +5,13 @@
 
 Gem::Specification.new do |s|
   s.name = %q{analytical}
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joshua Krall"]
   s.date = %q{2010-04-27}
   s.description = %q{Rails engine gem for managing multiple analytics services in your rails app.}
-  s.email = %q{joshuakrall@pobox.com}
+  s.email = %q{josh@transfs.com}
   s.extra_rdoc_files = [
     "LICENSE",
      "README.rdoc"
@@ -23,7 +23,16 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "analytical.gemspec",
      "lib/analytical.rb",
+     "lib/analytical/api.rb",
+     "lib/analytical/base.rb",
+     "lib/analytical/clicky.rb",
+     "lib/analytical/console.rb",
+     "lib/analytical/google.rb",
+     "lib/analytical/kiss_metrics.rb",
+     "rails/init.rb",
+     "spec/analytical/api_spec.rb",
      "spec/analytical_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
@@ -34,7 +43,8 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{Rails engine gem for managing multiple analytics services in your rails app.}
   s.test_files = [
-    "spec/analytical_spec.rb",
+    "spec/analytical/api_spec.rb",
+     "spec/analytical_spec.rb",
      "spec/spec_helper.rb"
   ]
 

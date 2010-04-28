@@ -7,7 +7,7 @@ begin
     gem.name = "analytical"
     gem.summary = %Q{Rails engine gem for managing multiple analytics services in your rails app.}
     gem.description = %Q{Rails engine gem for managing multiple analytics services in your rails app.}
-    gem.email = "joshuakrall@pobox.com"
+    gem.email = "josh@transfs.com"
     gem.homepage = "http://github.com/jkrall/analytical"
     gem.authors = ["Joshua Krall"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
