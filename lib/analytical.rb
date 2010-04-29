@@ -24,7 +24,7 @@ module Analytical
       end
     end if File.exists?("#{RAILS_ROOT}/config/analytical.yml")
 
-    self.analytical_options = self.analytical_options.merge config_options
+    self.analytical_options = self.analytical_options.reverse_merge config_options
 
     if self.analytical_options[:disable_if].call
       self.analytical_options[:modules] = self.analytical_options[:development_modules]
