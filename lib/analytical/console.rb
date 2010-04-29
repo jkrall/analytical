@@ -28,6 +28,10 @@ module Analytical
         "console.log(\"Analytical Identify: #{id} #{escape_javascript args.to_json}\");"
       end
 
+      def event(name, *args)
+        "console.log(\"Analytical Event: #{name} #{escape_javascript args.to_json}\");"
+      end
+
     end
   end
 end

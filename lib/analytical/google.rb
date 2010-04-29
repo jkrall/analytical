@@ -25,7 +25,7 @@ module Analytical
         js
       end
 
-      def identify(id, *args)
+      def track(*args)
         "googleAnalyticsTracker._trackPageview(\"#{args.first}\");"
       end
 
