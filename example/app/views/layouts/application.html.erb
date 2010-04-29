@@ -5,10 +5,13 @@
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
+
+	<% raw analytical.identify '5', :email=>'josh@transfs.com' %>
+	<%= raw analytical.head_javascript %>
 </head>
 <body>
-
-<%= yield %>
-
+	<%= raw analytical.body_prepend_javascript %>
+	<%= yield %>
+	<%= raw analytical.body_append_javascript %>
 </body>
 </html>

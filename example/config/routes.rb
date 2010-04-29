@@ -1,7 +1,13 @@
 Example::Application.routes.draw do |map|
+  get "page/index"
+  get "page/test_a"
+  get "page/test_b"
   get "index/test_a"
-
   get "index/test_b"
+
+  # You can have the root of your site routed with "root"
+  # just remember to delete public/index.html.
+  root :to => "page#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -49,10 +55,6 @@ Example::Application.routes.draw do |map|
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  root :to => "page#index"
 
   # See how all your routes lay out with "rake routes"
 
