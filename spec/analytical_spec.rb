@@ -40,12 +40,6 @@ describe "Analytical" do
         DummyForInit.analytical
         DummyForInit.new.analytical.options[:modules] = []
       end
-      it 'should include specific modules' do
-        Analytical::Api.should_receive(:include).with(Analytical::Console)
-        Analytical::Api.should_receive(:include).with(Analytical::Google)
-        DummyForInit.analytical :modules=>[:google, :console]
-        DummyForInit.new.analytical.options[:modules] = [:google, :console]
-      end
     end
 
     describe 'in development mode' do
@@ -53,7 +47,6 @@ describe "Analytical" do
         Rails.env.stub!(:production?).and_return(false)
       end
       it 'should start with no modules' do
-        Analytical::Api.should_receive(:include).with(Analytical::Console)
         DummyForInit.analytical
         DummyForInit.new.analytical.options[:modules] = [:console]
       end

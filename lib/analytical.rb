@@ -25,23 +25,21 @@ module Analytical
     end if File.exists?("#{RAILS_ROOT}/config/analytical.yml")
 
     self.analytical_options = self.analytical_options.reverse_merge config_options
-
-    if self.analytical_options[:disable_if].call
-      self.analytical_options[:modules] = self.analytical_options[:development_modules]
-    end
-    self.analytical_options[:modules].each do |m|
-      Analytical::Api.send :include, "Analytical::#{m.to_s.camelize}".constantize
-    end
   end
 
   module InstanceMethods
     # any method placed here will apply to instances
 
     def analytical
-      options = self.class.analytical_options.merge({
-        :ssl => request.ssl?
-      })
-      @analytical ||= Analytical::Api.new options
+      @analytical ||= begin
+        options = self.class.analytical_options.merge({
+          :ssl => request.ssl?
+        })
+        if options[:disable_if].call(self)
+          options[:modules] = options[:development_modules]
+        end
+        Analytical::Api.new options
+      end
     end
   end
 
