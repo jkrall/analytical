@@ -2,7 +2,6 @@ module Analytical
   module Console
     class Api
       include Analytical::Base::Api
-      include ActionView::Helpers::JavaScriptHelper
 
       def initialize(parent, options={})
         super
@@ -21,15 +20,33 @@ module Analytical
       end
 
       def track(*args)
-        "console.log(\"Analytical Track: #{escape_javascript args.to_json}\");"
+        "console.log(\"Analytical Track: \"+\"#{escape args.first}\");"
       end
 
       def identify(id, *args)
-        "console.log(\"Analytical Identify: #{id} #{escape_javascript args.to_json}\");"
+        data = args.first || {}
+        "console.log(\"Analytical Identify: \"+\"#{id}\"+\" \"+$H(#{data.to_json}).toJSON());"
       end
 
       def event(name, *args)
-        "console.log(\"Analytical Event: #{name} #{escape_javascript args.to_json}\");"
+        data = args.first || {}
+        "console.log(\"Analytical Event: \"+\"#{name}\"+\" \"+$H(#{data.to_json}).toJSON());"
+      end
+
+      private
+
+      CONSOLE_JS_ESCAPE_MAP = {
+        '\\' => '\\\\',
+        '</' => '<\/',
+        "\r\n" => '\n',
+        "\n" => '\n',
+        "\r" => '\n',
+        '"' => '\\"',
+        "'" => "\\'"
+      }
+
+      def escape(js)
+        js.gsub(/(\\|<\/|\r\n|[\n\r"'])/) { CONSOLE_JS_ESCAPE_MAP[$1] }
       end
 
     end

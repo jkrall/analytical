@@ -21,12 +21,12 @@ module Analytical
       end
 
       def identify(id, *args)
-        data = args.first
+        data = args.first || {}
         "_kmq.push([\"identify\", \"#{data[:email]}\"]);"
       end
 
       def event(name, *args)
-        data = args.first
+        data = args.first || {}
         "_kmq.push([\"record\", \"#{name}\", #{data.to_json}]);"
       end
 

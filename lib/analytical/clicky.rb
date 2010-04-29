@@ -37,7 +37,7 @@ module Analytical
       end
 
       def identify(id, *args)
-        data = { :id=>id }.merge(args.first)
+        data = { :id=>id }.merge(args.first || {})
         code = <<-HTML
         <script type='text/javascript'>
           var clicky_custom_session = #{data.to_json};

@@ -29,21 +29,21 @@ describe "Analytical::Clicky::Api" do
   describe '#init_javascript' do
     it 'should return the init javascript' do
       @api = Analytical::Clicky::Api.new @parent, {:key=>'abcdef'}
-      @api.init_javascript[:head].should be_nil
-      @api.init_javascript[:body_prepend].should be_nil            
-      @api.init_javascript[:body_append].should =~ /static.getclicky.com\/js/
-      @api.init_javascript[:body_append].should =~ /abcdef/      
+      @api.init_javascript(:head).should == ''
+      @api.init_javascript(:body_prepend).should == ''            
+      @api.init_javascript(:body_append).should =~ /static.getclicky.com\/js/
+      @api.init_javascript(:body_append).should =~ /abcdef/      
     end
     describe 'for an ssl connection' do
       it 'should return the ssl init code' do
         @api = Analytical::Clicky::Api.new @parent, {:key=>'abcdef', :ssl=>true}
-        @api.init_javascript[:body_append].should =~ /https/
+        @api.init_javascript(:body_append).should =~ /https/
       end
     end
     describe 'with an identify command queued' do
       @api = Analytical::Clicky::Api.new @parent, {:key=>'abcdef'}
       @api.queue :identify, 'user id', {:email=>'someone@test.com'}
-      @api.init_javascript[:body_append].should =~ /"email":\w*"someone@test\.com"/
+      @api.init_javascript(:body_append).should =~ /"email":\w*"someone@test\.com"/
     end
   end
 end
