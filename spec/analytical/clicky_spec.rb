@@ -17,7 +17,7 @@ describe "Analytical::Clicky::Api" do
   describe '#track' do
     it 'should return the tracking javascript' do
       @api = Analytical::Clicky::Api.new @parent, {:key=>'abcdef'}
-      @api.track('pagename', {:some=>'data'}).should == "clicky.log('pagename');"
+      @api.track('pagename', {:some=>'data'}).should == "clicky.log(\"pagename\");"
     end
   end
   describe '#identify' do

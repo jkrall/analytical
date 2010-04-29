@@ -6,30 +6,44 @@ module Analytical
     def initialize(options={})
       @options = options
       @modules = @options[:modules].inject(ActiveSupport::OrderedHash.new) do |h, m|
-        h[m] = {
-          :initialized => false,
-          :api => "Analytical::#{m.to_s.camelize}::Api".constantize.new(self, @options[m])
-        }
+        h[m] = "Analytical::#{m.to_s.camelize}::Api".constantize.new(self, @options[m] || {})
         h
       end
     end
 
     #
-    # Generic track command that each module should implement to support basic page/event tracking
-    # Returns javascript to be inserted at arbitrary position on page,
-    # or stores the track command if the module hasn't been initialized yet
+    # Catch commands such as :track, :identify and send them on to all of the modules.
+    # Or... if a module name is passed, return that module so it can be used directly, ie:
+    # analytical.console.go 'make', :some=>:cookies
     #
-    def track(*args)
-      process_command(:track, *args)
+    def method_missing(method, *args, &block)
+      if @modules.keys.include?(method.to_sym)
+        @modules[method.to_sym]
+      else
+        process_command method.to_sym, *args
+      end
+    end
+
+
+    #
+    # Delegation class that passes methods to
+    #
+    class ImmediateDelegateHelper
+      def initialize(_parent)
+        @parent = _parent
+      end
+      def method_missing(method, *args, &block)
+        @parent.modules.values.collect do |m|
+          m.send method, *args
+        end.join("\n")
+      end
     end
 
     #
-    # Generic track command that each module should implement to support basic page/event tracking
-    # Returns javascript to be inserted at arbitrary position on page,
-    # or stores the track command if the module hasn't been initialized yet
+    # Returns a new delegation object for immediate processing of a command
     #
-    def identify(*args)
-      process_command(:track, *args)
+    def now
+      ImmediateDelegateHelper.new(self)
     end
 
     #
@@ -48,20 +62,15 @@ module Analytical
     private
 
     def process_command(command, *args)
-      @modules.values.collect do |m|
-        if m[:initialized]
-          m[:api].send command, *args
-        else
-          m[:api].queue command, *args
-          ''
-        end
-      end.delete_if {|mstr| mstr.blank?}.join("\n")
+      @modules.values.each do |m|
+        m.queue command, *args
+      end
     end
 
     def tracking_javascript(location)
       commands = []
       @modules.each do |name, m|
-        commands += m[:api].process_queued_commands if m[:api].tracking_command_location==location
+        commands += m.process_queued_commands if m.tracking_command_location==location
       end
       commands = commands.delete_if{|c| c.blank? || c.empty?}
       unless commands.empty?
@@ -73,9 +82,8 @@ module Analytical
 
     def init_javascript(location)
       @modules.values.collect do |m|
-        m[:initialized] = true if m[:api].tracking_command_location==location
-        m[:api].init_javascript[location]
-      end.join("\n")
+        m.init_javascript[location]
+      end.compact.join("\n")
     end
   end
 

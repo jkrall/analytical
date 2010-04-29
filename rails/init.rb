@@ -1,1 +1,1 @@
-ActionController::Base.extend Analytical
+require 'analytical'

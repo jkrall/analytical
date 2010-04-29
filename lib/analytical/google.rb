@@ -19,14 +19,14 @@ module Analytical
         <script type="text/javascript">
           var googleAnalyticsTracker = _gat._getTracker("#{options[:key]}");
           googleAnalyticsTracker._initData();
-          pageTracker._trackPageview();
+          googleAnalyticsTracker._trackPageview();
         </script>
         HTML
         js_blocks
       end
 
       def track(*args)
-        "googleAnalyticsTracker._trackPageview('#{args.first}');"
+        "googleAnalyticsTracker._trackPageview(\"#{args.first}\");"
       end
 
     end

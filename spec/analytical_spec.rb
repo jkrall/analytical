@@ -11,6 +11,7 @@ describe "Analytical" do
     class DummyForInit
       extend Analytical
       def request; OpenStruct.new(:'ssl?'=>true); end
+      def self.helper_method(*a); end
     end
 
     it 'should have the default options' do
@@ -48,7 +49,6 @@ describe "Analytical" do
         DummyForInit.new.analytical.options[:modules] = [:console]
       end
     end
-
 
   end
 

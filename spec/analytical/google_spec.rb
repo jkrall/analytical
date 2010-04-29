@@ -17,7 +17,7 @@ describe "Analytical::Google::Api" do
   describe '#track' do
     it 'should return the tracking javascript' do
       @api = Analytical::Google::Api.new @parent, {:key=>'abcdef'}
-      @api.track('pagename', {:some=>'data'}).should == "googleAnalyticsTracker._trackPageview('pagename');"
+      @api.track('pagename', {:some=>'data'}).should == "googleAnalyticsTracker._trackPageview(\"pagename\");"
     end
   end
   describe '#identify' do

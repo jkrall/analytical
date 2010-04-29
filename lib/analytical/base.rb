@@ -16,7 +16,11 @@ module Analytical
       def init_javascript; {}; end
 
       def queue(*args)
-        @commands << args
+        if args.first==:identify
+          @commands.unshift args
+        else
+          @commands << args
+        end
       end
       def process_queued_commands
         command_strings = @commands.collect {|c| send(*c) }

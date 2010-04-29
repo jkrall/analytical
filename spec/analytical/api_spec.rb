@@ -8,8 +8,8 @@ describe "Analytical::Api" do
       Analytical::Google::Api.should_receive(:new).and_return(@google = mock('google'))
       a = Analytical::Api.new :modules=>[:console, :google]
       a.modules.should == {
-        :console=>{:api=>@console, :initialized => false}, 
-        :google=>{:api=>@google, :initialized => false}, 
+        :console=>@console, 
+        :google=>@google, 
       }
     end
   end
@@ -18,37 +18,56 @@ describe "Analytical::Api" do
     before(:each) do
       Analytical::Console::Api.stub!(:new).and_return(@console = mock('console'))
       Analytical::Google::Api.stub!(:new).and_return(@google = mock('google'))
+      Analytical::Clicky::Api.stub!(:new).and_return(@clicky = mock('clicky'))      
+      
       @api = Analytical::Api.new :modules=>[:console, :google]
     end
 
     describe '#track' do
-      it 'should call #track on each module api class that is preinitialized' do
-        @api.modules[:console][:initialized] = true
-        @console.should_receive(:track).with('something', {:a=>1, :b=>2})
-        @google.should_not_receive(:track)
-        @google.should_receive(:queue).with(:track, 'something', {:a=>1, :b=>2})
-        @api.track('something', {:a=>1, :b=>2})
-      end
-      it 'should store the #track command for each module api class that is not preinitialized' do
-        Analytical::Clicky::Api.stub!(:new).and_return(@clicky = mock('clicky'))      
+      it 'should store the #track command for each module api class' do
         @api = Analytical::Api.new :modules=>[:console, :google, :clicky]
               
-        @api.modules[:console][:initialized] = true
-        @api.modules[:clicky][:initialized] = true
-        @console.stub!(:track).and_return('console track called')
-        @console.should_not_receive(:queue)
-        @clicky.stub!(:track).and_return('clicky track called')
-        @clicky.should_not_receive(:queue)
-
-        @google.should_not_receive(:track)
+        @console.should_receive(:queue).with(:track, 'something', {:a=>1, :b=>2})
+        @clicky.should_receive(:queue).with(:track, 'something', {:a=>1, :b=>2})
         @google.should_receive(:queue).with(:track, 'something', {:a=>1, :b=>2})
-        @google.should_receive(:queue).with(:track, 'something 2', {:a=>3, :b=>4})        
         
-        @api.track('something', {:a=>1, :b=>2}).should == "console track called\nclicky track called"
-        @api.track('something 2', {:a=>3, :b=>4}).should == "console track called\nclicky track called"
+        @api.track('something', {:a=>1, :b=>2})
       end
     end
     
+    describe '#identify' do
+      it 'should store the #track command for each module api class' do
+        @api = Analytical::Api.new :modules=>[:console, :google, :clicky]
+              
+        @console.should_receive(:queue).with(:identify, 'something', {:a=>1, :b=>2})
+        @clicky.should_receive(:queue).with(:identify, 'something', {:a=>1, :b=>2})
+        @google.should_receive(:queue).with(:identify, 'something', {:a=>1, :b=>2})
+        
+        @api.identify('something', {:a=>1, :b=>2})
+      end
+    end
+    
+    describe '#now' do
+      it 'should call a command on each module and collect the results' do
+        @api = Analytical::Api.new :modules=>[:console, :google, :clicky]        
+
+        @console.should_receive(:track).with('something', {:a=>1, :b=>2}).and_return('console track')
+        @clicky.should_receive(:track).with('something', {:a=>1, :b=>2}).and_return('clicky track')
+        @google.should_receive(:track).with('something', {:a=>1, :b=>2}).and_return('google track')
+        
+        @api.now.track('something', {:a=>1, :b=>2}).should == "console track\ngoogle track\nclicky track"
+      end
+    end
+    
+    describe 'when accessing a module by name' do
+      it 'should return the module api object' do
+        @api = Analytical::Api.new :modules=>[:console, :google, :clicky]
+        @api.console.should == @console
+        @api.clicky.should == @clicky
+        @api.google.should == @google
+      end
+    end
+        
     describe 'gathering javascript' do
       before(:each) do
         @console.should_receive(:init_javascript).and_return(:head=>'console_a', :body_prepend=>'console_b', :body_append=>'console_c')
@@ -86,10 +105,6 @@ describe "Analytical::Api" do
         describe '#body_prepend_javascript' do
           it 'should return the javascript' do
             @api.body_prepend_javascript.should == "console_b\ngoogle_b\n<script type='text/javascript'>\nconsole track called\ngoogle track called\n</script>"
-          end
-          it 'should mark the modules as initialized' do
-            @api.body_prepend_javascript.should == "console_b\ngoogle_b\n<script type='text/javascript'>\nconsole track called\ngoogle track called\n</script>"
-            @api.track('something', {:a=>1, :b=>2}).should == "console track called\ngoogle track called"
           end
         end
       end

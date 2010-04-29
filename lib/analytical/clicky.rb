@@ -33,7 +33,7 @@ module Analytical
       end
 
       def track(*args)
-        "clicky.log('#{args.first}');"
+        "clicky.log(\"#{args.first}\");"
       end
 
       def identify(id, *args)

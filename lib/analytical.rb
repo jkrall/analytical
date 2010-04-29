@@ -1,8 +1,13 @@
+Dir.glob(File.dirname(__FILE__)+'/analytical/*.rb').each do |f|
+  require f
+end
+
 module Analytical
 
   # any method placed here will apply to ActionController::Base
   def analytical(options={})
     send :include, InstanceMethods
+    send :helper_method, :analytical
     send :cattr_accessor, :analytical_options
 
     self.analytical_options = options.reverse_merge({
@@ -30,4 +35,8 @@ module Analytical
     end
   end
 
+end
+
+if defined?(ActionController::Base)
+  ActionController::Base.extend Analytical
 end
