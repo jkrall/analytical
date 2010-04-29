@@ -13,6 +13,7 @@ module Analytical
 
       def track(*args); ''; end
       def identify(*args); ''; end
+      def event(*args); ''; end
       def init_javascript; {}; end
 
       def queue(*args)
