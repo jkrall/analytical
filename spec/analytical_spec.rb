@@ -5,6 +5,7 @@ describe "Analytical" do
   before(:each) do
     rails_env = mock('rails environment', :'production?'=>true, :'development?'=>false)
     Rails.stub!(:env).and_return(rails_env)
+    File.stub!(:'exists?').and_return(false)
   end
 
   describe 'on initialization' do
@@ -20,6 +21,14 @@ describe "Analytical" do
       d.options[:modules].should == []
       d.options[:development_modules].should == [:console]
       d.options[:disable_if].call.should be_false
+    end
+
+    it 'should open the initialization file' do
+      File.should_receive(:'exists?').with("#{RAILS_ROOT}/config/analytical.yml").and_return(true)
+      DummyForInit.analytical
+      DummyForInit.analytical_options[:google].should == {:key=>'google_12345'}
+      DummyForInit.analytical_options[:kiss_metrics].should == {:key=>'kiss_metrics_12345'}
+      DummyForInit.analytical_options[:clicky].should == {:key=>'clicky_12345'}            
     end
 
     describe 'in production mode' do

@@ -82,7 +82,7 @@ module Analytical
 
     def init_javascript(location)
       @modules.values.collect do |m|
-        m.init_javascript[location]
+        m.init_javascript(location)
       end.compact.join("\n")
     end
   end

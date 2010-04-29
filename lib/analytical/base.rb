@@ -12,9 +12,9 @@ module Analytical
       end
 
       def track(*args); ''; end
-      def identify(*args); ''; end
-      def event(*args); ''; end
-      def init_javascript; {}; end
+      def identify(id, *args); ''; end
+      def event(name, *args); ''; end
+      def init_javascript(location); {}; end
 
       def queue(*args)
         if args.first==:identify

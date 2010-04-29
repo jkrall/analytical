@@ -9,23 +9,23 @@ module Analytical
         @tracking_command_location = :head
       end
 
-      def init_javascript
-        js_blocks = {}
-        js_blocks[:head] = <<-HTML
+      def init_javascript(location)
+        return '' unless location==:head
+        js = <<-HTML
         <!-- Analytical Init: Console -->
         <script type="text/javascript">
           console.log('Analytical Init: Console');
         </script>
         HTML
-        js_blocks
+        js
       end
 
       def track(*args)
         "console.log(\"Analytical Track: #{escape_javascript args.to_json}\");"
       end
 
-      def identify(*args)
-        "console.log(\"Analytical Identify: #{escape_javascript args.to_json}\");"
+      def identify(id, *args)
+        "console.log(\"Analytical Identify: #{id} #{escape_javascript args.to_json}\");"
       end
 
     end

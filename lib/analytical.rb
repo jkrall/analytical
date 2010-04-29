@@ -16,6 +16,16 @@ module Analytical
       :disable_if=>Proc.new { !Rails.env.production? },
     })
 
+    config_options = {}
+    File.open("#{RAILS_ROOT}/config/analytical.yml") do |f|
+      config_options = YAML::load(ERB.new(f.read).result).symbolize_keys
+      config_options.each do |k,v|
+        config_options[k] = v.symbolize_keys
+      end
+    end if File.exists?("#{RAILS_ROOT}/config/analytical.yml")
+
+    self.analytical_options = self.analytical_options.merge config_options
+
     if self.analytical_options[:disable_if].call
       self.analytical_options[:modules] = self.analytical_options[:development_modules]
     end

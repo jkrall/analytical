@@ -8,9 +8,9 @@ module Analytical
         @tracking_command_location = :body_prepend
       end
 
-      def init_javascript
-        js_blocks = {}
-        js_blocks[:body_prepend] = <<-HTML
+      def init_javascript(location)
+        return '' unless location==:body_prepend
+        js = <<-HTML
         <!-- Analytical Init: Google -->
         <script type="text/javascript">
           var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
@@ -22,10 +22,10 @@ module Analytical
           googleAnalyticsTracker._trackPageview();
         </script>
         HTML
-        js_blocks
+        js
       end
 
-      def track(*args)
+      def identify(id, *args)
         "googleAnalyticsTracker._trackPageview(\"#{args.first}\");"
       end
 
