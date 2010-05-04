@@ -7,6 +7,7 @@ module Analytical
   # any method placed here will apply to ActionController::Base
   def analytical(options={})
     send :include, InstanceMethods
+    send :include, Analytical::BotDetector
     send :helper_method, :analytical
     send :cattr_accessor, :analytical_options
 
@@ -37,6 +38,9 @@ module Analytical
         })
         if options[:disable_if].call(self)
           options[:modules] = options[:development_modules]
+        end
+        if analytical_is_robot?(request.user_agent)
+          options[:modules] = []
         end
         Analytical::Api.new options
       end
