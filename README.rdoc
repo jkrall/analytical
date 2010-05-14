@@ -9,6 +9,13 @@ Add the following to your controllers:
 
     analytical :modules=>[:console, :google, :clicky]
 
+Add a configuration file (config/analytical.yml) to declare your API keys, like so:
+
+   google:
+     key: UA-5555555-5
+   clicky:
+     key: 55555
+
 Then, in your template files, you'll want to add the analytical helper methods for initializing the tracking javascript:
 
     <!DOCTYPE html>
