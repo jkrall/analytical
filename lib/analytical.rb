@@ -8,8 +8,8 @@ module Analytical
   def analytical(options={})
     send :include, InstanceMethods
     send :include, Analytical::BotDetector
-    send :helper_method, :analytical
-    send :cattr_accessor, :analytical_options
+    helper_method :analytical
+    class_inheritable_accessor :analytical_options
 
     self.analytical_options = options.reverse_merge({
       :modules=>[],
