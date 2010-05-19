@@ -19,4 +19,4 @@ end
 
 module Rails
 end
-RAILS_ROOT = File.dirname(__FILE__)
+Rails.root = File.dirname(__FILE__)

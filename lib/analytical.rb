@@ -18,12 +18,12 @@ module Analytical
     })
 
     config_options = {}
-    File.open("#{RAILS_ROOT}/config/analytical.yml") do |f|
+    File.open("#{Rails.root}/config/analytical.yml") do |f|
       config_options = YAML::load(ERB.new(f.read).result).symbolize_keys
       config_options.each do |k,v|
         config_options[k] = v.symbolize_keys
       end
-    end if File.exists?("#{RAILS_ROOT}/config/analytical.yml")
+    end if File.exists?("#{Rails.root}/config/analytical.yml")
 
     self.analytical_options = self.analytical_options.reverse_merge config_options
   end

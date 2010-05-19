@@ -45,7 +45,7 @@ describe "Analytical" do
     end
 
     it 'should open the initialization file' do
-      File.should_receive(:'exists?').with("#{RAILS_ROOT}/config/analytical.yml").and_return(true)
+      File.should_receive(:'exists?').with("#{Rails.root}/config/analytical.yml").and_return(true)
       DummyForInit.analytical
       DummyForInit.analytical_options[:google].should == {:key=>'google_12345'}
       DummyForInit.analytical_options[:kiss_metrics].should == {:key=>'kiss_metrics_12345'}
