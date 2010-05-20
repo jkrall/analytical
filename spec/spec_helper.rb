@@ -18,5 +18,7 @@ Spec::Runner.configure do |config|
 end
 
 module Rails
+  def self.root
+    File.dirname(__FILE__)
+  end
 end
-Rails.root = File.dirname(__FILE__)
