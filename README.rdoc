@@ -1,7 +1,7 @@
 = Analytical
 
 Gem for managing multiple analytics services in your rails app.
-Service implementations include: Google Analytics, Clicky[http://getclicky.com], CrazyEgg[http://www.crazyegg.com], and KISSMetrics[http://kissmetrics.com].
+Service implementations include: Google Analytics, Clicky[http://getclicky.com], CrazyEgg[http://www.crazyegg.com], Hubspot[http://www.hubspot.com], and KISSMetrics[http://kissmetrics.com].
 
 == Usage
 
