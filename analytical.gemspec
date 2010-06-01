@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{analytical}
-  s.version = "0.10.0"
+  s.version = "0.11.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joshua Krall"]
-  s.date = %q{2010-05-20}
+  s.date = %q{2010-05-31}
   s.description = %q{Gem for managing multiple analytics services in your rails app.}
   s.email = %q{josh@transfs.com}
   s.extra_rdoc_files = [
@@ -80,6 +80,7 @@ Gem::Specification.new do |s|
      "lib/analytical/bot_detector.rb",
      "lib/analytical/clicky.rb",
      "lib/analytical/console.rb",
+     "lib/analytical/crazy_egg.rb",
      "lib/analytical/google.rb",
      "lib/analytical/kiss_metrics.rb",
      "rails/init.rb",
