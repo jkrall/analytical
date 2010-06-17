@@ -4,3 +4,19 @@ clicky:
   key: clicky_12345
 kiss_metrics:
   key: kiss_metrics_12345
+adwords:
+  'Some Event':
+    id: 4444555555
+    language: en
+    format: 2
+    color: ffffff
+    label: xxxxxxxxxxxxxxxx
+    value: 0
+  'Another Event':
+    id: 1111333333
+    language: en
+    format: 2
+    color: ffffff
+    label: yyyyyyyyyyyyyyyy
+    value: 0
+
