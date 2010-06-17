@@ -32,6 +32,7 @@ module Analytical
       #     value: 0
       #
       def event(name, *args)
+        data = args.first || {}
         html = ''
         if conversion = options[name]
           html = <<-HTML
@@ -43,7 +44,7 @@ module Analytical
             var google_conversion_format = "#{conversion[:format]}";
             var google_conversion_color = "#{conversion[:color]}";
             var google_conversion_label = "#{conversion[:label]}";
-            var google_conversion_value = #{conversion[:value]};
+            var google_conversion_value = #{data[:value] || conversion[:value]};
             /* ]]> */
           </script>
           <script type="text/javascript" src="http://www.googleadservices.com/pagead/conversion.js"></script>
