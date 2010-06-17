@@ -1,12 +1,14 @@
 = Analytical
 
 Gem for managing multiple analytics services in your rails app.
+
 Service implementations include:
 * Google Analytics
 * Google Adwords (conversion tracking)
 * Clicky[http://getclicky.com]
 * KISSMetrics[http://kissmetrics.com]
 * Hubspot[http://hubspot.com]
+* CrazyEgg[http://www.crazyegg.com]
 
 == Usage
 
