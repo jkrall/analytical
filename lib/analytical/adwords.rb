@@ -9,7 +9,21 @@ module Analytical
       end
 
       def init_javascript(location)
-        return ''
+        return '' unless location==:body_append
+
+        @initializing = true
+        html = "<!-- Analytical Init: Google Adwords -->\n"
+        event_commands = []
+        @commands.each do |c|
+          if c[0] == :event
+            event_commands << event(*c[1..-1])
+          end
+        end
+        html += event_commands.join("\n")
+        @commands = @commands.delete_if {|c| c[0] == :event }
+        @initializing = false
+
+        html
       end
 
       #
@@ -32,11 +46,12 @@ module Analytical
       #     value: 0
       #
       def event(name, *args)
+        return '' unless @initializing
+
         data = args.first || {}
-        html = ''
-        if conversion = options[name]
-          html = <<-HTML
-          <!-- Google Code for PPC Landing Page Conversion Page -->
+        if conversion = options[name.to_sym]
+          conversion.symbolize_keys!
+          js = <<-HTML
           <script type="text/javascript">
             /* <![CDATA[ */
             var google_conversion_id = #{conversion[:id]};
@@ -54,8 +69,10 @@ module Analytical
             </div>
           </noscript>
           HTML
+          js
+        else
+          "<!-- No Adwords Conversion for: #{name} -->"
         end
-        html
       end
 
     end
