@@ -26,7 +26,7 @@ module Analytical
       # Set passes some data to the analytics service that should be attached to the current user identity
       # It can be used to set AB-testing choices and other unique data, so that split testing results can be
       # reported by an analytics service
-      def set(data, *args); ''; end
+      def set(data); ''; end
 
       # This method generates the initialization javascript that an analytics service uses to track your site
       def init_javascript(location); {}; end

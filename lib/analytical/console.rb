@@ -33,6 +33,10 @@ module Analytical
         "console.log(\"Analytical Event: \"+\"#{name}\"+\" \"+$H(#{data.to_json}).toJSON());"
       end
 
+      def set(data)
+        "console.log(\"Analytical Set: \"+$H(#{data.to_json}).toJSON());"
+      end
+
       private
 
       CONSOLE_JS_ESCAPE_MAP = {
