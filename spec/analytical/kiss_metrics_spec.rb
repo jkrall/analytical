@@ -21,15 +21,21 @@ describe "Analytical::KissMetrics::Api" do
     end
   end
   describe '#identify' do
-    it 'should return an empty string' do
+    it 'should return a js string' do
       @api = Analytical::KissMetrics::Api.new @parent, {:key=>'abcdef'}
       @api.identify('id', {:email=>'test@test.com'}).should == "_kmq.push([\"identify\", \"test@test.com\"]);"
     end
   end
   describe '#event' do
-    it 'should return an empty string' do
+    it 'should return a js string' do
       @api = Analytical::KissMetrics::Api.new @parent, {:key=>'abcdef'}
       @api.event('Big Deal', {:something=>'good'}).should == "_kmq.push([\"record\", \"Big Deal\", #{{:something=>'good'}.to_json}]);"
+    end
+  end
+  describe '#set' do
+    it 'should return a js string' do
+      @api = Analytical::KissMetrics::Api.new @parent, {:key=>'abcdef'}
+      @api.set({:something=>'good', :b=>2}).should == "_kmq.push([\"set\", {\"something\":\"good\",\"b\":2}]);"
     end
   end
   describe '#init_javascript' do

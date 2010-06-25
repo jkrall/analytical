@@ -33,6 +33,11 @@ module Analytical
         "_kmq.push([\"record\", \"#{name}\", #{data.to_json}]);"
       end
 
+      def set(data, *args)
+        return '' if data.blank?
+        "_kmq.push([\"set\", #{data.to_json}]);"
+      end
+
     end
   end
 end
