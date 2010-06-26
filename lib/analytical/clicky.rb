@@ -9,7 +9,7 @@ module Analytical
       end
 
       def init_javascript(location)
-        return '' unless location==:body_append
+        return '' unless init_location?(location)
 
         protocol = options[:ssl] ? 'https' : 'http'
 

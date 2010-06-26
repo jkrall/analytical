@@ -9,7 +9,7 @@ module Analytical
       end
 
       def init_javascript(location)
-        return '' unless location==:body_append
+        return '' unless init_location?(location)
         code_url = "#{options[:key][0,4]}/#{options[:key][4,4]}"
         protocol = options[:ssl] ? 'https' : 'http'
         js = <<-HTML

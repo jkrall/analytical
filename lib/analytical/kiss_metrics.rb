@@ -9,7 +9,7 @@ module Analytical
       end
 
       def init_javascript(location)
-        return '' unless location==:body_prepend
+        return '' unless init_location?(location)
         js = <<-HTML
         <!-- Analytical Init: KissMetrics -->
         <script type="text/javascript">

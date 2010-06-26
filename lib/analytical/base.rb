@@ -44,6 +44,10 @@ module Analytical
         command_strings
       end
 
+      def init_location?(location)
+        @tracking_command_location==location
+      end
+
     end
   end
 end

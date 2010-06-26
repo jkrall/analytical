@@ -5,11 +5,11 @@ module Analytical
 
       def initialize(parent, options={})
         super
-        @tracking_command_location = :head
+        @tracking_command_location = :body_append
       end
 
       def init_javascript(location)
-        return '' unless location==:head
+        return '' unless init_location?(location)
         js = <<-HTML
         <!-- Analytical Init: Console -->
         <script type="text/javascript">
