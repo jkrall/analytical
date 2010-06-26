@@ -9,21 +9,21 @@ module Analytical
       end
 
       def init_javascript(location)
-        return '' unless init_location?(location)
-
-        @initializing = true
-        html = "<!-- Analytical Init: Google Adwords -->\n"
-        event_commands = []
-        @commands.each do |c|
-          if c[0] == :event
-            event_commands << event(*c[1..-1])
+        init_location(location) do
+          @initializing = true
+          html = "<!-- Analytical Init: Google Adwords -->\n"
+          event_commands = []
+          @commands.each do |c|
+            if c[0] == :event
+              event_commands << event(*c[1..-1])
+            end
           end
-        end
-        html += event_commands.join("\n")
-        @commands = @commands.delete_if {|c| c[0] == :event }
-        @initializing = false
+          html += event_commands.join("\n")
+          @commands = @commands.delete_if {|c| c[0] == :event }
+          @initializing = false
 
-        html
+          html
+        end
       end
 
       #

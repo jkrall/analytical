@@ -9,18 +9,19 @@ module Analytical
       end
 
       def init_javascript(location)
-        return '' unless init_location?(location)
-        js = <<-HTML
-        <!-- Analytical Init: KissMetrics -->
-        <script type="text/javascript">
-          var _kmq = _kmq || [];
-          (function(){function _kms(u,d){if(navigator.appName.indexOf("Microsoft")==0 && d)document.write("<scr"+"ipt defer='defer' async='true' src='"+u+"'></scr"+"ipt>");else{var s=document.createElement('script');s.type='text/javascript';s.async=true;s.src=u;(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);}}_kms('http' + ('https:' == document.location.protocol ? 's://': '://') + 'i.kissmetrics.com/i.js', 1);_kms('http'+('https:'==document.location.protocol ? 's://s3.amazonaws.com/' : '://')+'scripts.kissmetrics.com/#{options[:key]}.1.js',1);})();
-        </script>
-        <script type="text/javascript">
-          _kmq.push(['pageView']);
-        </script>
-        HTML
-        js
+        init_location(location) do
+          js = <<-HTML
+          <!-- Analytical Init: KissMetrics -->
+          <script type="text/javascript">
+            var _kmq = _kmq || [];
+            (function(){function _kms(u,d){if(navigator.appName.indexOf("Microsoft")==0 && d)document.write("<scr"+"ipt defer='defer' async='true' src='"+u+"'></scr"+"ipt>");else{var s=document.createElement('script');s.type='text/javascript';s.async=true;s.src=u;(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);}}_kms('http' + ('https:' == document.location.protocol ? 's://': '://') + 'i.kissmetrics.com/i.js', 1);_kms('http'+('https:'==document.location.protocol ? 's://s3.amazonaws.com/' : '://')+'scripts.kissmetrics.com/#{options[:key]}.1.js',1);})();
+          </script>
+          <script type="text/javascript">
+            _kmq.push(['pageView']);
+          </script>
+          HTML
+          js
+        end
       end
 
       def identify(id, *args)

@@ -35,7 +35,7 @@ describe "Analytical::KissMetrics::Api" do
   describe '#set' do
     it 'should return a js string' do
       @api = Analytical::KissMetrics::Api.new @parent, {:key=>'abcdef'}
-      @api.set({:something=>'good', :b=>2}).should == "_kmq.push([\"set\", {\"something\":\"good\",\"b\":2}]);"
+      @api.set({:something=>'good', :b=>2}).should == "_kmq.push([\"set\", #{{:something=>'good', :b=>2}.to_json}]);"
     end
   end
   describe '#init_javascript' do

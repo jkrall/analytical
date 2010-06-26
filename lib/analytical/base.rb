@@ -1,13 +1,14 @@
 module Analytical
   module Base
     module Api
-      attr_reader :tracking_command_location, :parent, :options
+      attr_reader :tracking_command_location, :parent, :options, :initialized
       attr_accessor :commands
 
       def initialize(_parent, _options={})
         @parent = _parent
         @options = _options
         @tracking_command_location = :body_prepend
+        @initialized = false
         @commands = []
       end
 
@@ -29,7 +30,7 @@ module Analytical
       def set(data); ''; end
 
       # This method generates the initialization javascript that an analytics service uses to track your site
-      def init_javascript(location); {}; end
+      def init_javascript(location); ''; end
 
       def queue(*args)
         if args.first==:identify
@@ -46,6 +47,19 @@ module Analytical
 
       def init_location?(location)
         @tracking_command_location==location
+      end
+
+      def init_location(location, &block)
+        if init_location?(location)
+          @initialized = true
+          if block_given?
+            yield
+          else
+            ''
+          end
+        else
+          ''
+        end
       end
 
     end

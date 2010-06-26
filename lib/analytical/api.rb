@@ -70,7 +70,7 @@ module Analytical
     def tracking_javascript(location)
       commands = []
       @modules.each do |name, m|
-        commands += m.process_queued_commands if m.tracking_command_location==location
+        commands += m.process_queued_commands if m.init_location?(location) || m.initialized
       end
       commands = commands.delete_if{|c| c.blank? || c.empty?}
       unless commands.empty?

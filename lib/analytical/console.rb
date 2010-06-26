@@ -9,14 +9,15 @@ module Analytical
       end
 
       def init_javascript(location)
-        return '' unless init_location?(location)
-        js = <<-HTML
-        <!-- Analytical Init: Console -->
-        <script type="text/javascript">
-          console.log('Analytical Init: Console');
-        </script>
-        HTML
-        js
+        init_location(location) do
+          js = <<-HTML
+          <!-- Analytical Init: Console -->
+          <script type="text/javascript">
+            console.log('Analytical Init: Console');
+          </script>
+          HTML
+          js
+        end
       end
 
       def track(*args)

@@ -9,27 +9,27 @@ module Analytical
       end
 
       def init_javascript(location)
-        return '' unless init_location?(location)
+        init_location(location) do
+          protocol = options[:ssl] ? 'https' : 'http'
 
-        protocol = options[:ssl] ? 'https' : 'http'
+          js = <<-HTML
+          <!-- Analytical Init: Clicky -->
+          <script src="#{protocol}://static.getclicky.com/js" type="text/javascript"></script>
+          <script type="text/javascript">clicky.init('#{@options[:key]}');</script>
+          <noscript><p><img alt="Clicky" width="1" height="1" src="#{protocol}://in.getclicky.com/#{@options[:key]}ns.gif" /></p></noscript>
+          HTML
 
-        js = <<-HTML
-        <!-- Analytical Init: Clicky -->
-        <script src="#{protocol}://static.getclicky.com/js" type="text/javascript"></script>
-        <script type="text/javascript">clicky.init('#{@options[:key]}');</script>
-        <noscript><p><img alt="Clicky" width="1" height="1" src="#{protocol}://in.getclicky.com/#{@options[:key]}ns.gif" /></p></noscript>
-        HTML
-
-        identify_commands = []
-        @commands.each do |c|
-          if c[0] == :identify
-            identify_commands << identify(*c[1..-1])
+          identify_commands = []
+          @commands.each do |c|
+            if c[0] == :identify
+              identify_commands << identify(*c[1..-1])
+            end
           end
-        end
-        js = identify_commands.join("\n") + "\n" + js
-        @commands = @commands.delete_if {|c| c[0] == :identify }
+          js = identify_commands.join("\n") + "\n" + js
+          @commands = @commands.delete_if {|c| c[0] == :identify }
 
-        js
+          js
+        end
       end
 
       def track(*args)
