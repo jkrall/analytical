@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{analytical}
-  s.version = "1.1.1"
+  s.version = "1.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joshua Krall"]
@@ -87,6 +87,7 @@ Gem::Specification.new do |s|
      "lib/analytical/kiss_metrics.rb",
      "rails/init.rb",
      "spec/analytical/api_spec.rb",
+     "spec/analytical/base_spec.rb",
      "spec/analytical/bot_detector_spec.rb",
      "spec/analytical/clicky_spec.rb",
      "spec/analytical/google_spec.rb",
@@ -103,6 +104,7 @@ Gem::Specification.new do |s|
   s.summary = %q{Gem for managing multiple analytics services in your rails app.}
   s.test_files = [
     "spec/analytical/api_spec.rb",
+     "spec/analytical/base_spec.rb",
      "spec/analytical/bot_detector_spec.rb",
      "spec/analytical/clicky_spec.rb",
      "spec/analytical/google_spec.rb",
