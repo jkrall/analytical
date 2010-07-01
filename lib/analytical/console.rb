@@ -13,7 +13,9 @@ module Analytical
           js = <<-HTML
           <!-- Analytical Init: Console -->
           <script type="text/javascript">
-            console.log('Analytical Init: Console');
+            if(typeof(console) !== 'undefined' && console != null) {
+              console.log('Analytical Init: Console');
+            }
           </script>
           HTML
           js
@@ -21,21 +23,21 @@ module Analytical
       end
 
       def track(*args)
-        "console.log(\"Analytical Track: \"+\"#{escape args.first}\");"
+        check_for_console "console.log(\"Analytical Track: \"+\"#{escape args.first}\");"
       end
 
       def identify(id, *args)
         data = args.first || {}
-        "console.log(\"Analytical Identify: \"+\"#{id}\"+\" \"+$H(#{data.to_json}).toJSON());"
+        check_for_console "console.log(\"Analytical Identify: \"+\"#{id}\"+\" \"+$H(#{data.to_json}).toJSON());"
       end
 
       def event(name, *args)
         data = args.first || {}
-        "console.log(\"Analytical Event: \"+\"#{name}\"+\" \"+$H(#{data.to_json}).toJSON());"
+        check_for_console "console.log(\"Analytical Event: \"+\"#{name}\"+\" \"+$H(#{data.to_json}).toJSON());"
       end
 
       def set(data)
-        "console.log(\"Analytical Set: \"+$H(#{data.to_json}).toJSON());"
+        check_for_console "console.log(\"Analytical Set: \"+$H(#{data.to_json}).toJSON());"
       end
 
       private
@@ -52,6 +54,10 @@ module Analytical
 
       def escape(js)
         js.gsub(/(\\|<\/|\r\n|[\n\r"'])/) { CONSOLE_JS_ESCAPE_MAP[$1] }
+      end
+
+      def check_for_console(data)
+        "if(typeof(console) !== 'undefined' && console != null) { #{data} }"
       end
 
     end
