@@ -3,7 +3,7 @@ google:
 clicky:
   key: clicky_12345
 kiss_metrics:
-  key: kiss_metrics_12345
+  js_url_key: //doug1izaerwt3.cloudfront.net/kiss_metrics_12345.1.js
 adwords:
   'Some Event':
     id: 4444555555
