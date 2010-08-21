@@ -29,7 +29,8 @@ describe "Analytical::Clicky::Api" do
   describe '#init_javascript' do
     it 'should return the init javascript' do
       @api = Analytical::Clicky::Api.new @parent, {:key=>'abcdef'}
-      @api.init_javascript(:head).should == ''
+      @api.init_javascript(:head_prepend).should == ''
+      @api.init_javascript(:head_append).should == ''
       @api.init_javascript(:body_prepend).should == ''            
       @api.init_javascript(:body_append).should =~ /static.getclicky.com\/js/
       @api.init_javascript(:body_append).should =~ /abcdef/      

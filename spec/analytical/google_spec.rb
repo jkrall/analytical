@@ -7,7 +7,7 @@ describe "Analytical::Google::Api" do
   describe 'on initialize' do
     it 'should set the command_location' do
       a = Analytical::Google::Api.new @parent, {:key=>'abc'}
-      a.tracking_command_location.should == :body_prepend
+      a.tracking_command_location.should == :head_append
     end
     it 'should set the options' do
       a = Analytical::Google::Api.new @parent, {:key=>'abc'}
@@ -17,7 +17,8 @@ describe "Analytical::Google::Api" do
   describe '#track' do
     it 'should return the tracking javascript' do
       @api = Analytical::Google::Api.new @parent, {:key=>'abcdef'}
-      @api.track('pagename', {:some=>'data'}).should == "googleAnalyticsTracker._trackPageview(\"pagename\");"
+      @api.track.should == "_gaq.push(['_trackPageview']);"
+      @api.track('pagename', {:some=>'data'}).should ==  "_gaq.push(['_trackPageview', \"pagename\"]);"
     end
   end
   describe '#identify' do
@@ -29,9 +30,10 @@ describe "Analytical::Google::Api" do
   describe '#init_javascript' do
     it 'should return the init javascript' do
       @api = Analytical::Google::Api.new @parent, {:key=>'abcdef'}
-      @api.init_javascript(:head).should == ''
-      @api.init_javascript(:body_prepend).should =~ /google-analytics.com\/ga.js/
-      @api.init_javascript(:body_prepend).should =~ /abcdef/      
+      @api.init_javascript(:head_prepend).should == ''
+      @api.init_javascript(:head_append).should =~ /abcdef/
+      @api.init_javascript(:head_append).should =~ /google-analytics.com\/ga.js/
+      @api.init_javascript(:body_prepend).should == ''
       @api.init_javascript(:body_append).should == ''
     end
   end

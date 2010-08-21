@@ -77,13 +77,23 @@ describe "Analytical::Api" do
         @google.stub!(:initialized).and_return(false)
         @google.stub!(:process_queued_commands).and_return([])
       end
-      describe '#head_javascript' do
+
+      describe '#head_prepend_javascript' do
         it 'should return the javascript' do
-          @console.should_receive(:init_javascript).with(:head).and_return('console_a')
-          @google.should_receive(:init_javascript).with(:head).and_return('google_a')
-          @api.head_javascript.should == "console_a\ngoogle_a"
+          @console.should_receive(:init_javascript).with(:head_prepend).and_return('console_a')
+          @google.should_receive(:init_javascript).with(:head_prepend).and_return('google_a')
+          @api.head_prepend_javascript.should == "console_a\ngoogle_a"
         end
       end
+
+      describe '#head_append_javascript' do
+        it 'should return the javascript' do
+          @console.should_receive(:init_javascript).with(:head_append).and_return('console_a')
+          @google.should_receive(:init_javascript).with(:head_append).and_return('google_a')
+          @api.head_append_javascript.should == "console_a\ngoogle_a"
+        end
+      end
+      
       describe '#body_prepend_javascript' do
         it 'should return the javascript' do
           @console.should_receive(:init_javascript).with(:body_prepend).and_return('console_b')

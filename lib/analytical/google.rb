@@ -5,7 +5,7 @@ module Analytical
 
       def initialize(parent, options={})
         super
-        @tracking_command_location = :body_prepend
+        @tracking_command_location = :head_append
       end
 
       def init_javascript(location)
@@ -13,13 +13,13 @@ module Analytical
           js = <<-HTML
           <!-- Analytical Init: Google -->
           <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            var googleAnalyticsTracker = _gat._getTracker("#{options[:key]}");
-            googleAnalyticsTracker._initData();
-            googleAnalyticsTracker._trackPageview();
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', '#{options[:key]}'], ['_trackPageview']);
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
           </script>
           HTML
           js
@@ -27,7 +27,7 @@ module Analytical
       end
 
       def track(*args)
-        "googleAnalyticsTracker._trackPageview(\"#{args.first}\");"
+        "_gaq.push(['_trackPageview'#{args.empty? ? ']' : ', "' + args.first + '"]'});"
       end
 
     end

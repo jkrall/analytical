@@ -46,7 +46,11 @@ module Analytical
       end
 
       def init_location?(location)
-        @tracking_command_location==location
+        if @tracking_command_location.is_a?(Array)
+          @tracking_command_location.map { |item|item.to_sym }.include?(location.to_sym)
+        else
+          @tracking_command_location.to_sym == location.to_sym
+        end
       end
 
       def init_location(location, &block)

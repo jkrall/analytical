@@ -49,9 +49,16 @@ module Analytical
     #
     # These methods return the javascript that should be inserted into each section of your layout
     #
-    def head_javascript
-      [init_javascript(:head), tracking_javascript(:head)].delete_if{|s| s.blank?}.join("\n")
+    def head_prepend_javascript
+      [init_javascript(:head_prepend), tracking_javascript(:head_prepend)].delete_if{|s| s.blank?}.join("\n")
     end
+
+    def head_append_javascript
+      [init_javascript(:head_append), tracking_javascript(:head_append)].delete_if{|s| s.blank?}.join("\n")
+    end
+
+    alias_method :head_javascript, :head_append_javascript
+    
     def body_prepend_javascript
       [init_javascript(:body_prepend), tracking_javascript(:body_prepend)].delete_if{|s| s.blank?}.join("\n")
     end
