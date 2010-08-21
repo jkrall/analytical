@@ -22,3 +22,5 @@ adwords:
 chartbeat:
   key: chartbeat_12345
   domain: your.domain.com
+comscore:
+  key: comscore_12345

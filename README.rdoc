@@ -10,6 +10,7 @@ Service implementations include:
 * Hubspot[http://hubspot.com]
 * CrazyEgg[http://www.crazyegg.com]
 * Chartbeat[http://chartbeat.com]
+* comScore Direct[http://direct.comscore.com]
 
 == Usage
 
