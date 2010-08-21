@@ -24,3 +24,5 @@ chartbeat:
   domain: your.domain.com
 comscore:
   key: comscore_12345
+optimizely:
+  key: optimizely_12345

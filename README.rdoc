@@ -11,6 +11,7 @@ Service implementations include:
 * CrazyEgg[http://www.crazyegg.com]
 * Chartbeat[http://chartbeat.com]
 * comScore Direct[http://direct.comscore.com]
+* Optimizely[http://www.optimizely.com]
 
 == Usage
 
