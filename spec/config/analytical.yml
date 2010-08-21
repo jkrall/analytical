@@ -4,3 +4,6 @@ clicky:
   key: clicky_12345
 kiss_metrics:
   key: kiss_metrics_12345
+chartbeat:
+  key: chartbeat_12345
+  domain: your.domain.com

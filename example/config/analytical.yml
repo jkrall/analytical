@@ -19,4 +19,6 @@ adwords:
     color: ffffff
     label: yyyyyyyyyyyyyyyy
     value: 0
-
+chartbeat:
+  key: chartbeat_12345
+  domain: your.domain.com

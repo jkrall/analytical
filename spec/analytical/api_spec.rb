@@ -19,6 +19,7 @@ describe "Analytical::Api" do
       Analytical::Console::Api.stub!(:new).and_return(@console = mock('console'))
       Analytical::Google::Api.stub!(:new).and_return(@google = mock('google'))
       Analytical::Clicky::Api.stub!(:new).and_return(@clicky = mock('clicky'))
+      Analytical::Chartbeat::Api.stub!(:new).and_return(@chartbeat = mock('chartbeat'))
 
       @api = Analytical::Api.new :modules=>[:console, :google]
     end
@@ -61,10 +62,11 @@ describe "Analytical::Api" do
 
     describe 'when accessing a module by name' do
       it 'should return the module api object' do
-        @api = Analytical::Api.new :modules=>[:console, :google, :clicky]
+        @api = Analytical::Api.new :modules=>[:console, :google, :clicky, :chartbeat]
         @api.console.should == @console
         @api.clicky.should == @clicky
         @api.google.should == @google
+        @api.chartbeat.should == @chartbeat
       end
     end
 
