@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{analytical}
-  s.version = "1.3.0"
+  s.version = "1.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Joshua Krall"]
-  s.date = %q{2010-07-23}
+  s.authors = ["Joshua Krall", "Nathan Phelps"]
+  s.date = %q{2010-08-22}
   s.description = %q{Gem for managing multiple analytics services in your rails app.}
   s.email = %q{josh@transfs.com}
   s.extra_rdoc_files = [
@@ -79,19 +79,25 @@ Gem::Specification.new do |s|
      "lib/analytical/api.rb",
      "lib/analytical/base.rb",
      "lib/analytical/bot_detector.rb",
+     "lib/analytical/chartbeat.rb",
      "lib/analytical/clicky.rb",
+     "lib/analytical/comscore.rb",
      "lib/analytical/console.rb",
      "lib/analytical/crazy_egg.rb",
      "lib/analytical/google.rb",
      "lib/analytical/hubspot.rb",
      "lib/analytical/kiss_metrics.rb",
+     "lib/analytical/optimizely.rb",
      "rails/init.rb",
      "spec/analytical/api_spec.rb",
      "spec/analytical/base_spec.rb",
      "spec/analytical/bot_detector_spec.rb",
+     "spec/analytical/chartbeat_spec.rb",
      "spec/analytical/clicky_spec.rb",
+     "spec/analytical/comscore_spec.rb",
      "spec/analytical/google_spec.rb",
      "spec/analytical/kiss_metrics_spec.rb",
+     "spec/analytical/optimizely_spec.rb",
      "spec/analytical_spec.rb",
      "spec/config/analytical.yml",
      "spec/spec.opts",
@@ -106,9 +112,12 @@ Gem::Specification.new do |s|
     "spec/analytical/api_spec.rb",
      "spec/analytical/base_spec.rb",
      "spec/analytical/bot_detector_spec.rb",
+     "spec/analytical/chartbeat_spec.rb",
      "spec/analytical/clicky_spec.rb",
+     "spec/analytical/comscore_spec.rb",
      "spec/analytical/google_spec.rb",
      "spec/analytical/kiss_metrics_spec.rb",
+     "spec/analytical/optimizely_spec.rb",
      "spec/analytical_spec.rb",
      "spec/spec_helper.rb"
   ]
