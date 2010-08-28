@@ -23,21 +23,32 @@ module Analytical
       end
 
       def track(*args)
-        check_for_console "console.log(\"Analytical Track: \"+\"#{escape args.first}\");"
+        check_for_console <<-HERE
+        console.log("Analytical Track: "+"#{escape args.first}");
+        HERE
       end
 
       def identify(id, *args)
         data = args.first || {}
-        check_for_console "console.log(\"Analytical Identify: \"+\"#{id}\"+\" \"+$H(#{data.to_json}).toJSON());"
+        check_for_console <<-HERE
+        console.log("Analytical Identify: "+"#{escape id}");
+        console.log(#{data.to_json});
+        HERE
       end
 
       def event(name, *args)
         data = args.first || {}
-        check_for_console "console.log(\"Analytical Event: \"+\"#{name}\"+\" \"+$H(#{data.to_json}).toJSON());"
+        check_for_console <<-HERE
+        console.log("Analytical Event: "+"#{escape name}");
+        console.log(#{data.to_json});
+        HERE
       end
 
       def set(data)
-        check_for_console "console.log(\"Analytical Set: \"+$H(#{data.to_json}).toJSON());"
+        check_for_console <<-HERE
+        console.log("Analytical Set: ");
+        console.log(#{data.to_json});
+        HERE
       end
 
       private
@@ -53,7 +64,7 @@ module Analytical
       }
 
       def escape(js)
-        js.gsub(/(\\|<\/|\r\n|[\n\r"'])/) { CONSOLE_JS_ESCAPE_MAP[$1] }
+        js.to_s.gsub(/(\\|<\/|\r\n|[\n\r"'])/) { CONSOLE_JS_ESCAPE_MAP[$1] }
       end
 
       def check_for_console(data)
