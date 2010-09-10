@@ -8,7 +8,7 @@ describe Analytical::Base::Api do
   
   describe '#queue' do
     before(:each) do
-      @api = BaseApiDummy.new(mock('parent'))
+      @api = BaseApiDummy.new(:parent=>mock('parent'))
       @api.commands = [:a, :b, :c]
     end
     describe 'with an identify command' do
@@ -27,7 +27,7 @@ describe Analytical::Base::Api do
 
   describe '#process_queued_commands' do
     before(:each) do
-      @api = BaseApiDummy.new(mock('parent'))
+      @api = BaseApiDummy.new(:parent=>mock('parent'))
       @api.commands = [[:a, 1, 2, 3], [:b, {:some=>:args}]]
       @api.stub!(:a).and_return('a')
       @api.stub!(:b).and_return('b')      
@@ -48,7 +48,7 @@ describe Analytical::Base::Api do
 
   describe '#init_location?' do
     before(:each) do
-      @api = BaseApiDummy.new(mock('parent'))
+      @api = BaseApiDummy.new(:parent=>mock('parent'))
       @api.instance_variable_set '@tracking_command_location', :my_location
     end
     describe 'when the command location matches the init location' do
@@ -65,7 +65,7 @@ describe Analytical::Base::Api do
 
   describe '#init_location' do
     before(:each) do
-      @api = BaseApiDummy.new(mock('parent'))
+      @api = BaseApiDummy.new(:parent=>mock('parent'))
     end
     it 'should check for the init_location' do
       @api.should_receive(:init_location?).with(:some_location).and_return(false)

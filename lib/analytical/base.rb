@@ -4,9 +4,9 @@ module Analytical
       attr_reader :tracking_command_location, :parent, :options, :initialized
       attr_accessor :commands
 
-      def initialize(_parent, _options={})
-        @parent = _parent
+      def initialize(_options={})
         @options = _options
+        @parent = @options[:parent]
         @tracking_command_location = :body_prepend
         @initialized = false
         @commands = []

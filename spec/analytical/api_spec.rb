@@ -12,6 +12,10 @@ describe "Analytical::Api" do
         :google=>@google,
       }
     end
+    it 'should pass the ssl option on to the module constructor' do
+      Analytical::Console::Api.should_receive(:new).with(hash_including(:ssl=>true)).and_return(@console = mock('console'))
+      Analytical::Api.new :modules=>[:console], :ssl=>true
+    end
   end
 
   describe 'with modules' do

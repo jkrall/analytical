@@ -3,7 +3,7 @@ module Analytical
     class Api
       include Analytical::Base::Api
 
-      def initialize(parent, options={})
+      def initialize(options={})
         super
         @tracking_command_location = :head_append
       end

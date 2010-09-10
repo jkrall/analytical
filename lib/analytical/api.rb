@@ -6,7 +6,8 @@ module Analytical
     def initialize(options={})
       @options = options
       @modules = @options[:modules].inject(ActiveSupport::OrderedHash.new) do |h, m|
-        h[m] = "Analytical::#{m.to_s.camelize}::Api".constantize.new(self, @options[m] || {})
+        module_options = @options.merge(@options[m] || {}).merge(:parent => self)
+        h[m] = "Analytical::#{m.to_s.camelize}::Api".constantize.new(module_options)
         h
       end
     end
@@ -58,7 +59,7 @@ module Analytical
     end
 
     alias_method :head_javascript, :head_append_javascript
-    
+
     def body_prepend_javascript
       [init_javascript(:body_prepend), tracking_javascript(:body_prepend)].delete_if{|s| s.blank?}.join("\n")
     end
