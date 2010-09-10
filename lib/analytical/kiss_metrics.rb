@@ -45,7 +45,7 @@ module Analytical
         "_kmq.push([\"set\", #{data.to_json}]);"
       end
 
-      def alias(old_identity, new_identity)
+      def alias_identity(old_identity, new_identity)
         "_kmq.push([\"alias\", \"#{old_identity}\", \"#{new_identity}\"]);"
       end
 

@@ -38,10 +38,10 @@ describe "Analytical::KissMetrics::Api" do
       @api.set({:something=>'good', :b=>2}).should == "_kmq.push([\"set\", #{{:something=>'good', :b=>2}.to_json}]);"
     end
   end
-  describe '#alias' do
+  describe '#alias_identity' do
     it 'should return a js string' do
       @api = Analytical::KissMetrics::Api.new :parent=>@parent, :js_url_key=>'abcdef'
-      @api.alias('foo', 'bar').should == "_kmq.push([\"alias\", \"foo\", \"bar\"]);"
+      @api.alias_identity('foo', 'bar').should == "_kmq.push([\"alias\", \"foo\", \"bar\"]);"
     end
   end
   describe '#init_javascript' do

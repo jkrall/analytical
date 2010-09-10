@@ -32,9 +32,9 @@ module Analytical
       # KISS Metrics Only
       # Alias allows linking two identities.
       # It takes in two indentity strings to be linked together.
-      # analytical.alias('foo','bar')
+      # analytical.alias_identity('foo','bar')
       # See KISS Metrics 'alias' documentation at http://support.kissmetrics.com/apis/common-methods
-      def alias(old_identity, new_identity); ''; end
+      def alias_identity(old_identity, new_identity); ''; end
 
       # This method generates the initialization javascript that an analytics service uses to track your site
       def init_javascript(location); ''; end

@@ -51,7 +51,7 @@ module Analytical
         HERE
       end
 
-      def alias(old_identity,new_identity)
+      def alias_identity(old_identity,new_identity)
         check_for_console <<-HERE
         console.log("Analytical Alias: #{old_identity} => #{new_identity}");
         HERE
