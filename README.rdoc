@@ -10,7 +10,7 @@ Service implementations include:
 * Hubspot[http://hubspot.com]
 * CrazyEgg[http://www.crazyegg.com]
 * Chartbeat[http://chartbeat.com]
-* comScore Direct[http://direct.comscore.com]
+* "ComScore Direct"[http://direct.comscore.com]
 * Optimizely[http://www.optimizely.com]
 
 == Usage
@@ -74,6 +74,16 @@ I would be extremely happy to accept contributions to this project!  If you thin
 * Commit, do not mess with rakefile, version, or history.
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
+
+== Current Contributors
+
+These fine folks have contributed patches and new features to this project:
+
+* "Adam Anderson"[http://github.com/scudco]
+* "Bryan Liles"[http://github.com/bryanl]
+
+Thanks guys!
+
 
 == Copyright
 
