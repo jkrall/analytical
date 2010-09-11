@@ -14,18 +14,6 @@ describe "Analytical::Chartbeat::Api" do
       a.options.should == {:key=>12345, :domain => 'abcdef.com', :parent=>@parent}
     end
   end
-  describe '#track' do
-    it 'should return the tracking javascript' do
-      @api = Analytical::Chartbeat::Api.new :parent=>@parent, :key=>12345
-      @api.track.should == ''
-    end
-  end
-  describe '#identify' do
-    it 'should return an empty string' do
-      @api = Analytical::Chartbeat::Api.new :parent=>@parent, :key=>12345
-      @api.identify('nothing', {:matters=>'at all'}).should == ''
-    end
-  end
   describe '#init_javascript' do
     it 'should return the init javascript' do
       @api = Analytical::Chartbeat::Api.new :parent=>@parent, :key=>12345, :domain =>'abcdef.com'

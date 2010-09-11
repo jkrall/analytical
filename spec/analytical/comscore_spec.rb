@@ -14,20 +14,6 @@ describe "Analytical::Comscore::Api" do
       a.options.should == {:key=>1234, :parent=>@parent}
     end
   end
-  describe '#track' do
-    it 'should return the tracking javascript' do
-      @api = Analytical::Comscore::Api.new :parent=>@parent, :key=>123
-      @api.track('pagename', {:some=>'data'}).should == ''
-    end
-  end
-
-  describe '#identify' do
-    it 'should return an empty string' do
-      @api = Analytical::Comscore::Api.new :parent=>@parent, :key=>123
-      @api.identify('nothing', {:matters=>'at all'}).should == ''
-    end
-  end
-
   describe '#init_javascript' do
     it 'should return the init javascript' do
       @api = Analytical::Comscore::Api.new :parent=>@parent, :key=>1234

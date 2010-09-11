@@ -14,20 +14,6 @@ describe "Analytical::Optimizely::Api" do
       a.options.should == {:key=>'abc', :parent=>@parent}
     end
   end
-  describe '#track' do
-    it 'should return the tracking javascript' do
-      @api = Analytical::Optimizely::Api.new :parent=>@parent, :key=>'abcdef'
-      @api.track('pagename', {:some=>'data'}).should == ''
-    end
-  end
-
-  describe '#identify' do
-    it 'should return an empty string' do
-      @api = Analytical::Optimizely::Api.new :parent=>@parent, :key=>'abcdef'
-      @api.identify('nothing', {:matters=>'at all'}).should == ''
-    end
-  end
-
   describe '#init_javascript' do
     it 'should return the init javascript' do
       @api = Analytical::Optimizely::Api.new :parent=>@parent, :key=>'abcdef'

@@ -14,12 +14,6 @@ describe "Analytical::KissMetrics::Api" do
       a.options.should == {:js_url_key=>'abc', :parent=>@parent}
     end
   end
-  describe '#track' do
-    it 'should return the tracking javascript' do
-      @api = Analytical::KissMetrics::Api.new :parent=>@parent, :js_url_key=>'abcdef'
-      @api.track('pagename', {:some=>'data'}).should == ''
-    end
-  end
   describe '#identify' do
     it 'should return a js string' do
       @api = Analytical::KissMetrics::Api.new :parent=>@parent, :js_url_key=>'abcdef'

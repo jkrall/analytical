@@ -21,12 +21,6 @@ describe "Analytical::Google::Api" do
       @api.track('pagename', {:some=>'data'}).should ==  "_gaq.push(['_trackPageview', \"pagename\"]);"
     end
   end
-  describe '#identify' do
-    it 'should return an empty string' do
-      @api = Analytical::Google::Api.new :parent=>@parent, :key=>'abcdef'
-      @api.identify('nothing', {:matters=>'at all'}).should == ''
-    end
-  end
   describe '#init_javascript' do
     it 'should return the init javascript' do
       @api = Analytical::Google::Api.new :parent=>@parent, :key=>'abcdef'

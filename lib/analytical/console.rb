@@ -67,7 +67,7 @@ module Analytical
         "\r" => '\n',
         '"' => '\\"',
         "'" => "\\'"
-      }
+      } unless defined?(CONSOLE_JS_ESCAPE_MAP)
 
       def escape(js)
         js.to_s.gsub(/(\\|<\/|\r\n|[\n\r"'])/) { CONSOLE_JS_ESCAPE_MAP[$1] }
