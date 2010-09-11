@@ -10,12 +10,12 @@ describe Analytical::SessionCommandStore do
     it 'should add elements' do
       @store = Analytical::SessionCommandStore.new @session, :some_module, ['a']
       @store << 'b'
-      @session[:analytical][:some_module].should == ['a', 'b']
+      @session[:analytical_some_module].should == ['a', 'b']
     end
     it 'should unshift elements' do
       @store = Analytical::SessionCommandStore.new @session, :some_module, ['b']
       @store.unshift 'a'
-      @session[:analytical][:some_module].should == ['a', 'b']
+      @session[:analytical_some_module].should == ['a', 'b']
     end
     it 'should iterate over elements' do
       @store = Analytical::SessionCommandStore.new @session, :some_module, ['a', 'b']
@@ -30,7 +30,7 @@ describe Analytical::SessionCommandStore do
 
     it 'should set up the :analytical session hash' do
       @store = Analytical::SessionCommandStore.new @session, :some_module, ['a', 'b']
-      @session[:analytical].should_not be_nil   
+      @session[:analytical_some_module].should_not be_nil   
     end
 
     describe 'when flushing' do
@@ -42,7 +42,7 @@ describe Analytical::SessionCommandStore do
       it 'should empty the session key' do
         @store = Analytical::SessionCommandStore.new @session, :some_module, ['a', 'b']
         @store.flush
-        @session[:analytical][:some_module].should == []
+        @session[:analytical_some_module].should == []
       end
     end
   end

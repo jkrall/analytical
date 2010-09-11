@@ -5,16 +5,19 @@ module Analytical
     def initialize(session, module_key, initial_list=nil)
       @session = session
       @module_key = module_key
-      ensure_session_array!(initial_list)
+      @session_key = ('analytical_'+module_key.to_s).to_sym
+      ensure_session_setup!(initial_list)
+    end
+
+    def assign(v)
+      self.commands = v
     end
 
     def commands
-      ensure_session_setup!
-      @session[:analytical][@module_key]
+      @session[@session_key]
     end
     def commands=(v)
-      ensure_session_setup!
-      @session[:analytical][@module_key] = v
+      @session[@session_key] = v
     end
 
     def flush
@@ -23,18 +26,13 @@ module Analytical
 
     # Pass any array methods on to the internal array
     def method_missing(method, *args, &block)
-      ensure_session_array!
       commands.send(method, *args, &block)
     end
 
     private
 
-    def ensure_session_setup!
-      @session[:analytical] ||= {}
-    end
-
-    def ensure_session_array!(initial_list=nil)
-      self.commands ||= initial_list || []
+    def ensure_session_setup!(initial_list=nil)
+      self.commands ||= (initial_list || [])
     end
 
   end

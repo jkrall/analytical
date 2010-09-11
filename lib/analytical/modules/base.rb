@@ -2,13 +2,13 @@ module Analytical
   module Modules
     module Base
       attr_reader :tracking_command_location, :options, :initialized
-      attr_accessor :commands
+      attr_reader :command_store
 
       def initialize(_options={})
         @options = _options
         @tracking_command_location = :body_prepend
         @initialized = false
-        @commands = @options[:session_store] || Analytical::CommandStore.new
+        @command_store = @options[:session_store] || Analytical::CommandStore.new
       end
 
       #
@@ -39,16 +39,16 @@ module Analytical
 
       def queue(*args)
         if args.first==:identify
-          @commands.unshift args
+          @command_store.unshift args
         else
-          @commands << args
+          @command_store << args
         end
       end
       def process_queued_commands
-        command_strings = @commands.collect do |c|
+        command_strings = @command_store.collect do |c|
           send(*c) if respond_to?(c.first)
         end.compact
-        @commands = []
+        @command_store.flush
         command_strings
       end
 

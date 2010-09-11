@@ -1,6 +1,6 @@
 module Analytical
   class CommandStore
-    attr_reader :commands
+    attr_accessor :commands
 
     def initialize(initial_list=nil)
       @commands = initial_list || []

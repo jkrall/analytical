@@ -20,13 +20,13 @@ module Analytical
           HTML
 
           identify_commands = []
-          @commands.each do |c|
+          @command_store.commands.each do |c|
             if c[0] == :identify
               identify_commands << identify(*c[1..-1])
             end
           end
           js = identify_commands.join("\n") + "\n" + js
-          @commands = @commands.delete_if {|c| c[0] == :identify }
+          @command_store.commands = @command_store.commands.delete_if {|c| c[0] == :identify }
 
           js
         end

@@ -40,6 +40,7 @@ module Analytical
         if options[:disable_if].call(self)
           options[:modules] = options[:development_modules]
         end
+        options[:session] = session if options[:use_session_store]
         if analytical_is_robot?(request.user_agent)
           options[:modules] = []
         end
