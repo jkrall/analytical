@@ -1,12 +1,11 @@
 module Analytical
   module Modules
     module Base
-      attr_reader :tracking_command_location, :parent, :options, :initialized
+      attr_reader :tracking_command_location, :options, :initialized
       attr_accessor :commands
 
       def initialize(_options={})
         @options = _options
-        @parent = @options[:parent]
         @tracking_command_location = :body_prepend
         @initialized = false
         @commands = []
