@@ -10,7 +10,7 @@ Service implementations include:
 * Hubspot[http://hubspot.com]
 * CrazyEgg[http://www.crazyegg.com]
 * Chartbeat[http://chartbeat.com]
-* "ComScore Direct"[http://direct.comscore.com]
+* {ComScore Direct}[http://direct.comscore.com]
 * Optimizely[http://www.optimizely.com]
 
 == Usage
@@ -79,8 +79,8 @@ I would be extremely happy to accept contributions to this project!  If you thin
 
 These fine folks have contributed patches and new features to this project:
 
-* "Adam Anderson"[http://github.com/scudco]
-* "Bryan Liles"[http://github.com/bryanl]
+* {Adam Anderson}[http://github.com/scudco]
+* {Bryan Liles}[http://github.com/bryanl]
 
 Thanks guys!
 
