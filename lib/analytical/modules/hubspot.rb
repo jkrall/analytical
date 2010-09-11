@@ -1,7 +1,7 @@
 module Analytical
-  module Hubspot
-    class Api
-      include Analytical::Base::Api
+  module Modules
+    class Hubspot
+      include Analytical::Modules::Base
 
       def initialize(options={})
         super

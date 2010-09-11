@@ -1,7 +1,7 @@
 module Analytical
-  module Chartbeat
-    class Api
-      include Analytical::Base::Api
+  module Modules
+    class Chartbeat
+      include Analytical::Modules::Base
 
       def initialize(options={})
         super

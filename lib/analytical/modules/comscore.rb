@@ -1,7 +1,7 @@
 module Analytical
-  module Comscore
-    class Api
-      include Analytical::Base::Api
+  module Modules
+    class Comscore
+      include Analytical::Modules::Base
 
       def initialize(options={})
         super

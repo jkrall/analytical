@@ -1,7 +1,7 @@
 module Analytical
-  module Clicky
-    class Api
-      include Analytical::Base::Api
+  module Modules
+    class Clicky
+      include Analytical::Modules::Base
 
       def initialize(options={})
         super

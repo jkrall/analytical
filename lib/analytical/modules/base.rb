@@ -1,6 +1,6 @@
 module Analytical
-  module Base
-    module Api
+  module Modules
+    module Base
       attr_reader :tracking_command_location, :parent, :options, :initialized
       attr_accessor :commands
 

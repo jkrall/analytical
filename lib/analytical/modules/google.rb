@@ -1,7 +1,7 @@
 module Analytical
-  module Google
-    class Api
-      include Analytical::Base::Api
+  module Modules
+    class Google
+      include Analytical::Modules::Base
 
       def initialize(options={})
         super

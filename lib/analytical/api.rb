@@ -7,7 +7,7 @@ module Analytical
       @options = options
       @modules = @options[:modules].inject(ActiveSupport::OrderedHash.new) do |h, m|
         module_options = @options.merge(@options[m] || {}).merge(:parent => self)
-        h[m] = "Analytical::#{m.to_s.camelize}::Api".constantize.new(module_options)
+        h[m] = "Analytical::Modules::#{m.to_s.camelize}".constantize.new(module_options)
         h
       end
     end

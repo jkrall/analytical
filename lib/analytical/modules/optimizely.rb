@@ -1,7 +1,7 @@
 module Analytical
-  module Optimizely
-    class Api
-      include Analytical::Base::Api
+  module Modules
+    class Optimizely
+      include Analytical::Modules::Base
 
       def initialize(options={})
         super

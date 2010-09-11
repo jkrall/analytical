@@ -1,7 +1,7 @@
 module Analytical
-  module CrazyEgg
-    class Api
-      include Analytical::Base::Api
+  module Modules
+    class CrazyEgg
+      include Analytical::Modules::Base
 
       def initialize(options={})
         super

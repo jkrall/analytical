@@ -4,8 +4,8 @@ describe "Analytical::Api" do
 
   describe 'on initialization' do
     it 'should construct an api class for each module' do
-      Analytical::Console::Api.should_receive(:new).and_return(@console = mock('console'))
-      Analytical::Google::Api.should_receive(:new).and_return(@google = mock('google'))
+      Analytical::Modules::Console.should_receive(:new).and_return(@console = mock('console'))
+      Analytical::Modules::Google.should_receive(:new).and_return(@google = mock('google'))
       a = Analytical::Api.new :modules=>[:console, :google]
       a.modules.should == {
         :console=>@console,
@@ -13,17 +13,17 @@ describe "Analytical::Api" do
       }
     end
     it 'should pass the ssl option on to the module constructor' do
-      Analytical::Console::Api.should_receive(:new).with(hash_including(:ssl=>true)).and_return(@console = mock('console'))
+      Analytical::Modules::Console.should_receive(:new).with(hash_including(:ssl=>true)).and_return(@console = mock('console'))
       Analytical::Api.new :modules=>[:console], :ssl=>true
     end
   end
 
   describe 'with modules' do
     before(:each) do
-      Analytical::Console::Api.stub!(:new).and_return(@console = mock('console'))
-      Analytical::Google::Api.stub!(:new).and_return(@google = mock('google'))
-      Analytical::Clicky::Api.stub!(:new).and_return(@clicky = mock('clicky'))
-      Analytical::Chartbeat::Api.stub!(:new).and_return(@chartbeat = mock('chartbeat'))
+      Analytical::Modules::Console.stub!(:new).and_return(@console = mock('console'))
+      Analytical::Modules::Google.stub!(:new).and_return(@google = mock('google'))
+      Analytical::Modules::Clicky.stub!(:new).and_return(@clicky = mock('clicky'))
+      Analytical::Modules::Chartbeat.stub!(:new).and_return(@chartbeat = mock('chartbeat'))
 
       @api = Analytical::Api.new :modules=>[:console, :google]
     end

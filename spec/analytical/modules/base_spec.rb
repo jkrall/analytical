@@ -1,9 +1,9 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-describe Analytical::Base::Api do
+describe Analytical::Modules::Base do
 
   class BaseApiDummy
-    include Analytical::Base::Api
+    include Analytical::Modules::Base
   end
 
   describe '#queue' do

@@ -1,7 +1,7 @@
 module Analytical
-  module Console
-    class Api
-      include Analytical::Base::Api
+  module Modules
+    class Console
+      include Analytical::Modules::Base
 
       def initialize(options={})
         super
