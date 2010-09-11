@@ -47,7 +47,9 @@ module Analytical
         end
       end
       def process_queued_commands
-        command_strings = @commands.collect {|c| send(*c) }
+        command_strings = @commands.collect do |c|
+          send(*c) if respond_to?(c.first)
+        end.compact
         @commands = []
         command_strings
       end

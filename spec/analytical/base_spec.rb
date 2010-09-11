@@ -1,11 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Analytical::Base::Api do
-  
+
   class BaseApiDummy
     include Analytical::Base::Api
   end
-  
+
   describe '#queue' do
     before(:each) do
       @api = BaseApiDummy.new(:parent=>mock('parent'))
@@ -30,7 +30,7 @@ describe Analytical::Base::Api do
       @api = BaseApiDummy.new(:parent=>mock('parent'))
       @api.commands = [[:a, 1, 2, 3], [:b, {:some=>:args}]]
       @api.stub!(:a).and_return('a')
-      @api.stub!(:b).and_return('b')      
+      @api.stub!(:b).and_return('b')
     end
     it 'should send each of the args arrays in the command list' do
       @api.should_receive(:a).with(1, 2, 3).and_return('a')
@@ -43,6 +43,10 @@ describe Analytical::Base::Api do
     it 'should clear the commands list' do
       @api.process_queued_commands
       @api.commands == []
+    end
+    it "should not store an unrecognized command" do
+      @api.commands << [:c, 1]
+      @api.process_queued_commands.should == ['a','b']
     end
   end
 
@@ -72,7 +76,7 @@ describe Analytical::Base::Api do
       @api.init_location(:some_location)
     end
     describe 'for a valid init location' do
-      before(:each) { @api.stub!(:init_location?).and_return(true) }      
+      before(:each) { @api.stub!(:init_location?).and_return(true) }
       it 'should set initialized to true' do
         @api.init_location(:some_location)
         @api.initialized.should be_true
@@ -92,5 +96,5 @@ describe Analytical::Base::Api do
       end
     end
   end
-  
+
 end
