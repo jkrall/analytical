@@ -7,6 +7,8 @@ module Analytical
       @options = options
       @modules = @options[:modules].inject(ActiveSupport::OrderedHash.new) do |h, m|
         module_options = @options.merge(@options[m] || {})
+        module_options.delete(:modules)
+        module_options[:session_store] = Analytical::SessionCommandStore.new(@options[:session], m) if @options[:session]
         h[m] = "Analytical::Modules::#{m.to_s.camelize}".constantize.new(module_options)
         h
       end

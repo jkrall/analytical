@@ -69,7 +69,7 @@ describe Analytical::Modules::Base do
 
   describe '#init_location' do
     before(:each) do
-      @api = BaseApiDummy.new(:parent=>mock('parent'))
+      @api = BaseApiDummy.new
     end
     it 'should check for the init_location' do
       @api.should_receive(:init_location?).with(:some_location).and_return(false)
@@ -97,4 +97,14 @@ describe Analytical::Modules::Base do
     end
   end
 
+  describe 'with a custom session_store' do
+    before(:each) do
+      @session = {}
+      @store = Analytical::SessionCommandStore.new @session, :some_module
+    end
+    it 'should use the session_store' do
+      @api = BaseApiDummy.new :session_store=>@store
+      @api.commands.should == @store
+    end
+  end
 end
