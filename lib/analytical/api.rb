@@ -35,8 +35,8 @@ module Analytical
       end
       def method_missing(method, *args, &block)
         @parent.modules.values.collect do |m|
-          m.send method, *args
-        end.join("\n")
+          m.send(method, *args) if m.respond_to?(method)
+        end.compact.join("\n")
       end
     end
 

@@ -58,9 +58,10 @@ describe "Analytical::Api" do
 
         @console.should_receive(:track).with('something', {:a=>1, :b=>2}).and_return('console track')
         @clicky.should_receive(:track).with('something', {:a=>1, :b=>2}).and_return('clicky track')
-        @google.should_receive(:track).with('something', {:a=>1, :b=>2}).and_return('google track')
+        @google.should_receive(:respond_to?).with(:track).and_return(false)
+        @google.should_not_receive(:track)
 
-        @api.now.track('something', {:a=>1, :b=>2}).should == "console track\ngoogle track\nclicky track"
+        @api.now.track('something', {:a=>1, :b=>2}).should == "console track\nclicky track"
       end
     end
 
