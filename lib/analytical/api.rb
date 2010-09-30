@@ -102,7 +102,7 @@ module Analytical
 
     def init_javascript(location)
       @modules.values.collect do |m|
-        m.init_javascript(location)
+        m.init_javascript(location) if m.respond_to?(:init_javascript)
       end.compact.join("\n")
     end
 
