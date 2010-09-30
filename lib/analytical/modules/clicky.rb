@@ -10,8 +10,6 @@ module Analytical
 
       def init_javascript(location)
         init_location(location) do
-          protocol = options[:ssl] ? 'https' : 'http'
-
           js = <<-HTML
           <!-- Analytical Init: Clicky -->
           <script src="#{protocol}://static.getclicky.com/js" type="text/javascript"></script>

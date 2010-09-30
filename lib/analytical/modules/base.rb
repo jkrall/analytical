@@ -11,6 +11,10 @@ module Analytical
         @commands = []
       end
 
+      def protocol
+        @options[:ssl] ? 'https' : 'http'
+      end
+
       #
       # The core methods that most analytics services implement are listed below.
       # Modules will ignore any calls that they don't respond to, allowing them to

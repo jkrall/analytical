@@ -11,7 +11,6 @@ module Analytical
       def init_javascript(location)
         init_location(location) do
           code_url = "#{options[:key][0,4]}/#{options[:key][4,4]}"
-          protocol = options[:ssl] ? 'https' : 'http'
           js = <<-HTML
           <!-- Analytical Init: CrazyEgg -->
           <script type="text/javascript" src="#{protocol}://s3.amazonaws.com/new.cetrk.com/pages/scripts/#{code_url}.js"> </script>

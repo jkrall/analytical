@@ -6,6 +6,21 @@ describe Analytical::Modules::Base do
     include Analytical::Modules::Base
   end
 
+  describe '#protocol' do
+    before(:each) do
+      @api = BaseApiDummy.new(:parent=>mock('parent'))
+    end
+    describe 'with :ssl=>true option' do
+      it 'should return https' do
+        @api = BaseApiDummy.new(:parent=>mock('parent'), :ssl=>true)
+        @api.protocol.should == 'https'
+      end
+    end
+    it 'should return http' do
+      @api.protocol.should == 'http'
+    end
+  end
+
   describe '#queue' do
     before(:each) do
       @api = BaseApiDummy.new(:parent=>mock('parent'))

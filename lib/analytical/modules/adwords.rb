@@ -62,10 +62,10 @@ module Analytical
             var google_conversion_value = #{data[:value] || conversion[:value]};
             /* ]]> */
           </script>
-          <script type="text/javascript" src="http://www.googleadservices.com/pagead/conversion.js"></script>
+          <script type="text/javascript" src="#{procotol}://www.googleadservices.com/pagead/conversion.js"></script>
           <noscript>
             <div style="display:inline;">
-            <img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/#{conversion[:id]}/?label=#{conversion[:label]}&amp;guid=ON&amp;script=0"/>
+            <img height="1" width="1" style="border-style:none;" alt="" src="#{procotol}://www.googleadservices.com/pagead/conversion/#{conversion[:id]}/?label=#{conversion[:label]}&amp;guid=ON&amp;script=0"/>
             </div>
           </noscript>
           HTML
