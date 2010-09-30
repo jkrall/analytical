@@ -1,4 +1,10 @@
 module Analytical
+  module Modules
+    class DummyModule
+      include Analytical::Modules::Base
+      def method_missing(method, *args, &block); nil; end
+    end
+  end
 
   class Api
     attr_accessor :options, :modules
@@ -7,9 +13,12 @@ module Analytical
       @options = options
       @modules = @options[:modules].inject(ActiveSupport::OrderedHash.new) do |h, m|
         module_options = @options.merge(@options[m] || {})
+        module_options.delete(:modules)
+        module_options[:session_store] = Analytical::SessionCommandStore.new(@options[:session], m) if @options[:session]
         h[m] = "Analytical::Modules::#{m.to_s.camelize}".constantize.new(module_options)
         h
       end
+      @dummy_module = Analytical::Modules::DummyModule.new
     end
 
     #
@@ -18,10 +27,13 @@ module Analytical
     # analytical.console.go 'make', :some=>:cookies
     #
     def method_missing(method, *args, &block)
-      if @modules.keys.include?(method.to_sym)
-        @modules[method.to_sym]
+      method = method.to_sym
+      if @modules.keys.include?(method)
+        @modules[method]
+      elsif available_modules.include?(method)
+        @dummy_module
       else
-        process_command method.to_sym, *args
+        process_command method, *args
       end
     end
 
@@ -93,6 +105,13 @@ module Analytical
         m.init_javascript(location)
       end.compact.join("\n")
     end
+
+    def available_modules
+      Dir.glob(File.dirname(__FILE__)+'/modules/*.rb').collect do |f|
+        File.basename(f).sub(/.rb/,'').to_sym
+      end - [:base]
+    end
+
   end
 
 end

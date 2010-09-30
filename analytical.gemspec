@@ -121,6 +121,7 @@ Gem::Specification.new do |s|
      "spec/analytical_spec.rb",
      "spec/spec_helper.rb"
   ]
+  # s.add_dependency('')
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION

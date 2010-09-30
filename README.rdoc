@@ -63,6 +63,21 @@ By default, Analytical will be disabled in development mode... and it will enabl
 
 New modules should be fairly easy to add.  Follow the structure that I've used in the Clicky, Google, and KISSMetrics modules... and you should be fine.  All modules should include the Analytical::Base::Api module, so that they have some default behavior for methods that they don't support or need.
 
+== Session-based command queues
+
+By default, any Analytical commands that are queued in a controller that subsequently redirects won't be emitted to the client.  This is because the redirect triggers a new request, and everything is cleared out at the beginning of each request.
+
+However, if you would like to be able to queue commands between requests... there's a new option that supports this behavior:
+
+    analytical :modules=>[:console, :google], :use_session_store=>true
+
+This will store the queued commands in the user session, clearing them out when they are emitted to the client, but allowing you to make calls like:
+
+    Analytical.track 'something'
+
+... in your controller.  After a redirect, the corresponding track() call will be emitted in the next request made by the client.
+NOTE:  This is new and somewhat experimental, and could cause problems if you store large amounts of data in the session.  (there is a 4k limit to session data)
+
 
 == Note on Patches/Pull Requests
 

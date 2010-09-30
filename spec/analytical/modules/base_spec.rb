@@ -24,18 +24,18 @@ describe Analytical::Modules::Base do
   describe '#queue' do
     before(:each) do
       @api = BaseApiDummy.new(:parent=>mock('parent'))
-      @api.commands = [:a, :b, :c]
+      @api.command_store.commands = [:a, :b, :c]
     end
     describe 'with an identify command' do
       it 'should store it at the head of the command list' do
         @api.queue :identify, 'someone', {:some=>:args}
-        @api.commands.should == [[:identify, 'someone', {:some=>:args}], :a, :b, :c]
+        @api.command_store.commands.should == [[:identify, 'someone', {:some=>:args}], :a, :b, :c]
       end
     end
     describe 'with any other command' do
       it 'should store it at the end of the command list' do
         @api.queue :other, {:some=>:args}
-        @api.commands.should == [:a, :b, :c, [:other, {:some=>:args}]]
+        @api.command_store.commands.should == [:a, :b, :c, [:other, {:some=>:args}]]
       end
     end
   end
@@ -43,7 +43,7 @@ describe Analytical::Modules::Base do
   describe '#process_queued_commands' do
     before(:each) do
       @api = BaseApiDummy.new(:parent=>mock('parent'))
-      @api.commands = [[:a, 1, 2, 3], [:b, {:some=>:args}]]
+      @api.command_store.commands = [[:a, 1, 2, 3], [:b, {:some=>:args}]]
       @api.stub!(:a).and_return('a')
       @api.stub!(:b).and_return('b')
     end
@@ -57,10 +57,10 @@ describe Analytical::Modules::Base do
     end
     it 'should clear the commands list' do
       @api.process_queued_commands
-      @api.commands == []
+      @api.command_store.commands == []
     end
     it "should not store an unrecognized command" do
-      @api.commands << [:c, 1]
+      @api.command_store.commands << [:c, 1]
       @api.process_queued_commands.should == ['a','b']
     end
   end
@@ -84,7 +84,7 @@ describe Analytical::Modules::Base do
 
   describe '#init_location' do
     before(:each) do
-      @api = BaseApiDummy.new(:parent=>mock('parent'))
+      @api = BaseApiDummy.new
     end
     it 'should check for the init_location' do
       @api.should_receive(:init_location?).with(:some_location).and_return(false)
@@ -112,4 +112,14 @@ describe Analytical::Modules::Base do
     end
   end
 
+  describe 'with a custom session_store' do
+    before(:each) do
+      @session = {}
+      @store = Analytical::SessionCommandStore.new @session, :some_module
+    end
+    it 'should use the session_store' do
+      @api = BaseApiDummy.new :session_store=>@store
+      @api.command_store.should == @store
+    end
+  end
 end
