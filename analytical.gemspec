@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{analytical}
-  s.version = "1.9.0"
+  s.version = "2.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joshua Krall", "Nathan Phelps", "Adam Anderson"]
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
      "analytical.gemspec",
      "example/.gitignore",
      "example/Gemfile",
+     "example/Gemfile.lock",
      "example/README",
      "example/Rakefile",
      "example/app/controllers/application_controller.rb",
@@ -77,6 +78,7 @@ Gem::Specification.new do |s|
      "lib/analytical.rb",
      "lib/analytical/api.rb",
      "lib/analytical/bot_detector.rb",
+     "lib/analytical/command_store.rb",
      "lib/analytical/modules/adwords.rb",
      "lib/analytical/modules/base.rb",
      "lib/analytical/modules/chartbeat.rb",
@@ -88,9 +90,11 @@ Gem::Specification.new do |s|
      "lib/analytical/modules/hubspot.rb",
      "lib/analytical/modules/kiss_metrics.rb",
      "lib/analytical/modules/optimizely.rb",
+     "lib/analytical/session_command_store.rb",
      "rails/init.rb",
      "spec/analytical/api_spec.rb",
      "spec/analytical/bot_detector_spec.rb",
+     "spec/analytical/command_store_spec.rb",
      "spec/analytical/modules/base_spec.rb",
      "spec/analytical/modules/chartbeat_spec.rb",
      "spec/analytical/modules/clicky_spec.rb",
@@ -98,6 +102,7 @@ Gem::Specification.new do |s|
      "spec/analytical/modules/google_spec.rb",
      "spec/analytical/modules/kiss_metrics_spec.rb",
      "spec/analytical/modules/optimizely_spec.rb",
+     "spec/analytical/session_command_store_spec.rb",
      "spec/analytical_spec.rb",
      "spec/config/analytical.yml",
      "spec/spec.opts",
@@ -111,6 +116,7 @@ Gem::Specification.new do |s|
   s.test_files = [
     "spec/analytical/api_spec.rb",
      "spec/analytical/bot_detector_spec.rb",
+     "spec/analytical/command_store_spec.rb",
      "spec/analytical/modules/base_spec.rb",
      "spec/analytical/modules/chartbeat_spec.rb",
      "spec/analytical/modules/clicky_spec.rb",
@@ -118,10 +124,10 @@ Gem::Specification.new do |s|
      "spec/analytical/modules/google_spec.rb",
      "spec/analytical/modules/kiss_metrics_spec.rb",
      "spec/analytical/modules/optimizely_spec.rb",
+     "spec/analytical/session_command_store_spec.rb",
      "spec/analytical_spec.rb",
      "spec/spec_helper.rb"
   ]
-  # s.add_dependency('')
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
