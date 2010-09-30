@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{analytical}
-  s.version = "1.8.0"
+  s.version = "1.9.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joshua Krall", "Nathan Phelps", "Adam Anderson"]
-  s.date = %q{2010-09-11}
+  s.date = %q{2010-09-29}
   s.description = %q{Gem for managing multiple analytics services in your rails app.}
   s.email = %q{josh@transfs.com}
   s.extra_rdoc_files = [
@@ -75,29 +75,29 @@ Gem::Specification.new do |s|
      "example/test/unit/helpers/page_helper_test.rb",
      "example/vendor/plugins/.gitkeep",
      "lib/analytical.rb",
-     "lib/analytical/adwords.rb",
      "lib/analytical/api.rb",
-     "lib/analytical/base.rb",
      "lib/analytical/bot_detector.rb",
-     "lib/analytical/chartbeat.rb",
-     "lib/analytical/clicky.rb",
-     "lib/analytical/comscore.rb",
-     "lib/analytical/console.rb",
-     "lib/analytical/crazy_egg.rb",
-     "lib/analytical/google.rb",
-     "lib/analytical/hubspot.rb",
-     "lib/analytical/kiss_metrics.rb",
-     "lib/analytical/optimizely.rb",
+     "lib/analytical/modules/adwords.rb",
+     "lib/analytical/modules/base.rb",
+     "lib/analytical/modules/chartbeat.rb",
+     "lib/analytical/modules/clicky.rb",
+     "lib/analytical/modules/comscore.rb",
+     "lib/analytical/modules/console.rb",
+     "lib/analytical/modules/crazy_egg.rb",
+     "lib/analytical/modules/google.rb",
+     "lib/analytical/modules/hubspot.rb",
+     "lib/analytical/modules/kiss_metrics.rb",
+     "lib/analytical/modules/optimizely.rb",
      "rails/init.rb",
      "spec/analytical/api_spec.rb",
-     "spec/analytical/base_spec.rb",
      "spec/analytical/bot_detector_spec.rb",
-     "spec/analytical/chartbeat_spec.rb",
-     "spec/analytical/clicky_spec.rb",
-     "spec/analytical/comscore_spec.rb",
-     "spec/analytical/google_spec.rb",
-     "spec/analytical/kiss_metrics_spec.rb",
-     "spec/analytical/optimizely_spec.rb",
+     "spec/analytical/modules/base_spec.rb",
+     "spec/analytical/modules/chartbeat_spec.rb",
+     "spec/analytical/modules/clicky_spec.rb",
+     "spec/analytical/modules/comscore_spec.rb",
+     "spec/analytical/modules/google_spec.rb",
+     "spec/analytical/modules/kiss_metrics_spec.rb",
+     "spec/analytical/modules/optimizely_spec.rb",
      "spec/analytical_spec.rb",
      "spec/config/analytical.yml",
      "spec/spec.opts",
@@ -106,18 +106,18 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/jkrall/analytical}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{Gem for managing multiple analytics services in your rails app.}
   s.test_files = [
     "spec/analytical/api_spec.rb",
-     "spec/analytical/base_spec.rb",
      "spec/analytical/bot_detector_spec.rb",
-     "spec/analytical/chartbeat_spec.rb",
-     "spec/analytical/clicky_spec.rb",
-     "spec/analytical/comscore_spec.rb",
-     "spec/analytical/google_spec.rb",
-     "spec/analytical/kiss_metrics_spec.rb",
-     "spec/analytical/optimizely_spec.rb",
+     "spec/analytical/modules/base_spec.rb",
+     "spec/analytical/modules/chartbeat_spec.rb",
+     "spec/analytical/modules/clicky_spec.rb",
+     "spec/analytical/modules/comscore_spec.rb",
+     "spec/analytical/modules/google_spec.rb",
+     "spec/analytical/modules/kiss_metrics_spec.rb",
+     "spec/analytical/modules/optimizely_spec.rb",
      "spec/analytical_spec.rb",
      "spec/spec_helper.rb"
   ]
@@ -126,7 +126,7 @@ Gem::Specification.new do |s|
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
-    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<rspec>, [">= 1.2.9"])
       s.add_runtime_dependency(%q<activesupport>, [">= 0"])
     else
