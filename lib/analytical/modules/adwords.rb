@@ -13,13 +13,13 @@ module Analytical
           @initializing = true
           html = "<!-- Analytical Init: Google Adwords -->\n"
           event_commands = []
-          @commands.each do |c|
+          @command_store.commands.each do |c|
             if c[0] == :event
               event_commands << event(*c[1..-1])
             end
           end
           html += event_commands.join("\n")
-          @commands = @commands.delete_if {|c| c[0] == :event }
+          @command_store.commands = @command_store.commands.delete_if {|c| c[0] == :event }
           @initializing = false
 
           html
@@ -62,10 +62,10 @@ module Analytical
             var google_conversion_value = #{data[:value] || conversion[:value]};
             /* ]]> */
           </script>
-          <script type="text/javascript" src="#{procotol}://www.googleadservices.com/pagead/conversion.js"></script>
+          <script type="text/javascript" src="#{protocol}://www.googleadservices.com/pagead/conversion.js"></script>
           <noscript>
             <div style="display:inline;">
-            <img height="1" width="1" style="border-style:none;" alt="" src="#{procotol}://www.googleadservices.com/pagead/conversion/#{conversion[:id]}/?label=#{conversion[:label]}&amp;guid=ON&amp;script=0"/>
+            <img height="1" width="1" style="border-style:none;" alt="" src="#{protocol}://www.googleadservices.com/pagead/conversion/#{conversion[:id]}/?label=#{conversion[:label]}&amp;guid=ON&amp;script=0"/>
             </div>
           </noscript>
           HTML
