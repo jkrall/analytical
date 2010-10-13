@@ -8,11 +8,6 @@ require 'spec'
 require 'spec/autorun'
 
 require 'analytical'
-require 'analytical/api'
-require 'analytical/modules/base'
-require 'analytical/modules/console'
-require 'analytical/modules/google'
-require 'analytical/modules/clicky'
 
 Spec::Runner.configure do |config|
 end
