@@ -9,10 +9,10 @@ require 'spec/autorun'
 
 require 'analytical'
 require 'analytical/api'
-require 'analytical/base'
-require 'analytical/console'
-require 'analytical/google'
-require 'analytical/clicky'
+require 'analytical/modules/base'
+require 'analytical/modules/console'
+require 'analytical/modules/google'
+require 'analytical/modules/clicky'
 
 Spec::Runner.configure do |config|
 end
