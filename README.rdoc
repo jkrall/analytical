@@ -55,7 +55,7 @@ You can sprinkle the track() and event() tracking methods throughout your views 
     analytical.track '/a/really/nice/url'
     analytical.event 'Some Awesome Event', :with=>:data
 
-By default, Analytical will be disabled in development mode... and it will enable the Console module only.  To change this behavior, you can pass a Proc/lambda to the :disable_if option, as well as specify the :development_modules that you want to use:
+By default, Analytical will be disabled in all environments except 'production'... and it will enable the Console module only.  To change this behavior, you can pass a Proc/lambda to the :disable_if option, as well as specify the :development_modules that you want to use:
 
     analytical :modules=>[:google], :development_modules=>[], :disable_if=>lambda{ |controller| controller.i_can_haz_tracking? }
 
