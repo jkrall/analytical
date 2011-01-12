@@ -27,7 +27,7 @@ module Analytical
       end
 
       def track(event, properties = {})
-        callback = properties.delete(:callback) || "function(){};"
+        callback = properties.delete(:callback) || "function(){}"
         "mpmetrics.track('#{event}', #{properties.to_json}, #{callback});"
       end
 
@@ -39,7 +39,7 @@ module Analytical
         data = args.last || {}
         step = data.delete(:step)
         goal = data.delete(:goal)
-        callback = data.delete(:callback) || "function(){};"
+        callback = data.delete(:callback) || "function(){}"
         return "/* API Error: Funnel is not set for 'mpmetrics.track_funnel(funnel:string, step:int, goal:string, properties:object, callback:function); */" if funnel.blank?
         return "/* API Error: Step is not set for 'mpmetrics.track_funnel(#{funnel}, ...); */" unless step && step.to_i >= 0
         return "/* API Error: Goal is not set for 'mpmetrics.track_funnel(#{funnel}, #{step}, ...); */" if goal.blank?
