@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{analytical}
-  s.version = "2.2.0"
+  s.version = "2.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joshua Krall", "Nathan Phelps", "Adam Anderson"]
-  s.date = %q{2010-09-30}
+  s.date = %q{2011-01-12}
   s.description = %q{Gem for managing multiple analytics services in your rails app.}
   s.email = %q{josh@transfs.com}
   s.extra_rdoc_files = [
@@ -89,6 +89,7 @@ Gem::Specification.new do |s|
      "lib/analytical/modules/google.rb",
      "lib/analytical/modules/hubspot.rb",
      "lib/analytical/modules/kiss_metrics.rb",
+     "lib/analytical/modules/mixpanel.rb",
      "lib/analytical/modules/optimizely.rb",
      "lib/analytical/session_command_store.rb",
      "rails/init.rb",
@@ -102,6 +103,7 @@ Gem::Specification.new do |s|
      "spec/analytical/modules/comscore_spec.rb",
      "spec/analytical/modules/google_spec.rb",
      "spec/analytical/modules/kiss_metrics_spec.rb",
+     "spec/analytical/modules/mixpanel_spec.rb",
      "spec/analytical/modules/optimizely_spec.rb",
      "spec/analytical/session_command_store_spec.rb",
      "spec/analytical_spec.rb",
@@ -125,6 +127,7 @@ Gem::Specification.new do |s|
      "spec/analytical/modules/comscore_spec.rb",
      "spec/analytical/modules/google_spec.rb",
      "spec/analytical/modules/kiss_metrics_spec.rb",
+     "spec/analytical/modules/mixpanel_spec.rb",
      "spec/analytical/modules/optimizely_spec.rb",
      "spec/analytical/session_command_store_spec.rb",
      "spec/analytical_spec.rb",
