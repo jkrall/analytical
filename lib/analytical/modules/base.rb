@@ -42,6 +42,7 @@ module Analytical
       # def init_javascript(location)
 
       def queue(*args)
+        return if @options[:ignore_duplicates] && @command_store.include?(args)
         if args.first==:identify
           @command_store.unshift args
         else

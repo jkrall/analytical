@@ -38,6 +38,19 @@ describe Analytical::Modules::Base do
         @api.command_store.commands.should == [:a, :b, :c, [:other, {:some=>:args}]]
       end
     end
+    describe 'ignoring duplicates' do
+      before(:each) do
+        @api = BaseApiDummy.new(:parent=>mock('parent'), :ignore_duplicates=>true)
+        @api.command_store.commands = [[:a]]
+      end
+      it 'should store only unique commands' do
+        @api.queue :other, {:some=>:args}
+        @api.queue :a
+        @api.queue :other, {:some=>:args}
+        @api.queue :b
+        @api.command_store.commands.should == [[:a], [:other, {:some=>:args}], [:b]]
+      end
+    end
   end
 
   describe '#process_queued_commands' do
