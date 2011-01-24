@@ -15,7 +15,7 @@ module Analytical
           <script type="text/javascript" src="http://api.mixpanel.com/site_media/js/api/mixpanel.js"></script>
           <script type="text/javascript">
               try {
-                  var mix = new MixpanelLib('#{options[:key]}');
+                  var mpmetrics = new MixpanelLib('#{options[:key]}');
               } catch(err) {
                   null_fn = function () {};
                   var mpmetrics = { track: null_fn, track_funnel: null_fn, register: null_fn, register_once: null_fn };
