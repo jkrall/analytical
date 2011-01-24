@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    analytical (2.3.0)
+    analytical (2.4.0)
       activesupport
 
 GEM

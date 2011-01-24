@@ -1,6 +1,6 @@
 module Analytical
   module Modules
-    class Adwords
+    class MicrosoftAds
       include Analytical::Modules::Base
 
       def initialize(options={})
