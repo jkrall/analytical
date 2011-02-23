@@ -31,6 +31,11 @@ module Analytical
         "mpmetrics.track('#{event}', #{properties.to_json}, #{callback});"
       end
 
+      # Used to set "Super Properties" - http://mixpanel.com/api/docs/guides/super-properties
+      def set(properties)
+        "mpmetrics.register(#{properties.to_json});"
+      end
+
       def identify(id, *args)
         "mpmetrics.identify('#{id}');"
       end
