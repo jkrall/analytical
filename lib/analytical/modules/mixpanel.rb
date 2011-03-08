@@ -12,7 +12,7 @@ module Analytical
         init_location(location) do
           js = <<-HTML
           <!-- Analytical Init: Mixpanel -->
-          <script type="text/javascript" src="http://api.mixpanel.com/site_media/js/api/mixpanel.js"></script>
+          <script type="text/javascript" src="#{protocol}://api.mixpanel.com/site_media/js/api/mixpanel.js"></script>
           <script type="text/javascript">
               try {
                   var mpmetrics = new MixpanelLib('#{options[:key]}');
