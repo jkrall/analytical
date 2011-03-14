@@ -26,3 +26,5 @@ comscore:
   key: comscore_12345
 optimizely:
   key: optimizely_12345
+quantcast:
+  key: p-abc123
