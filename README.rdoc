@@ -12,6 +12,7 @@ Service implementations include:
 * Chartbeat[http://chartbeat.com]
 * {ComScore Direct}[http://direct.comscore.com]
 * Optimizely[http://www.optimizely.com]
+* Quantcast[http://www.quantcast.com]
 
 == Usage
 
@@ -96,6 +97,7 @@ These fine folks have contributed patches and new features to this project:
 
 * {Adam Anderson}[http://github.com/scudco]
 * {Bryan Liles}[http://github.com/bryanl]
+* {Nathan Phelps}[http://github.com/nwp]
 
 Thanks guys!
 
