@@ -12,6 +12,10 @@ Service implementations include:
 * Chartbeat[http://chartbeat.com]
 * {ComScore Direct}[http://direct.comscore.com]
 * Optimizely[http://www.optimizely.com]
+* Loopfuse
+* Clicktale
+* Google Website Optimizer
+* Performancing
 
 == Usage
 

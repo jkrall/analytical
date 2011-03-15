@@ -9,7 +9,7 @@ begin
     gem.description = %Q{Gem for managing multiple analytics services in your rails app.}
     gem.email = "josh@feefighters.com"
     gem.homepage = "http://github.com/jkrall/analytical"
-    gem.authors = ["Joshua Krall", "Nathan Phelps", "Adam Anderson", ""]
+    gem.authors = ["Joshua Krall", "Nathan Phelps", "Adam Anderson", "Kevin Menard"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.add_dependency "activesupport"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
