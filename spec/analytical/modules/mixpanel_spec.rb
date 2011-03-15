@@ -23,7 +23,7 @@ describe "Analytical::Modules::Mixpanel" do
   describe '#track' do
     it 'should return the tracking javascript' do
       @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :key=>'abcdef'
-      @api.track('pagename', {:some=>'data'}).should == "mpmetrics.track('pagename', {\"some\":\"data\"}, function(){};);"
+      @api.track('pagename', {:some=>'data'}).should == "mpmetrics.track('pagename', {\"some\":\"data\"}, function(){});"
     end
     it 'should return the tracking javascript with a callback' do
       @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :key=>'abcdef'
@@ -33,7 +33,7 @@ describe "Analytical::Modules::Mixpanel" do
   describe '#event' do
     it 'should return a js string' do
       @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :js_url_key=>'abcdef'
-      @api.event('My Funnel', {:step=>5, :goal=>'thegoal'}).should == "mpmetrics.track_funnel('My Funnel', '5', 'thegoal', {}, function(){};);"
+      @api.event('My Funnel', {:step=>5, :goal=>'thegoal'}).should == "mpmetrics.track_funnel('My Funnel', '5', 'thegoal', {}, function(){});"
     end
     describe 'without the proper data' do
       it 'should return an error string with blank funnel' do
