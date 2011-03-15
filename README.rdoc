@@ -16,6 +16,7 @@ Service implementations include:
 * Clicktale
 * Google Website Optimizer
 * Performancing
+* Quantcast[http://www.quantcast.com]
 
 == Usage
 
@@ -100,6 +101,7 @@ These fine folks have contributed patches and new features to this project:
 
 * {Adam Anderson}[http://github.com/scudco]
 * {Bryan Liles}[http://github.com/bryanl]
+* {Nathan Phelps}[http://github.com/nwp]
 
 Thanks guys!
 
