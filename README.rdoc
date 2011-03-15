@@ -102,6 +102,11 @@ These fine folks have contributed patches and new features to this project:
 * {Adam Anderson}[http://github.com/scudco]
 * {Bryan Liles}[http://github.com/bryanl]
 * {Nathan Phelps}[http://github.com/nwp]
+* {Adam Anderson}[http://github.com/scudco]
+* {Kevin Menard}[http://github.com/nirvdrum]
+* {Ablyamitov Ablyamit}[http://github.com/unlimit]
+* {Kurt Werle}[http://github.com/kwerle]
+* {Olivier Lauzon}[http://github.com/olauzon]
 
 Thanks guys!
 
