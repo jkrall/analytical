@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{analytical}
-  s.version = "2.7.2"
+  s.version = "2.8.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joshua Krall", "Nathan Phelps", "Adam Anderson", "Kevin Menard", "Ablyamitov Ablyamit", "Kurt Werle", "Olivier Lauzon"]
-  s.date = %q{2011-03-15}
+  s.date = %q{2011-04-04}
   s.description = %q{Gem for managing multiple analytics services in your rails app.}
   s.email = %q{josh@feefighters.com}
   s.extra_rdoc_files = [
@@ -81,6 +81,7 @@ Gem::Specification.new do |s|
     "lib/analytical/api.rb",
     "lib/analytical/bot_detector.rb",
     "lib/analytical/command_store.rb",
+    "lib/analytical/modules/adroll.rb",
     "lib/analytical/modules/adwords.rb",
     "lib/analytical/modules/base.rb",
     "lib/analytical/modules/chartbeat.rb",
@@ -104,6 +105,7 @@ Gem::Specification.new do |s|
     "spec/analytical/api_spec.rb",
     "spec/analytical/bot_detector_spec.rb",
     "spec/analytical/command_store_spec.rb",
+    "spec/analytical/modules/adroll_spec.rb",
     "spec/analytical/modules/adwords_spec.rb",
     "spec/analytical/modules/base_spec.rb",
     "spec/analytical/modules/chartbeat_spec.rb",
@@ -128,6 +130,7 @@ Gem::Specification.new do |s|
     "spec/analytical/api_spec.rb",
     "spec/analytical/bot_detector_spec.rb",
     "spec/analytical/command_store_spec.rb",
+    "spec/analytical/modules/adroll_spec.rb",
     "spec/analytical/modules/adwords_spec.rb",
     "spec/analytical/modules/base_spec.rb",
     "spec/analytical/modules/chartbeat_spec.rb",
