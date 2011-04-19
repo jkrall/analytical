@@ -32,7 +32,12 @@ module Analytical
       def track(*args)
         "_gaq.push(['_trackPageview'#{args.empty? ? ']' : ', "' + args.first + '"]'});"
       end
-
+      
+      def event(name, *args)
+        data = args.first || {}
+        "_gaq.push(['_trackEvent', \"Event\", \"#{name}\", '#{data.to_json}']);"
+      end
+      
     end
   end
 end
