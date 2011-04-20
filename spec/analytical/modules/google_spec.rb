@@ -24,6 +24,11 @@ describe "Analytical::Modules::Google" do
   describe '#event' do
     it 'should return the event javascript' do
       @api = Analytical::Modules::Google.new :parent=>@parent, :key=>'abcdef'
+      @api.event('pagename').should ==  "_gaq.push(['_trackEvent', \"Event\", \"pagename\"]);"
+    end
+    
+    it 'should include any passed in data' do
+      @api = Analytical::Modules::Google.new :parent=>@parent, :key=>'abcdef'
       @api.event('pagename', {:some=>'data',:more=>'info'}).should ==  "_gaq.push(['_trackEvent', \"Event\", \"pagename\", '#{ {:some=>'data',:more=>'info'}.to_json }']);"
     end
   end

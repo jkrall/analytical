@@ -34,8 +34,9 @@ module Analytical
       end
       
       def event(name, *args)
-        data = args.first || {}
-        "_gaq.push(['_trackEvent', \"Event\", \"#{name}\", '#{data.to_json}']);"
+        data = args.first || nil
+        data_string = data ? ", '#{data.to_json}'" : ""
+        "_gaq.push(['_trackEvent', \"Event\", \"#{name}\"" + data_string + "]);"
       end
       
     end
