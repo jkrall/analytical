@@ -107,6 +107,7 @@ These fine folks have contributed patches and new features to this project:
 * {Ablyamitov Ablyamit}[http://github.com/unlimit]
 * {Kurt Werle}[http://github.com/kwerle]
 * {Olivier Lauzon}[http://github.com/olauzon]
+* {Chris Ricca}[https://github.com/ChrisRicca]
 
 Thanks guys!
 
