@@ -45,6 +45,9 @@ module Analytical
         "_gaq.push(" + [ "_trackEvent", *args].to_json + ");"
       end
 
+      def set(data)
+        "_gaq.push(['_setVar', '#{ data.to_query }']);"
+      end
     end
   end
 end

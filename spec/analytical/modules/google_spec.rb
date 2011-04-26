@@ -52,6 +52,14 @@ describe "Analytical::Modules::Google" do
       @api.custom_event('Tag', 'view', 'rails', 27).should ==  '_gaq.push(["_trackEvent","Tag","view","rails",27]);'
     end
   end
+  
+  describe '#set' do
+    it 'should return the set javascript' do
+      @api = Analytical::Modules::Google.new :parent=>@parent, :key=>'abcdef'
+      @api.set({:foo => 'bar', :b => 2}).should ==  "_gaq.push(['_setVar', 'b=2&foo=bar']);"
+    end
+  end
+  
   describe '#init_javascript' do
     it 'should return the init javascript' do
       @api = Analytical::Modules::Google.new :parent=>@parent, :key=>'abcdef'
