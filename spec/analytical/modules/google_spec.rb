@@ -41,6 +41,17 @@ describe "Analytical::Modules::Google" do
     end
 
   end
+  describe '#custom_event' do
+    it 'should return the event javascript' do
+      @api = Analytical::Modules::Google.new :parent=>@parent, :key=>'abcdef'
+      @api.custom_event('Tag', 'view').should ==  '_gaq.push(["_trackEvent","Tag","view"]);'
+    end
+
+    it 'should set the optional label and event value' do
+      @api = Analytical::Modules::Google.new :parent=>@parent, :key=>'abcdef'
+      @api.custom_event('Tag', 'view', 'rails', 27).should ==  '_gaq.push(["_trackEvent","Tag","view","rails",27]);'
+    end
+  end
   describe '#init_javascript' do
     it 'should return the init javascript' do
       @api = Analytical::Modules::Google.new :parent=>@parent, :key=>'abcdef'

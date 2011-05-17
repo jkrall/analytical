@@ -40,6 +40,11 @@ module Analytical
         "_gaq.push(['_trackEvent', \"Event\", \"#{name}\"" + data_string + "]);"
       end
       
+      def custom_event(category, action, opt_label=nil, opt_value=nil)
+        args = [category, action, opt_label, opt_value].compact
+        "_gaq.push(" + [ "_trackEvent", *args].to_json + ");"
+      end
+
     end
   end
 end
