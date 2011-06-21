@@ -22,7 +22,7 @@ module Analytical
           	var tracker = new __sdr(serviceId);
           } catch (err) {
           	// uncomment the alert below for debugging only
-          	// alert ("Totango tracking code load failure, tracking will be ignored");
+          	alert ("Totango tracking code load failure, tracking will be ignored");
           	quite = function () {};
           	var tracker = {
           		track: quite,
@@ -37,7 +37,7 @@ module Analytical
 
       def identify(id, *args)
         data = args.first || {}
-        "tracker.identify(\"#{id}\", \"#{data[:email]}\");"
+        "tracker.identify(\"#{data[:email]}\",\"#{data[:organization]}\");"
       end
 
       def event(name, *args)
