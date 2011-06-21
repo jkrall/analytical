@@ -42,7 +42,7 @@ module Analytical
 
       def event(name, *args)
         data = args.first || {}
-        "tracker.track(\"#{name}\", \"#{data[:module]}\",\"#{data[:organization]}\",\"#{data[:user]}\");"
+        "tracker.track(\"#{name}\", \"#{data[:module]}\");"
       end
 
     end
