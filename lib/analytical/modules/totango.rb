@@ -5,7 +5,7 @@ module Analytical
 
       def initialize(options={})
         super
-        @tracking_command_location = :body_append
+        @tracking_command_location = :body_prepend
       end
 
       def init_javascript(location)
@@ -19,7 +19,7 @@ module Analytical
           <script type="text/javascript">
           try {
           	var serviceId = #{options[:key]};
-          	var tracker = new __sdr(serviceId);
+          	var tracker = new __sdr(\"serviceId\");
           } catch (err) {
           	// uncomment the alert below for debugging only
           	alert ("Totango tracking code load failure, tracking will be ignored");
