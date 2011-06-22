@@ -18,8 +18,7 @@ module Analytical
           <!-- step 2: initialize tracking  -->
           <script type="text/javascript">
           try {
-          	var serviceId = #{options[:key]};
-          	var tracker = new __sdr(\"serviceId\");
+          	var tracker = new __sdr(\"#{options[:key]}\");
           } catch (err) {
           	// uncomment the alert below for debugging only
           	alert ("Totango tracking code load failure, tracking will be ignored");
