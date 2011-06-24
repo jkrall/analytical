@@ -77,6 +77,7 @@ Gem::Specification.new do |s|
     "example/test/test_helper.rb",
     "example/test/unit/helpers/page_helper_test.rb",
     "example/vendor/plugins/.gitkeep",
+    "gsiener-analytical.gemspec",
     "lib/analytical.rb",
     "lib/analytical/api.rb",
     "lib/analytical/bot_detector.rb",
