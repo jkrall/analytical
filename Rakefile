@@ -4,11 +4,11 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "analytical"
+    gem.name = "gsiener-analytical"
     gem.summary = %Q{Gem for managing multiple analytics services in your rails app.}
     gem.description = %Q{Gem for managing multiple analytics services in your rails app.}
     gem.email = "josh@feefighters.com"
-    gem.homepage = "http://github.com/jkrall/analytical"
+    gem.homepage = "http://github.com/gsiener/analytical"
     gem.authors = ["Joshua Krall", "Nathan Phelps", "Adam Anderson", "Kevin Menard", "Ablyamitov Ablyamit", "Kurt Werle", "Olivier Lauzon"]
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
