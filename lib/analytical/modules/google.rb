@@ -41,7 +41,7 @@ module Analytical
 
       def identify(id, *args)
         data = args.first || {}
-        "_gaq.push(['_setCustomVar', 1, 'mid', '#{id}', 2]);"
+        "_gaq.push(['_setCustomVar', 1, 'mid', '#{id}', 3]);"
       end
 
     end
