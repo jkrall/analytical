@@ -7,3 +7,4 @@ kiss_metrics:
 chartbeat:
   key: chartbeat_12345
   domain: your.domain.com
+
