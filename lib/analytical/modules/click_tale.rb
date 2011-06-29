@@ -29,7 +29,7 @@ module Analytical
           		 (document.location.protocol=='https:'?
           		  'https://clicktale.pantherssl.com/':
           		  'http://s.clicktale.net/')+
-          		 "WRb6.js'%20type='text/javascript'%3E%3C/script%3E"));
+          		 "#{@options[:script_name] || "WRb6"}.js'%20type='text/javascript'%3E%3C/script%3E"));
           		</script>
           		<script type="text/javascript">
           		var ClickTaleSSL=1;
