@@ -32,13 +32,18 @@ module Analytical
       def track(*args)
         "_gaq.push(['_trackPageview'#{args.empty? ? ']' : ', "' + args.first + '"]'});"
       end
-      
+
       def event(name, *args)
         data = args.first || nil
         data_string = data ? ", '#{data.to_json}'" : ""
         "_gaq.push(['_trackEvent', \"Event\", \"#{name}\"" + data_string + "]);"
       end
-      
+
+      def identify(id, *args)
+        data = args.first || {}
+        "_gaq.push(['_setCustomVar', 1, 'mid', '#{id}', 3]);"
+      end
+
     end
   end
 end

@@ -10,7 +10,7 @@ module Analytical
     send :include, InstanceMethods
     send :include, Analytical::BotDetector
     helper_method :analytical
-    class_inheritable_accessor :analytical_options
+    class_attribute :analytical_options
 
     self.analytical_options = options.reverse_merge({
       :modules=>[],
