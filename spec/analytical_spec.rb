@@ -2,12 +2,6 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 require 'ostruct'
 
 describe "Analytical" do
-  before(:each) do
-    rails_env = mock('rails environment', :'production?'=>true, :'development?'=>false)
-    Rails.stub!(:env).and_return(rails_env)
-    File.stub!(:'exists?').and_return(false)
-  end
-
   describe 'on initialization' do
     class DummyForInit
       extend Analytical
@@ -19,20 +13,24 @@ describe "Analytical" do
       end
     end
 
-    it 'should have the default options' do
+    it 'should have the options from analytical.yml' do
       DummyForInit.analytical
       d = DummyForInit.new.analytical
-      d.options[:modules].should == []
-      d.options[:development_modules].should == [:console]
-      d.options[:disable_if].call.should be_false
+      d.options[:modules].should == [:google, :clicky, :kiss_metrics, :chartbeat]
     end
 
     it 'should use the supplied options' do
       DummyForInit.analytical :modules=>[:google]
       d = DummyForInit.new.analytical
       d.options[:modules].should == [:google]
-      d.options[:development_modules].should == [:console]
-      d.options[:disable_if].call.should be_false
+    end
+    
+    describe 'conditionally disabled' do
+      it 'should set the modules to []' do
+        DummyForInit.analytical :disable_if => lambda { |x| true }
+        d = DummyForInit.new
+        d.analytical.options[:modules].should == []        
+      end
     end
     
     describe 'with a robot request' do

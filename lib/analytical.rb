@@ -12,17 +12,16 @@ module Analytical
     helper_method :analytical
     class_inheritable_accessor :analytical_options
 
-    self.analytical_options = options.reverse_merge({
-      :modules=>[],
-      :development_modules=>[:console],
-      :disable_if=>Proc.new { !Rails.env.production? },
-    })
+    self.analytical_options = options
 
-    config_options = {}
+    config_options = { :modules => [] }
     File.open("#{Rails.root}/config/analytical.yml") do |f|
-      config_options = YAML::load(ERB.new(f.read).result).symbolize_keys
-      config_options.each do |k,v|
-        config_options[k] = v.symbolize_keys
+      file_options = YAML::load(ERB.new(f.read).result).symbolize_keys
+      env = (Rails.env || :production).to_sym
+      file_options = file_options[env] if file_options.has_key?(env)
+      file_options.each do |k, v|
+        config_options[k.to_sym] = v.symbolize_keys
+        config_options[:modules] << k.to_sym unless options && options[:modules]
       end
     end if File.exists?("#{Rails.root}/config/analytical.yml")
 
@@ -37,8 +36,8 @@ module Analytical
         options = self.class.analytical_options.merge({
           :ssl => request.ssl?
         })
-        if options[:disable_if].call(self)
-          options[:modules] = options[:development_modules]
+        if options[:disable_if] && options[:disable_if].call(self)
+          options[:modules] = []
         end
         options[:session] = session if options[:use_session_store]
         if analytical_is_robot?(request.user_agent)
