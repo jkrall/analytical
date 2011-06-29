@@ -13,7 +13,7 @@ describe "Analytical" do
       extend Analytical
       def self.helper_method(*a); end
       def request
-        Spec::Mocks::Mock.new 'request', 
+        RSpec::Mocks::Mock.new 'request', 
           :'ssl?'=>true, 
           :user_agent=>'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3 GTB7.0'
       end
