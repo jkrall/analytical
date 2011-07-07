@@ -22,7 +22,7 @@ module Analytical
       file_options.each do |k, v|
         config_options[k.to_sym] = v.symbolize_keys
         config_options[:modules] << k.to_sym unless options && options[:modules]
-      end
+      end if file_options
     end if File.exists?("#{Rails.root}/config/analytical.yml")
 
     self.analytical_options = self.analytical_options.reverse_merge config_options

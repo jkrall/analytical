@@ -16,7 +16,7 @@ describe "Analytical" do
     it 'should have the options from analytical.yml' do
       DummyForInit.analytical
       d = DummyForInit.new.analytical
-      d.options[:modules].should == [:google, :clicky, :kiss_metrics, :chartbeat]
+      d.options[:modules].sort_by { |m| m.to_s }.should == [:chartbeat, :clicky, :google, :kiss_metrics]
     end
 
     it 'should use the supplied options' do
@@ -62,13 +62,23 @@ describe "Analytical" do
       end
     end
 
-    describe 'in development mode' do
+    describe 'in non-production mode' do
       before(:each) do
         Rails.env.stub!(:production?).and_return(false)
       end
       it 'should start with no modules' do
         DummyForInit.analytical
         DummyForInit.new.analytical.options[:modules] = [:console]
+      end
+    end
+
+    describe 'in development mode' do
+      before(:each) do
+        Rails.stub!(:env).and_return(:development)
+      end
+      it 'should start with no modules' do
+        DummyForInit.analytical
+        DummyForInit.new.analytical.options[:modules] = []
       end
     end
 
