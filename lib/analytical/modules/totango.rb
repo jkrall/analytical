@@ -36,7 +36,7 @@ module Analytical
 
       def identify(id, *args)
         data = args.first || {}
-        "tracker.identify(\"#{data[:email]}\",\"#{data[:organization]}\");"
+        "tracker.identify(\"#{data[:organization]}\",\"#{data[:email]}\");"
       end
 
       def event(name, *args)
