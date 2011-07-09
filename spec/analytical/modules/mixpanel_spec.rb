@@ -7,7 +7,7 @@ describe "Analytical::Modules::Mixpanel" do
   describe 'on initialize' do
     it 'should set the command_location' do
       a = Analytical::Modules::Mixpanel.new :parent=>@parent, :js_url_key=>'abc'
-      a.tracking_command_location.should == :body_append
+      a.tracking_command_location.should == :body_prepend
     end
     it 'should set the options' do
       a = Analytical::Modules::Mixpanel.new :parent=>@parent, :js_url_key=>'abc'
@@ -63,9 +63,9 @@ describe "Analytical::Modules::Mixpanel" do
       @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :js_url_key=>'abcdef'
       @api.init_javascript(:head_prepend).should == ''
       @api.init_javascript(:head_append).should == ''
-      @api.init_javascript(:body_prepend).should == ''
-      @api.init_javascript(:body_append).should =~ /api\.mixpanel\.com\/site_media\/js\/api\/mixpanel\.js/
-      @api.init_javascript(:body_append).should =~ /new MixpanelLib\('.*'\)/
+      @api.init_javascript(:body_append).should == ''
+      @api.init_javascript(:body_prepend).should =~ /api\.mixpanel\.com\/site_media\/js\/api\/mixpanel\.js/
+      @api.init_javascript(:body_prepend).should =~ /new MixpanelLib\('.*'\)/
     end
   end
 end
