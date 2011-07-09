@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{gsiener-analytical}
-  s.version = "2.10.0"
+  s.version = "2.10.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joshua Krall", "Nathan Phelps", "Adam Anderson", "Kevin Menard", "Ablyamitov Ablyamit", "Kurt Werle", "Olivier Lauzon"]
