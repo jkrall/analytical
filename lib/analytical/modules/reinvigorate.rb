@@ -37,7 +37,7 @@ module Analytical
         end
       end
 
-      def submit_information
+      def track(data)
         "try {
           reinvigorate.track(\"#{options[:key]}\");
         } catch(err) {}"
