@@ -37,7 +37,7 @@ module Analytical
         end
       end
 
-      def track(data)
+      def track(data, *args)
         "try {
           reinvigorate.track(\"#{options[:key]}\");
         } catch(err) {}"
