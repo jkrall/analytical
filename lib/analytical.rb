@@ -34,7 +34,8 @@ module Analytical
     def analytical
       @analytical ||= begin
         options = self.class.analytical_options.merge({
-          :ssl => request.ssl?
+          :ssl => request.ssl?,
+          :controller => self,
         })
         if options[:disable_if] && options[:disable_if].call(self)
           options[:modules] = []
