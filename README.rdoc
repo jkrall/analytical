@@ -71,6 +71,19 @@ It's possible to conditionally disable analytics by specifying a `disable_if` me
 
     analytical :disable_if => lambda{ |controller| controller.i_can_haz_tracking? }
 
+Analytical also provides the ability to filter your active modules dynamically:
+
+    analytical :filter_modules => lambda{ |controller, modules|
+      controller.use_google_analytics? ? modules : modules - [:google]
+    }
+
+This can be useful for enabling the console logger optionally in your app, based on a request parameter:
+
+    :filter_modules => lambda { |controller, modules|
+      controller.use_console_logger? ? [:console] : modules
+    }
+
+
 == Adding new modules
 
 New modules should be fairly easy to add.  Follow the structure that I've used in the Clicky, Google, and KISSMetrics modules... and you should be fine.  All modules should include the Analytical::Base::Api module, so that they have some default behavior for methods that they don't support or need.
