@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.version = "2.11.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Joshua Krall", "Nathan Phelps", "Adam Anderson", "Kevin Menard", "Ablyamitov Ablyamit", "Kurt Werle", "Olivier Lauzon"]
-  s.date = %q{2011-06-30}
+  s.authors = ["Joshua Krall", "Nathan Phelps", "Adam Anderson", "Kevin Menard", "Ablyamitov Ablyamit", "Kurt Werle", "Olivier Lauzon", "Daniel Doubrovkine"]
+  s.date = %q{2011-07-09}
   s.description = %q{Gem for managing multiple analytics services in your rails app.}
   s.email = %q{josh@feefighters.com}
   s.extra_rdoc_files = [
@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".document",
+    ".rspec",
     "Gemfile",
     "Gemfile.lock",
     "Guardfile",
@@ -26,6 +27,14 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "analytical.gemspec",
+    "config/analytical.yml",
+    "config/application.rb",
+    "config/boot.rb",
+    "config/environment.rb",
+    "config/environments/development.rb",
+    "config/environments/production.rb",
+    "config/environments/test.rb",
+    "config/routes.rb",
     "example/.gitignore",
     "example/Gemfile",
     "example/Gemfile.lock",
@@ -101,7 +110,6 @@ Gem::Specification.new do |s|
     "lib/analytical/modules/performancing.rb",
     "lib/analytical/modules/quantcast.rb",
     "lib/analytical/session_command_store.rb",
-    "rails/init.rb",
     "spec/analytical/api_spec.rb",
     "spec/analytical/bot_detector_spec.rb",
     "spec/analytical/command_store_spec.rb",
@@ -118,43 +126,78 @@ Gem::Specification.new do |s|
     "spec/analytical/modules/quantcast.rb",
     "spec/analytical/session_command_store_spec.rb",
     "spec/analytical_spec.rb",
-    "spec/config/analytical.yml",
     "spec/spec.opts",
     "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/jkrall/analytical}
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q{1.6.2}
   s.summary = %q{Gem for managing multiple analytics services in your rails app.}
+  s.test_files = [
+    "spec/analytical/api_spec.rb",
+    "spec/analytical/bot_detector_spec.rb",
+    "spec/analytical/command_store_spec.rb",
+    "spec/analytical/modules/adroll_spec.rb",
+    "spec/analytical/modules/adwords_spec.rb",
+    "spec/analytical/modules/base_spec.rb",
+    "spec/analytical/modules/chartbeat_spec.rb",
+    "spec/analytical/modules/clicky_spec.rb",
+    "spec/analytical/modules/comscore_spec.rb",
+    "spec/analytical/modules/google_spec.rb",
+    "spec/analytical/modules/kiss_metrics_spec.rb",
+    "spec/analytical/modules/mixpanel_spec.rb",
+    "spec/analytical/modules/optimizely_spec.rb",
+    "spec/analytical/modules/quantcast.rb",
+    "spec/analytical/session_command_store_spec.rb",
+    "spec/analytical_spec.rb",
+    "spec/spec_helper.rb"
+  ]
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_development_dependency(%q<rails>, ["= 3.0.9"])
+      s.add_development_dependency(%q<activesupport>, [">= 0"])
+      s.add_development_dependency(%q<activemodel>, [">= 0"])
+      s.add_development_dependency(%q<rspec>, ["= 2.6.0"])
+      s.add_development_dependency(%q<rspec-core>, ["= 2.6.4"])
+      s.add_development_dependency(%q<rspec-expectations>, ["= 2.6.0"])
+      s.add_development_dependency(%q<rspec-mocks>, ["= 2.6.0"])
+      s.add_development_dependency(%q<rspec-rails>, ["= 2.6.0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
-      s.add_development_dependency(%q<rspec>, ["= 1.3"])
       s.add_development_dependency(%q<diff-lcs>, [">= 0"])
-      s.add_development_dependency(%q<rails>, ["~> 2.3"])
       s.add_development_dependency(%q<guard>, [">= 0"])
       s.add_development_dependency(%q<guard-rspec>, [">= 0"])
       s.add_development_dependency(%q<rb-fsevent>, [">= 0"])
       s.add_development_dependency(%q<growl>, [">= 0"])
     else
+      s.add_dependency(%q<rails>, ["= 3.0.9"])
+      s.add_dependency(%q<activesupport>, [">= 0"])
+      s.add_dependency(%q<activemodel>, [">= 0"])
+      s.add_dependency(%q<rspec>, ["= 2.6.0"])
+      s.add_dependency(%q<rspec-core>, ["= 2.6.4"])
+      s.add_dependency(%q<rspec-expectations>, ["= 2.6.0"])
+      s.add_dependency(%q<rspec-mocks>, ["= 2.6.0"])
+      s.add_dependency(%q<rspec-rails>, ["= 2.6.0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
-      s.add_dependency(%q<rspec>, ["= 1.3"])
       s.add_dependency(%q<diff-lcs>, [">= 0"])
-      s.add_dependency(%q<rails>, ["~> 2.3"])
       s.add_dependency(%q<guard>, [">= 0"])
       s.add_dependency(%q<guard-rspec>, [">= 0"])
       s.add_dependency(%q<rb-fsevent>, [">= 0"])
       s.add_dependency(%q<growl>, [">= 0"])
     end
   else
+    s.add_dependency(%q<rails>, ["= 3.0.9"])
+    s.add_dependency(%q<activesupport>, [">= 0"])
+    s.add_dependency(%q<activemodel>, [">= 0"])
+    s.add_dependency(%q<rspec>, ["= 2.6.0"])
+    s.add_dependency(%q<rspec-core>, ["= 2.6.4"])
+    s.add_dependency(%q<rspec-expectations>, ["= 2.6.0"])
+    s.add_dependency(%q<rspec-mocks>, ["= 2.6.0"])
+    s.add_dependency(%q<rspec-rails>, ["= 2.6.0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
-    s.add_dependency(%q<rspec>, ["= 1.3"])
     s.add_dependency(%q<diff-lcs>, [">= 0"])
-    s.add_dependency(%q<rails>, ["~> 2.3"])
     s.add_dependency(%q<guard>, [">= 0"])
     s.add_dependency(%q<guard-rspec>, [">= 0"])
     s.add_dependency(%q<rb-fsevent>, [">= 0"])
