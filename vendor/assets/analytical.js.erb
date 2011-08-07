@@ -1,0 +1,13 @@
+// Support library for Analytical, allows for trigger analytics track/event commands via javascript
+var Analytical = {
+
+  track: function(page) {
+    <%= analytical.now.track('__PAGE__').gsub(/"__PAGE__"/,'page') %>
+  },
+
+  event: function(name, data) {
+    if (typeof data === 'undefined') { data = {}; }
+		<%= analytical.now.event('__EVENT__', {}).gsub(/"__EVENT__"/,'name').gsub(/"?\{}"?/,'data') %>
+  }
+
+};
