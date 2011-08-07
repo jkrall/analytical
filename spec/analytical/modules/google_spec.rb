@@ -27,10 +27,19 @@ describe "Analytical::Modules::Google" do
       @api.event('pagename').should ==  "_gaq.push(['_trackEvent', \"Event\", \"pagename\"]);"
     end
     
-    it 'should include any passed in data' do
+    it 'should include data value' do
       @api = Analytical::Modules::Google.new :parent=>@parent, :key=>'abcdef'
-      @api.event('pagename', {:some=>'data',:more=>'info'}).should ==  "_gaq.push(['_trackEvent', \"Event\", \"pagename\", '#{ {:some=>'data',:more=>'info'}.to_json }']);"
+      @api.event('pagename', {:value=>555, :more=>'info'}).should ==  "_gaq.push(['_trackEvent', \"Event\", \"pagename\", 555]);"
     end
+    it 'should not include data if there is no value' do
+      @api = Analytical::Modules::Google.new :parent=>@parent, :key=>'abcdef'
+      @api.event('pagename', {:more=>'info'}).should ==  "_gaq.push(['_trackEvent', \"Event\", \"pagename\"]);"
+    end
+    it 'should not include data if it is not a hash' do
+      @api = Analytical::Modules::Google.new :parent=>@parent, :key=>'abcdef'
+      @api.event('pagename', 555).should ==  "_gaq.push(['_trackEvent', \"Event\", \"pagename\", 555]);"
+    end
+
   end
   describe '#init_javascript' do
     it 'should return the init javascript' do

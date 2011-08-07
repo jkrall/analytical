@@ -2,9 +2,6 @@ require 'rubygems'
 
 ENV["RAILS_ENV"] ||= 'test'
 
-#require "rails/application"
-#require File.expand_path("../../config/environment", __FILE__)
-
 require 'active_support'
 require 'active_support/core_ext'
 require 'active_support/json'
@@ -23,4 +20,3 @@ RSpec.configure do |config|
 end
 
 require 'analytical'
-

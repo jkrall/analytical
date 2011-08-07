@@ -5,6 +5,14 @@ describe "Analytical" do
   describe 'on initialization' do
     class DummyForInit
       extend Analytical
+      include Analytical::InstanceMethods
+      include Analytical::BotDetector
+      if ::Rails::VERSION::MAJOR < 3
+        class_inheritable_accessor :analytical_options
+      else
+        class_attribute :analytical_options
+      end
+
       def self.helper_method(*a); end
       def request
         RSpec::Mocks::Mock.new 'request', 
@@ -32,7 +40,15 @@ describe "Analytical" do
         d.analytical.options[:modules].should == []        
       end
     end
-    
+
+    describe 'with filtered modules' do
+      it 'should set the modules to []' do
+        DummyForInit.analytical :filter_modules => lambda { |x, modules| modules - [:clicky] }
+        d = DummyForInit.new
+        d.analytical.options[:modules].include?(:clicky).should be_false
+      end
+    end
+
     describe 'with a robot request' do
       it 'should set the modules to []' do
         DummyForInit.analytical
@@ -49,6 +65,11 @@ describe "Analytical" do
       DummyForInit.analytical_options[:kiss_metrics].should == {:key=>'kiss_metrics_12345'}
       DummyForInit.analytical_options[:clicky].should == {:key=>'clicky_12345'}
       DummyForInit.analytical_options[:chartbeat].should == {:key=>'chartbeat_12345', :domain => 'your.domain.com'}
+    end
+
+    it 'should allow for module-specific controller overrides' do
+      DummyForInit.analytical :google=>{:key=>'override_google_key'}
+      DummyForInit.analytical_options[:google].should == {:key=>'override_google_key'}
     end
 
     describe 'in production mode' do

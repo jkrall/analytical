@@ -101,7 +101,7 @@ describe "Analytical::Api" do
         it 'should return the javascript' do
           @console.should_receive(:init_javascript).with(:head_prepend).and_return('console_a')
           @google.should_receive(:init_javascript).with(:head_prepend).and_return('google_a')
-          @api.head_prepend_javascript.should == "console_a\ngoogle_a"
+          @api.head_prepend_javascript.should == "console_agoogle_a"
         end
       end
 
@@ -109,7 +109,7 @@ describe "Analytical::Api" do
         it 'should return the javascript' do
           @console.should_receive(:init_javascript).with(:head_append).and_return('console_a')
           @google.should_receive(:init_javascript).with(:head_append).and_return('google_a')
-          @api.head_append_javascript.should == "console_a\ngoogle_a"
+          @api.head_append_javascript.should == "console_agoogle_a"
         end
       end
       
@@ -117,14 +117,14 @@ describe "Analytical::Api" do
         it 'should return the javascript' do
           @console.should_receive(:init_javascript).with(:body_prepend).and_return('console_b')
           @google.should_receive(:init_javascript).with(:body_prepend).and_return('google_b')
-          @api.body_prepend_javascript.should == "console_b\ngoogle_b"
+          @api.body_prepend_javascript.should == "console_bgoogle_b"
         end
       end
       describe '#body_append_javascript' do
         it 'should return the javascript' do
           @console.should_receive(:init_javascript).with(:body_append).and_return('console_c')
           @google.should_receive(:init_javascript).with(:body_append).and_return('google_c')
-          @api.body_append_javascript.should == "console_c\ngoogle_c"
+          @api.body_append_javascript.should == "console_cgoogle_c"
         end
       end
       describe 'with stored commands' do
@@ -145,7 +145,7 @@ describe "Analytical::Api" do
           it 'should return the javascript' do
             @console.should_receive(:init_javascript).with(:body_prepend).and_return('console_b')
             @google.should_receive(:init_javascript).with(:body_prepend).and_return('google_b')
-            @api.body_prepend_javascript.should == "console_b\ngoogle_b\n<script type='text/javascript'>\nconsole track called\ngoogle track called\n</script>"
+            @api.body_prepend_javascript.should == "console_bgoogle_b\n<script type='text/javascript'>\nconsole track called\ngoogle track called\n</script>"
           end
         end
       end
