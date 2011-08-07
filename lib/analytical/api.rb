@@ -48,7 +48,7 @@ module Analytical
       def method_missing(method, *args, &block)
         @parent.modules.values.collect do |m|
           m.send(method, *args) if m.respond_to?(method)
-        end.compact.join("\n")
+        end.delete_if{|c| c.blank?}.join("\n")
       end
     end
 
@@ -117,7 +117,7 @@ module Analytical
     def init_javascript(location)
       @modules.values.collect do |m|
         m.init_javascript(location) if m.respond_to?(:init_javascript)
-      end.compact.join("\n")
+      end.delete_if{|c| c.blank?}.join
     end
 
     def available_modules
