@@ -90,6 +90,21 @@ This will store the queued commands in the user session, clearing them out when 
 ... in your controller.  After a redirect, the corresponding track() call will be emitted in the next request made by the client.
 NOTE:  This is new and somewhat experimental, and could cause problems if you store large amounts of data in the session.  (there is a 4k limit to session data)
 
+== Javascript tracking/event commands
+
+Sometimes you want to trigger an analytics track/event via javascript.  Analytical now provides a solution for this by default.  Appended to your <head> is a simple javascript object that will contain "instantaneous" versions of the tracking commands for each of your modules.
+
+You call these analytical commands like this:
+
+    <script type="text/javascript">Analytical.track('/some/url');</script>
+    <script type="text/javascript">Analytical.event('A javascript event', {with: 'data'});</script>
+
+When you call these commands, it will pass the track/event name & data on to each of the modules.  (Take a look at the simple javascript helpers in your <head> for more information.)
+
+To disable this functionality, use
+
+    analytical :javascript_helpers => false
+
 
 == Note on Patches/Pull Requests
 
