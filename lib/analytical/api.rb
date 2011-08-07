@@ -67,7 +67,21 @@ module Analytical
     end
 
     def head_append_javascript
-      [init_javascript(:head_append), tracking_javascript(:head_append)].delete_if{|s| s.blank?}.join("\n")
+      js = [
+        init_javascript(:head_append),
+        tracking_javascript(:head_append),
+      ]
+
+      if options[:javascript_helpers]
+        if Rails::VERSION::MAJOR >= 3 && Rails::VERSION::MINOR >= 1  # Rails 3.1 lets us override views in engines
+          js << options[:controller].send(:render_to_string, :partial=>'analytical_javascript') if options[:controller]
+        else # All other rails
+          _partial_path = Pathname.new(__FILE__).dirname.join('..', '..', 'app/views/application', 'analytical_javascript.html.erb').to_s
+          js << options[:controller].send(:render_to_string, :partial=>_partial_path) if options[:controller]
+        end
+      end
+
+      js.delete_if{|s| s.blank?}.join("\n")
     end
 
     alias_method :head_javascript, :head_append_javascript

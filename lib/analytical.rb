@@ -45,6 +45,7 @@ module Analytical
         if analytical_is_robot?(request.user_agent)
           options[:modules] = []
         end
+        options[:javascript_helpers] ||= true
         Analytical::Api.new options
       end
     end

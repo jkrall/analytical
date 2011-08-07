@@ -1,0 +1,11 @@
+<script type="text/javascript">
+var Analytical = {
+  track: function(page) {
+<%= raw analytical.now.track('__PAGE__').gsub(/"__PAGE__"/,'page') %>
+  },
+  event: function(name, data) {
+    if (typeof data === 'undefined') { data = {}; }
+<%= raw analytical.now.event('__EVENT__', {}).gsub(/"__EVENT__"/,'name').gsub(/"?\{\}"?/,'data') %>
+  }
+};
+</script>
