@@ -74,7 +74,7 @@ module Analytical
       end
 
       def check_for_console(data)
-        "if(typeof(console) !== 'undefined' && console != null) { #{data} }"
+        "if(typeof(console) !== 'undefined' && console != null) { \n#{data} }"
       end
 
     end
