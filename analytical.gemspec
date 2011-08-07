@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{analytical}
-  s.version = "2.11.0"
+  s.version = "3.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joshua Krall", "Nathan Phelps", "Adam Anderson", "Kevin Menard", "Ablyamitov Ablyamit", "Kurt Werle", "Olivier Lauzon", "Daniel Doubrovkine"]
-  s.date = %q{2011-07-09}
+  s.date = %q{2011-08-07}
   s.description = %q{Gem for managing multiple analytics services in your rails app.}
   s.email = %q{josh@feefighters.com}
   s.extra_rdoc_files = [
@@ -109,6 +109,7 @@ Gem::Specification.new do |s|
     "lib/analytical/modules/optimizely.rb",
     "lib/analytical/modules/performancing.rb",
     "lib/analytical/modules/quantcast.rb",
+    "lib/analytical/modules/reinvigorate.rb",
     "lib/analytical/session_command_store.rb",
     "spec/analytical/api_spec.rb",
     "spec/analytical/bot_detector_spec.rb",
@@ -124,10 +125,12 @@ Gem::Specification.new do |s|
     "spec/analytical/modules/mixpanel_spec.rb",
     "spec/analytical/modules/optimizely_spec.rb",
     "spec/analytical/modules/quantcast.rb",
+    "spec/analytical/modules/reinvigorate_spec.rb",
     "spec/analytical/session_command_store_spec.rb",
     "spec/analytical_spec.rb",
     "spec/spec.opts",
-    "spec/spec_helper.rb"
+    "spec/spec_helper.rb",
+    "vendor/assets/analytical.js.erb"
   ]
   s.homepage = %q{http://github.com/jkrall/analytical}
   s.require_paths = ["lib"]
@@ -148,6 +151,7 @@ Gem::Specification.new do |s|
     "spec/analytical/modules/mixpanel_spec.rb",
     "spec/analytical/modules/optimizely_spec.rb",
     "spec/analytical/modules/quantcast.rb",
+    "spec/analytical/modules/reinvigorate_spec.rb",
     "spec/analytical/session_command_store_spec.rb",
     "spec/analytical_spec.rb",
     "spec/spec_helper.rb"
