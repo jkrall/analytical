@@ -1,6 +1,6 @@
 export RUBYOPT="rubygems"
 export RUBYLIB="."
-rvm ruby-1.9.2-p180@analytical
+rvm ruby-1.8.7-p174@analytical
 
 # Install bundler if it doesn't already exist
 # if ! command -v bundle > /dev/null ; then
