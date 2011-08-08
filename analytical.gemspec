@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{analytical}
-  s.version = "3.0.4"
+  s.version = "3.0.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Joshua Krall}, %q{Nathan Phelps}, %q{Adam Anderson}, %q{Kevin Menard}, %q{Ablyamitov Ablyamit}, %q{Kurt Werle}, %q{Olivier Lauzon}, %q{Daniel Doubrovkine}]
@@ -132,26 +132,6 @@ Gem::Specification.new do |s|
   s.require_paths = [%q{lib}]
   s.rubygems_version = %q{1.8.7}
   s.summary = %q{Gem for managing multiple analytics services in your rails app.}
-  s.test_files = [
-    "spec/analytical/api_spec.rb",
-    "spec/analytical/bot_detector_spec.rb",
-    "spec/analytical/command_store_spec.rb",
-    "spec/analytical/modules/adroll_spec.rb",
-    "spec/analytical/modules/adwords_spec.rb",
-    "spec/analytical/modules/base_spec.rb",
-    "spec/analytical/modules/chartbeat_spec.rb",
-    "spec/analytical/modules/clicky_spec.rb",
-    "spec/analytical/modules/comscore_spec.rb",
-    "spec/analytical/modules/google_spec.rb",
-    "spec/analytical/modules/kiss_metrics_spec.rb",
-    "spec/analytical/modules/mixpanel_spec.rb",
-    "spec/analytical/modules/optimizely_spec.rb",
-    "spec/analytical/modules/quantcast.rb",
-    "spec/analytical/modules/reinvigorate_spec.rb",
-    "spec/analytical/session_command_store_spec.rb",
-    "spec/analytical_spec.rb",
-    "spec/spec_helper.rb"
-  ]
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
