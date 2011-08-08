@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{analytical}
-  s.version = "3.0.2"
+  s.version = "3.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Joshua Krall}, %q{Nathan Phelps}, %q{Adam Anderson}, %q{Kevin Menard}, %q{Ablyamitov Ablyamit}, %q{Kurt Werle}, %q{Olivier Lauzon}, %q{Daniel Doubrovkine}]
