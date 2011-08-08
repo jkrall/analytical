@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{analytical}
-  s.version = "3.0.3"
+  s.version = "3.0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Joshua Krall}, %q{Nathan Phelps}, %q{Adam Anderson}, %q{Kevin Menard}, %q{Ablyamitov Ablyamit}, %q{Kurt Werle}, %q{Olivier Lauzon}, %q{Daniel Doubrovkine}]
@@ -157,7 +157,6 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<rake>, ["= 0.8.7"])
       s.add_development_dependency(%q<rails>, ["= 3.0.9"])
       s.add_development_dependency(%q<activesupport>, [">= 0"])
       s.add_development_dependency(%q<activemodel>, [">= 0"])
@@ -173,7 +172,6 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rb-fsevent>, [">= 0"])
       s.add_development_dependency(%q<growl>, [">= 0"])
     else
-      s.add_dependency(%q<rake>, ["= 0.8.7"])
       s.add_dependency(%q<rails>, ["= 3.0.9"])
       s.add_dependency(%q<activesupport>, [">= 0"])
       s.add_dependency(%q<activemodel>, [">= 0"])
@@ -190,7 +188,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<growl>, [">= 0"])
     end
   else
-    s.add_dependency(%q<rake>, ["= 0.8.7"])
     s.add_dependency(%q<rails>, ["= 3.0.9"])
     s.add_dependency(%q<activesupport>, [">= 0"])
     s.add_dependency(%q<activemodel>, [">= 0"])
