@@ -25,6 +25,9 @@ describe "Analytical" do
       DummyForInit.analytical
       d = DummyForInit.new.analytical
       d.options[:modules].sort_by { |m| m.to_s }.should == [:chartbeat, :clicky, :google, :kiss_metrics]
+      d.options[:true_option].should be_true
+      d.options[:false_option].should be_false
+      d.options[:string_option].should == "string"
     end
 
     it 'should use the supplied options' do
