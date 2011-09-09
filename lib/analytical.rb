@@ -44,7 +44,7 @@ module Analytical
           options[:modules] = []
         end
         options[:modules] = options[:filter_modules].call(self, options[:modules]) if options[:filter_modules]
-        options[:javascript_helpers] ||= true
+        options[:javascript_helpers] ||= true if options[:javascript_helpers].nil?
         Analytical::Api.new options
       end
     end

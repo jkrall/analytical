@@ -30,6 +30,13 @@ describe "Analytical" do
       d.options[:string_option].should == "string"
     end
 
+    it 'should preserve :javascript_helpers option' do
+      options = { :javascript_helpers => false, :modules => [] }
+      DummyForInit.analytical options
+      a = DummyForInit.new.analytical
+      a.options[:javascript_helpers].should be_false
+    end
+
     it 'should use the supplied options' do
       DummyForInit.analytical :modules=>[:google]
       d = DummyForInit.new.analytical
