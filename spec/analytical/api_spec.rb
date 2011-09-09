@@ -111,6 +111,16 @@ describe "Analytical::Api" do
           @google.should_receive(:init_javascript).with(:head_append).and_return('google_a')
           @api.head_append_javascript.should == "console_agoogle_a"
         end
+        it 'should render an existing template for Rails 3.0' do
+          @api.options[:javascript_helpers] = true
+          (@api.options[:controller] ||= Object.new).stub!(:render_to_string) { |param| param[:partial] }
+          File.exist?(@api.head_append_javascript).should be_true
+        end
+        it 'should not render an existing template if javascript_helpers is false' do
+          @api.options[:javascript_helpers] = false
+          (@api.options[:controller] ||= Object.new).should_not_receive(:render_to_string)
+          @api.head_append_javascript.should be_blank
+        end
       end
       
       describe '#body_prepend_javascript' do
