@@ -15,8 +15,14 @@ module Analytical
       env = (::Rails.env || :production).to_sym
       file_options = file_options[env] if file_options.has_key?(env)
       file_options.each do |k, v|
-        config_options[k.to_sym] = v.symbolize_keys
-        config_options[:modules] << k.to_sym unless options && options[:modules]
+        if v.respond_to?(:symbolize_keys)
+          # module configuration
+          config_options[k.to_sym] = v.symbolize_keys
+          config_options[:modules] << k.to_sym unless options && options[:modules]
+        else
+          # regular option
+          config_options[k.to_sym] = v
+        end
       end if file_options
     end if File.exists?("#{::Rails.root}/config/analytical.yml")
 
