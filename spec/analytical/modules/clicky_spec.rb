@@ -35,12 +35,6 @@ describe "Analytical::Modules::Clicky" do
       @api.init_javascript(:body_append).should =~ /static.getclicky.com\/js/
       @api.init_javascript(:body_append).should =~ /abcdef/      
     end
-    describe 'for an ssl connection' do
-      it 'should return the ssl init code' do
-        @api = Analytical::Modules::Clicky.new :parent=>@parent, :key=>'abcdef', :ssl=>true
-        @api.init_javascript(:body_append).should =~ /https/
-      end
-    end
     describe 'with an identify command queued' do
       @api = Analytical::Modules::Clicky.new :parent=>@parent, :key=>'abcdef'
       @api.queue :identify, 'user id', {:email=>'someone@test.com'}
