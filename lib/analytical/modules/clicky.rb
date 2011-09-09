@@ -19,7 +19,7 @@ module Analytical
               var s = document.createElement('script');
               s.type = 'text/javascript';
               s.async = true;
-              s.src = '#{protocol}//static.getclicky.com/js';
+              s.src = '//static.getclicky.com/js';
               ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
             })();
           </script>
