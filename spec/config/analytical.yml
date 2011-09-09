@@ -1,4 +1,8 @@
 test:
+  javascript_helpers: true
+  false_option: false
+  true_option: true
+  string_option: "string"
   google:
     key: google_12345
   clicky:
