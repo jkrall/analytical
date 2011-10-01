@@ -1,0 +1,7 @@
+<h1>Page#test_b</h1>
+<p>
+	<%= link_to 'A', '/page/test_a' %><br />
+	<%= link_to 'C', '/page/test_c' %><br />
+	<%= link_to 'index', '/' %><br />
+	<a href='#' onclick="<%= analytical.console.track('track link in A') %>; return false;">track console only</a><br />
+</p>

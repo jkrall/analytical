@@ -1,0 +1,11 @@
+<% analytical.track 'track in view A' %>
+<% analytical.event 'Something Important', {:some=>'data'} %>
+<h1>Page#test_a</h1>
+<p>
+	<%= link_to 'B', '/page/test_b' %><br />
+	<%= link_to 'C', '/page/test_c' %><br />
+	<%= link_to 'index', '/' %><br />
+	<a href='#' onclick="<%= analytical.now.track('track link in A') %>; return false;">click me to track all modules</a><br />
+</p>
+
+
