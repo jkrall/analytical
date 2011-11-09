@@ -56,7 +56,12 @@ describe "Analytical::Modules::Google" do
   describe '#set' do
     it 'should return the set javascript' do
       @api = Analytical::Modules::Google.new :parent=>@parent, :key=>'abcdef'
-      @api.set({:foo => 'bar', :b => 2}).should ==  "_gaq.push(['_setVar', 'b=2&foo=bar']);"
+      @api.set({:index => 1, :name => 'gender', :value => 'male'}).should ==  "_gaq.push(['_setCustomVar', 1, 'gender', 'male']);"
+    end
+
+    it 'should handle an optional scope' do
+      @api = Analytical::Modules::Google.new :parent=>@parent, :key=>'abcdef'
+      @api.set({:index => 1, :name => 'gender', :value => 'male', :scope => 3}).should ==  "_gaq.push(['_setCustomVar', 1, 'gender', 'male', 3]);"
     end
   end
   
