@@ -113,7 +113,7 @@ describe "Analytical::Api" do
         end
         it 'should render an existing template for Rails 3.0' do
           @api.options[:javascript_helpers] = true
-          (@api.options[:controller] ||= Object.new).stub!(:render_to_string) { |param| param[:partial] }
+          (@api.options[:controller] ||= Object.new).stub!(:render_to_string) { |param| param[:file] }
           File.exist?(@api.head_append_javascript).should be_true
         end
         it 'should not render an existing template if javascript_helpers is false' do
