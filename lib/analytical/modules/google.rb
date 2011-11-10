@@ -83,14 +83,15 @@ module Analytical
       # String state        Optional. State to associate with transaction.
       # String country      Optional. Country to associate with transaction.
       def add_trans(order_id, affiliation=nil, total=nil, tax=nil, shipping=nil, city=nil, state=nil, country=nil)
-        data = ["'#{order_id}'"]
-        data << (affiliation ? "'#{affiliation}'" : "null")
-        data << (total ? "'#{total}'" : "null")
-        data << "'#{tax}'"      if tax
-        data << "'#{shipping}'" if shipping
-        data << "'#{city}'"     if city
-        data << "'#{state}'"    if state
-        data << "'#{country}'"  if country
+        data = []
+        data << "'#{order_id}'"
+        data << "'#{affiliation}'"
+        data << "'#{total}'"
+        data << "'#{tax}'"
+        data << "'#{shipping}'"
+        data << "'#{city}'"
+        data << "'#{state}'"
+        data << "'#{country}'"
 
         "_gaq.push(['_addTrans', #{data.join(', ')}]);"
       end
@@ -103,11 +104,8 @@ module Analytical
       # String price    Required. Product price.
       # String quantity Required. Purchase quantity.
       def add_item(order_id, sku, name, category, price, quantity)
-        data  = ["'#{order_id}'", "'#{sku}'", "'#{name}'"]
-        data << ( category ? "'#{category}'" : "null")
-        data += ["'#{price}'", "'#{quantity}'"]
-
-        "_gaq.push(['_addItem', #{data.join(', ')}]);"
+        data  = "'#{order_id}', '#{sku}', '#{name}', '#{category}', '#{price}', '#{quantity}'"
+        "_gaq.push(['_addItem', #{data}]);"
       end
 
       # http://code.google.com/apis/analytics/docs/gaJS/gaJSApiEcommerce.html#_gat.GA_Tracker_._trackTrans
