@@ -19,6 +19,10 @@ describe "Analytical::Modules::Mixpanel" do
       @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :js_url_key=>'abcdef'
       @api.identify('id', {:email=>'test@test.com'}).should == "mpmetrics.identify('id');"
     end
+    it 'should return a js string with name if included' do
+      @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :js_url_key=>'abcdef'
+      @api.identify('id', {:email=>'test@test.com', :name => "user_name"}).should == "mpmetrics.identify('id'); mpmetrics.name_tag('user_name');"
+    end
   end
   describe '#track' do
     it 'should return the tracking javascript' do

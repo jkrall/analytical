@@ -37,7 +37,10 @@ module Analytical
       end
 
       def identify(id, *args)
-        "mpmetrics.identify('#{id}');"
+        opts = args.first || {}
+        name = opts.is_a?(Hash) ? opts[:name] : ""
+        name_str = name.blank? ? "" : " mpmetrics.name_tag('#{name}');"
+        "mpmetrics.identify('#{id}');#{name_str}"
       end
 
       def event(name, attributes = {})
