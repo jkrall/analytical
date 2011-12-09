@@ -30,7 +30,7 @@ module Analytical
         callback = properties.delete(:callback) || "function(){}"
         %(mpmetrics.track("#{event}", #{properties.to_json}, #{callback});)
       end
-
+      
       # Used to set "Super Properties" - http://mixpanel.com/api/docs/guides/super-properties
       def set(properties)
         "mpmetrics.register(#{properties.to_json});"
@@ -43,6 +43,10 @@ module Analytical
         %(mpmetrics.identify('#{id}');#{name_str})
       end
 
+      def name_tag(name)
+        "mpmetrics.name_tag('#{name}');"
+      end
+      
       def event(name, attributes = {})
         %(mpmetrics.track("#{name}", #{attributes.to_json});)
       end
