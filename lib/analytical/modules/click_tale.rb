@@ -33,7 +33,7 @@ module Analytical
           		</script>
           		<script type="text/javascript">
           		var ClickTaleSSL=1;
-          		if(typeof ClickTale=='function') ClickTale(#{@options[:project_id]},#{@options[:site_traffic]},"www");
+          		if(typeof ClickTale=='function') ClickTale(#{@options[:project_id]},#{@options[:site_traffic]},#{@options[:www_param]});
           		</script>
           		<!-- ClickTale end of Bottom part -->
               HTML
