@@ -72,8 +72,9 @@ module Analytical
         tracking_javascript(:head_append),
       ]
 
-      if options[:javascript_helpers]
-        if ::Rails.version =~ /^3\.[12]/  # Rails 3.1 lets us override views in engines
+      if options[:javascript_helpers] 
+        # Rails 3.1 lets us override views in engines
+        if ( ::Rails::VERSION::MAJOR == 3 and ::Rails::VERSION::MINOR >= 1) or ::Rails::VERSION::MAJOR > 3
           js << options[:controller].send(:render_to_string, :partial=>'analytical_javascript') if options[:controller]
         else # All other rails
           _partial_path = Pathname.new(__FILE__).dirname.join('..', '..', 'app/views/application', '_analytical_javascript.html.erb').to_s
