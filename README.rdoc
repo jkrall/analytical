@@ -17,6 +17,7 @@ Service implementations include:
 * Google Website Optimizer
 * Performancing
 * Quantcast[http://www.quantcast.com]
+* MixPanel[http://www.mixpanel.com]
 
 == Usage
 
