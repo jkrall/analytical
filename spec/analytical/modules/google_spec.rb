@@ -76,7 +76,7 @@ describe "Analytical::Modules::Google" do
       end
 
       it "adds an item with a nil category" do
-        @api.add_item(123, 'foo', 'bar', nil, 10.24, 42).should == "_gaq.push(['_addItem', '123', 'foo', 'bar', null, '10.24', '42']);"
+        @api.add_item(123, 'foo', 'bar', nil, 10.24, 42).should == "_gaq.push(['_addItem', '123', 'foo', 'bar', '', '10.24', '42']);"
       end
     end
 
@@ -86,7 +86,7 @@ describe "Analytical::Modules::Google" do
       end
 
       it "sets up a transaction without optional params" do
-         @api.add_trans(123, nil, 100.0).should == "_gaq.push(['_addTrans', '123', null, '100.0']);"
+         @api.add_trans(123, nil, 100.0).should == "_gaq.push(['_addTrans', '123', '', '100.0', '', '', '', '', '']);"
        end
 
     end
