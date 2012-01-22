@@ -26,7 +26,7 @@
 * Support filtering modules, per-request (see README)
 * Added javascript helpers, enabled by default (see README)
 
-## 2.0.11
+## 2.11.0
 
 *Significant update (tried to maintain backward compatibility)*
 

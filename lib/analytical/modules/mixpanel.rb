@@ -28,7 +28,7 @@ module Analytical
 
       def track(event, properties = {})
         callback = properties.delete(:callback) || "function(){}"
-        "mpmetrics.track('#{event}', #{properties.to_json}, #{callback});"
+        %(mpmetrics.track("#{event}", #{properties.to_json}, #{callback});)
       end
 
       # Used to set "Super Properties" - http://mixpanel.com/api/docs/guides/super-properties
@@ -37,11 +37,14 @@ module Analytical
       end
 
       def identify(id, *args)
-        "mpmetrics.identify('#{id}');"
+        opts = args.first || {}
+        name = opts.is_a?(Hash) ? opts[:name] : ""
+        name_str = name.blank? ? "" : " mpmetrics.name_tag('#{name}');"
+        %(mpmetrics.identify('#{id}');#{name_str})
       end
 
       def event(name, attributes = {})
-        "mpmetrics.track('#{name}', #{attributes.to_json});"
+        %(mpmetrics.track("#{name}", #{attributes.to_json});)
       end
 
     end
