@@ -32,6 +32,8 @@ Add a configuration file (config/analytical.yml) to declare your API keys, like 
        key: UA-5555555-5
      clicky:
        key: 55555
+   development:
+   test:
 
 You can add different configurations for different environments. 
 
