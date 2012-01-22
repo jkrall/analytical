@@ -1,4 +1,5 @@
 = Analytical
+{<img src="https://secure.travis-ci.org/jkrall/analytical.png" />}[http://travis-ci.org/jkrall/analytical]
 
 Gem for managing multiple analytics services in your rails app.
 
