@@ -1,5 +1,11 @@
 # Analytical Changelog
 
+## 3.0.12
+
+* Fixed version checking so it works with Rails 3.2
+* Fixed example configuration in README
+* Enhanced google module
+
 ## 3.0.9
 
 * Fixed bug that was causing problems in Rails 2.3 & 3.0  (Issue #19)
