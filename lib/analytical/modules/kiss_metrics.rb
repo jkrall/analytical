@@ -22,9 +22,6 @@ module Analytical
             }
             _kms('//i.kissmetrics.com/i.js');_kms('#{options[:js_url_key]}');
           </script>
-          <script type="text/javascript">
-            _kmq.push(['pageView']);
-          </script>
           HTML
           js
         end
