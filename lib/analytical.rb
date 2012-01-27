@@ -26,7 +26,7 @@ module Analytical
       config = config[env] if config.has_key?(env)
 
       # List the modules that were configured
-      config = config.reverse_merge(:modules => [])
+      config = {:modules => []}.merge(config || {})
       config.each{|k, v| config[:modules] << k.to_sym if v.is_a?(Hash) }
     end
   end
