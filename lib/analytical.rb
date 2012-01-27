@@ -7,16 +7,17 @@ end
 module Analytical
 
   def analytical(options = {})
-    config = Analytical.config
+    config = Analytical.config(options[:config])
     self.analytical_options = options.reverse_merge(config)
   end
 
-  def self.config
-    path = ::Rails.root.join("config/analytical.yml")
+  def self.config(path)
+    path = Pathname.new(path || ::Rails.root.join("config/analytical.yml"))
     return {} unless path.exist?
 
-    # Only read the config one time
-    @configs ||= begin
+    # Only read the config from any given file one time
+    @configs ||= {}
+    @configs[path] ||= begin
       # Read the config out of the file
       config = YAML.load(path.read).with_indifferent_access
 
