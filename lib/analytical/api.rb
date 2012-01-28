@@ -11,12 +11,12 @@ module Analytical
 
     def initialize(options={})
       @options = options
-      @modules = @options[:modules].inject(ActiveSupport::OrderedHash.new) do |h, m|
+      @modules = ActiveSupport::OrderedHash.new
+      @options[:modules].each do |m|
         module_options = @options.merge(@options[m] || {})
         module_options.delete(:modules)
         module_options[:session_store] = Analytical::SessionCommandStore.new(@options[:session], m) if @options[:session]
-        h[m] = get_mod(m).new(module_options)
-        h
+        @modules[m] = get_mod(m).new(module_options)
       end
       @dummy_module = Analytical::Modules::DummyModule.new
     end
