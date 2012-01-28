@@ -11,7 +11,7 @@ module Analytical
     self.analytical_options = options.reverse_merge(config)
   end
 
-  def self.config(path)
+  def self.config(path = nil)
     path = Pathname.new(path || ::Rails.root.join("config/analytical.yml"))
     return {} unless path.exist?
 
