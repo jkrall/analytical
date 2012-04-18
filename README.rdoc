@@ -19,6 +19,7 @@ Service implementations include:
 * Performancing
 * Quantcast[http://www.quantcast.com]
 * MixPanel[http://www.mixpanel.com]
+* Gauges[http://get.gaug.es]
 
 == Usage
 
