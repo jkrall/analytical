@@ -15,7 +15,7 @@ module Analytical
           <script type="text/javascript">
             var _gaq = _gaq || [];
             _gaq.push(['_setAccount', '#{options[:key]}']);
-            _gaq.push(['_setDomainName', '#{options[:domain]}']);
+            #{"_gaq.push(['_setDomainName', '#{options[:domain]}']);" if options[:domain]}
             #{"_gaq.push(['_setAllowLinker', true]);" if options[:allow_linker]}
             _gaq.push(['_trackPageview']);
             (function() {
