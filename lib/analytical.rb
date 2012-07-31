@@ -6,27 +6,29 @@ end
 
 module Analytical
 
-  def analytical(options={})
-    self.analytical_options = options
+  def analytical(options = {})
+    config = Analytical.config(options[:config])
+    self.analytical_options = options.reverse_merge(config)
+  end
 
-    config_options = { :modules => [] }
-    File.open("#{::Rails.root}/config/analytical.yml") do |f|
-      file_options = YAML::load(ERB.new(f.read).result).symbolize_keys
-      env = (::Rails.env || :production).to_sym
-      file_options = file_options[env] if file_options.has_key?(env)
-      file_options.each do |k, v|
-        if v.respond_to?(:symbolize_keys)
-          # module configuration
-          config_options[k.to_sym] = v.symbolize_keys
-          config_options[:modules] << k.to_sym unless options && options[:modules]
-        else
-          # regular option
-          config_options[k.to_sym] = v
-        end
-      end if file_options
-    end if File.exists?("#{::Rails.root}/config/analytical.yml")
+  def self.config(path = nil)
+    path = Pathname.new(path || ::Rails.root.join("config/analytical.yml"))
+    return {} unless path.exist?
 
-    self.analytical_options = self.analytical_options.reverse_merge config_options
+    # Only read the config from any given file one time
+    @configs ||= {}
+    @configs[path] ||= begin
+      # Read the config out of the file
+      config = YAML.load(path.read).with_indifferent_access
+
+      # Pull out the correct environment (or toplevel if there isn't an env)
+      env = ::Rails.env || :production
+      config = config[env] if config.has_key?(env)
+
+      # List the modules that were configured
+      config = (config || {}).reverse_merge(:modules => [])
+      config.each{|k, v| config[:modules] << k.to_sym if v.is_a?(Hash) }
+    end
   end
 
   module InstanceMethods
