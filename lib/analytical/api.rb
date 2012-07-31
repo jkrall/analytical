@@ -11,14 +11,22 @@ module Analytical
 
     def initialize(options={})
       @options = options
-      @modules = @options[:modules].inject(ActiveSupport::OrderedHash.new) do |h, m|
+      @modules = ActiveSupport::OrderedHash.new
+      @options[:modules].each do |m|
         module_options = @options.merge(@options[m] || {})
         module_options.delete(:modules)
         module_options[:session_store] = Analytical::SessionCommandStore.new(@options[:session], m) if @options[:session]
-        h[m] = "Analytical::Modules::#{m.to_s.camelize}".constantize.new(module_options)
-        h
+        @modules[m] = get_mod(m).new(module_options)
       end
       @dummy_module = Analytical::Modules::DummyModule.new
+    end
+
+    def get_mod(name)
+      name = name.to_s.camelize
+      "Analytical::Modules::#{name}".constantize
+    rescue NameError
+      raise "You're trying to configure a module named '#{name}', but " +
+        "Analytical doesn't have one. Check your analytical.yml file for typos."
     end
 
     #
