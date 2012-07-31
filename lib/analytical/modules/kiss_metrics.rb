@@ -5,7 +5,7 @@ module Analytical
 
       def initialize(options={})
         super
-        @tracking_command_location = :body_prepend
+        check_js_url_key
       end
 
       def init_javascript(location)
@@ -21,9 +21,6 @@ module Analytical
               }, 1);
             }
             _kms('//i.kissmetrics.com/i.js');_kms('#{options[:js_url_key]}');
-          </script>
-          <script type="text/javascript">
-            _kmq.push(['pageView']);
           </script>
           HTML
           js
@@ -47,6 +44,15 @@ module Analytical
 
       def alias_identity(old_identity, new_identity)
         "_kmq.push([\"alias\", \"#{old_identity}\", \"#{new_identity}\"]);"
+      end
+
+    private
+
+      def check_js_url_key
+        if options[:js_url_key].nil?
+          raise "You didn't provide a js_url_key for kiss_metrics. " +
+            "Add one to your analytical.yml file so KissMetrics will work."
+        end
       end
 
     end
