@@ -43,7 +43,6 @@ Gem::Specification.new do |s|
     "lib/analytical/modules/quantcast.rb",
     "lib/analytical/modules/reinvigorate.rb",
     "lib/analytical/rails/engine.rb",
-    "lib/analytical/session_command_store.rb",
     "rails/init.rb"
   ]
   s.homepage = %q{http://github.com/jkrall/analytical}
