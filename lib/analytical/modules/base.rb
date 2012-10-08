@@ -49,12 +49,12 @@ module Analytical
           @command_store << args
         end
       end
-      def process_queued_commands
-        command_strings = @command_store.collect do |c|
-          send(*c) if respond_to?(c.first)
-        end.compact
+
+      # we only care about events, all other commands will be removed without having effect
+      def events_options
+        result = @command_store.commands.select{ |command| command[0] == :event }.map{ |command| [command[1], command[2]] }
         @command_store.flush
-        command_strings
+        result
       end
 
       def init_location?(location)

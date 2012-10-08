@@ -53,31 +53,6 @@ describe Analytical::Modules::Base do
     end
   end
 
-  describe '#process_queued_commands' do
-    before(:each) do
-      @api = BaseApiDummy.new(:parent=>mock('parent'))
-      @api.command_store.commands = [[:a, 1, 2, 3], [:b, {:some=>:args}]]
-      @api.stub!(:a).and_return('a')
-      @api.stub!(:b).and_return('b')
-    end
-    it 'should send each of the args arrays in the command list' do
-      @api.should_receive(:a).with(1, 2, 3).and_return('a')
-      @api.should_receive(:b).with({:some=>:args}).and_return('b')
-      @api.process_queued_commands
-    end
-    it 'should return the results as an array' do
-      @api.process_queued_commands.should == ['a', 'b']
-    end
-    it 'should clear the commands list' do
-      @api.process_queued_commands
-      @api.command_store.commands == []
-    end
-    it "should not store an unrecognized command" do
-      @api.command_store.commands << [:c, 1]
-      @api.process_queued_commands.should == ['a','b']
-    end
-  end
-
   describe '#init_location?' do
     before(:each) do
       @api = BaseApiDummy.new(:parent=>mock('parent'))

@@ -9,6 +9,10 @@ module Analytical
   def analytical(options = {})
     config = Analytical.config(options[:config])
     self.analytical_options = options.reverse_merge(config)
+
+    after_filter do |controller|
+      flash[:analytical] = controller.analytical.flash.to_json.html_safe
+    end
   end
 
   def self.config(path = nil)

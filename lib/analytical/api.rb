@@ -20,6 +20,10 @@ module Analytical
       @dummy_module = Analytical::Modules::DummyModule.new
     end
 
+    def flash
+      @modules.values.map{ |m| m.events_options }.flatten(1)
+    end
+
     def get_mod(name)
       name = name.to_s.camelize
       "Analytical::Modules::#{name}".constantize
@@ -70,13 +74,12 @@ module Analytical
     # These methods return the javascript that should be inserted into each section of your layout
     #
     def head_prepend_javascript
-      [init_javascript(:head_prepend), tracking_javascript(:head_prepend)].delete_if{|s| s.blank?}.join("\n")
+      [init_javascript(:head_prepend)].delete_if{|s| s.blank?}.join("\n")
     end
 
     def head_append_javascript
       js = [
-        init_javascript(:head_append),
-        tracking_javascript(:head_append),
+        init_javascript(:head_append)
       ]
 
       if Gem::Version.new(::Rails::VERSION::STRING) >= Gem::Version.new('3.1.0')  # Rails 3.1 lets us override views in engines
@@ -92,10 +95,10 @@ module Analytical
     alias_method :head_javascript, :head_append_javascript
 
     def body_prepend_javascript
-      [init_javascript(:body_prepend), tracking_javascript(:body_prepend)].delete_if{|s| s.blank?}.join("\n")
+      [init_javascript(:body_prepend)].delete_if{|s| s.blank?}.join("\n")
     end
     def body_append_javascript
-      [init_javascript(:body_append), tracking_javascript(:body_append)].delete_if{|s| s.blank?}.join("\n")
+      [init_javascript(:body_append)].delete_if{|s| s.blank?}.join("\n")
     end
 
     private
@@ -104,19 +107,6 @@ module Analytical
       @modules.values.each do |m|
         m.queue command, *args
       end
-    end
-
-    def tracking_javascript(location)
-      commands = []
-      @modules.each do |name, m|
-        commands += m.process_queued_commands if m.init_location?(location) || m.initialized
-      end
-      commands = commands.delete_if{|c| c.blank? || c.empty?}
-      unless commands.empty?
-        commands.unshift "<script type='text/javascript'>"
-        commands << "</script>"
-      end
-      commands.join("\n")
     end
 
     def init_javascript(location)

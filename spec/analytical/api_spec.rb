@@ -79,10 +79,8 @@ describe "Analytical::Api" do
       before(:each) do
         @console.stub!(:init_location?).and_return(false)
         @console.stub!(:initialized).and_return(false)
-        @console.stub!(:process_queued_commands).and_return([])
         @google.stub!(:init_location?).and_return(false)
         @google.stub!(:initialized).and_return(false)
-        @google.stub!(:process_queued_commands).and_return([])
       end
 
       describe '#head_prepend_javascript' do
@@ -125,12 +123,10 @@ describe "Analytical::Api" do
           @console.stub!(:initialized).and_return(false)
           @console.stub!(:track).and_return('console track called')
           @console.stub!(:queue)
-          @console.stub!(:process_queued_commands).and_return(['console track called'])
           @google.stub!(:init_location?).and_return(false)
           @google.stub!(:initialized).and_return(true)
           @google.stub!(:track).and_return('google track called')
           @google.stub!(:queue)
-          @google.stub!(:process_queued_commands).and_return(['google track called'])
           @api.track('something', {:a=>1, :b=>2})
         end
         describe '#body_prepend_javascript' do
