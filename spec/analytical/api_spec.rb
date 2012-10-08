@@ -16,18 +16,6 @@ describe "Analytical::Api" do
       Analytical::Modules::Console.should_receive(:new).with(hash_including(:ssl=>true)).and_return(@console = mock('console'))
       Analytical::Api.new :modules=>[:console], :ssl=>true
     end
-    describe 'with a session option' do
-      before(:each) do
-        @session = {}
-      end
-      it 'should create a new SessionCommandStore for each module' do
-        Analytical::SessionCommandStore.should_receive(:new).with(@session, :console).and_return(@console_store = mock('console_store'))
-        Analytical::SessionCommandStore.should_receive(:new).with(@session, :google).and_return(@google_store = mock('google_store'))        
-        Analytical::Modules::Console.should_receive(:new).with(:session_store=>@console_store, :session=>@session).and_return(mock('console'))
-        Analytical::Modules::Google.should_receive(:new).with(:session_store=>@google_store, :session=>@session).and_return(mock('google'))
-        Analytical::Api.new :modules=>[:console, :google], :session=>@session
-      end
-    end
   end
 
   describe 'with modules' do

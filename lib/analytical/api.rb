@@ -15,7 +15,6 @@ module Analytical
       @options[:modules].each do |m|
         module_options = @options.merge(@options[m] || {})
         module_options.delete(:modules)
-        module_options[:session_store] = Analytical::SessionCommandStore.new(@options[:session], m) if @options[:session]
         @modules[m] = get_mod(m).new(module_options)
       end
       @dummy_module = Analytical::Modules::DummyModule.new

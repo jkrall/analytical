@@ -8,7 +8,7 @@ module Analytical
         @options = _options
         @tracking_command_location = :body_prepend
         @initialized = false
-        @command_store = @options[:session_store] || Analytical::CommandStore.new
+        @command_store = Analytical::CommandStore.new
       end
 
       def protocol

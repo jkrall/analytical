@@ -124,15 +124,4 @@ describe Analytical::Modules::Base do
       end
     end
   end
-
-  describe 'with a custom session_store' do
-    before(:each) do
-      @session = {}
-      @store = Analytical::SessionCommandStore.new @session, :some_module
-    end
-    it 'should use the session_store' do
-      @api = BaseApiDummy.new :session_store=>@store
-      @api.command_store.should == @store
-    end
-  end
 end
