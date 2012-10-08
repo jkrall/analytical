@@ -104,10 +104,6 @@ You call these analytical commands like this:
 
 When you call these commands, it will pass the track/event name & data on to each of the modules.  (Take a look at the simple javascript helpers in your <head> for more information.)
 
-To disable this functionality, use
-
-    analytical :javascript_helpers => false
-
 
 == Note on Patches/Pull Requests
 
