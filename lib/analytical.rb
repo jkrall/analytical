@@ -3,6 +3,7 @@ require File.dirname(__FILE__)+'/analytical/modules/base'
 Dir.glob(File.dirname(__FILE__)+'/analytical/**/*.rb').each do |f|
   require f
 end
+require 'analytical/middleware'
 
 module Analytical
 
