@@ -32,7 +32,7 @@ module Analytical
         data = args.first || {}
         check_for_console <<-HERE
         console.log("Analytical Identify: "+"#{escape id}");
-        console.log(#{data.to_json});
+        // console.log(#{data.to_json});
         HERE
       end
 
@@ -40,14 +40,14 @@ module Analytical
         data = args.first || {}
         check_for_console <<-HERE
         console.log("Analytical Event: "+"#{escape name}");
-        console.log(#{data.to_json});
+        // console.log(#{data.to_json});
         HERE
       end
 
       def set(data)
         check_for_console <<-HERE
         console.log("Analytical Set: ");
-        console.log(#{data.to_json});
+        // console.log(#{data.to_json});
         HERE
       end
 
