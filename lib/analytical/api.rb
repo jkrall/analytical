@@ -20,10 +20,6 @@ module Analytical
       @dummy_module = Analytical::Modules::DummyModule.new
     end
 
-    def flash
-      @modules.values.map{ |m| m.events_options }.flatten(1)
-    end
-
     def get_mod(name)
       name = name.to_s.camelize
       "Analytical::Modules::#{name}".constantize
@@ -79,15 +75,9 @@ module Analytical
 
     def head_append_javascript
       js = [
-        init_javascript(:head_append)
+        init_javascript(:head_append),
+        render_js_partial("analytical_javascript")
       ]
-
-      if Gem::Version.new(::Rails::VERSION::STRING) >= Gem::Version.new('3.1.0')  # Rails 3.1 lets us override views in engines
-        js << options[:controller].send(:render_to_string, :partial=>'analytical_javascript') if options[:controller]
-      else # All other rails
-        _partial_path = Pathname.new(__FILE__).dirname.join('..', '..', 'app/views/application', '_analytical_javascript.html.erb').to_s
-        js << options[:controller].send(:render_to_string, :file=>_partial_path, :layout=>false) if options[:controller]
-      end
 
       js.delete_if{|s| s.blank?}.join("\n")
     end
@@ -98,10 +88,24 @@ module Analytical
       [init_javascript(:body_prepend)].delete_if{|s| s.blank?}.join("\n")
     end
     def body_append_javascript
-      [init_javascript(:body_append)].delete_if{|s| s.blank?}.join("\n")
+      js = [
+        init_javascript(:body_append),
+        render_js_partial("analytical_fire_events")
+      ]
+      
+      js.delete_if{|s| s.blank?}.join("\n")
     end
 
     private
+
+    def render_js_partial(name)
+      if Gem::Version.new(::Rails::VERSION::STRING) >= Gem::Version.new('3.1.0')  # Rails 3.1 lets us override views in engines
+        options[:controller].send(:render_to_string, :partial=> name) if options[:controller]
+      else # All other rails
+        _partial_path = Pathname.new(__FILE__).dirname.join('..', '..', 'app/views/application', "_#{name}.html.erb").to_s
+        options[:controller].send(:render_to_string, :file=>_partial_path, :layout=>false) if options[:controller]
+      end
+    end
 
     def process_command(command, *args)
       @modules.values.each do |m|

@@ -1,0 +1,19 @@
+<script type="text/javascript">
+$(function() {
+  var eventsData;
+  
+  try {
+    eventsData = $.parseJSON(($.cookie('analytical') || '').replace(/\+/g, ' ')) || [];
+  } catch(e) {
+    eventsData = [];
+  }
+  
+  $.cookie('analytical', null, { path: '/' });
+  $.each(eventsData, function(index, eventData) {
+    var name = eventData[0],
+        options = eventData[1];
+    
+    Analytical.event(name, options);
+  });
+});
+</script>

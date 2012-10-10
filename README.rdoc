@@ -27,6 +27,10 @@ Add the following to your controllers:
 
     analytical
 
+Add the middleware configuration in config/application.rb:
+
+  config.middleware.use Analytical::Middleware
+
 Add a configuration file (config/analytical.yml) to declare your API keys, like so:
 
    production:

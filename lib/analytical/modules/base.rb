@@ -46,15 +46,13 @@ module Analytical
         if args.first==:identify
           @command_store.unshift args
         else
+          # we only care about events, all other commands will be removed without having effect
+          if args[0] == :event
+            @options[:controller].env["analytical"] ||= []
+            @options[:controller].env["analytical"] << [args[1], args[2]]
+          end
           @command_store << args
         end
-      end
-
-      # we only care about events, all other commands will be removed without having effect
-      def events_options
-        result = @command_store.commands.select{ |command| command[0] == :event }.map{ |command| [command[1], command[2]] }
-        @command_store.flush
-        result
       end
 
       def init_location?(location)
