@@ -10,16 +10,16 @@ module Analytical
 
       new_commands = env["analytical"]
       if new_commands
-        response = Rack::Response.new(body, status, headers)
-        cookies = env["rack.cookies"] || {}
+        new_commands = JSON(new_commands.to_json) rescue [] # stringify symbols so that the uniq below works.
+
+        cookies = Rack::Request.new(env).cookies
 
         commands = (JSON(cookies["analytical"]) if cookies["analytical"]) || [] rescue []
-        commands.concat(new_commands)
-        response.set_cookie("analytical", { :value => commands.to_json, :path => "/" })
-        response.finish
-      else
-        [status, headers, body]
+        commands = (commands + new_commands).uniq
+        Rack::Utils.set_cookie_header!(headers, "analytical", :value => commands.to_json, :path => "/")
       end
+
+      [status, headers, body]
     end
 
   end
