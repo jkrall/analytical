@@ -13,7 +13,7 @@ module Analytical
           js = <<-HTML
           <!-- Analytical Init: Console -->
           <script type="text/javascript">
-            if(typeof(console) !== 'undefined' && console != null) {
+            if (typeof(console) !== 'undefined' && console != null) {
               console.log('Analytical Init: Console');
             }
           </script>
@@ -22,59 +22,44 @@ module Analytical
         end
       end
 
-      def track(*args)
-        check_for_console <<-HERE
-        console.log("Analytical Track: "+"#{escape args.first}");
-        HERE
+      def identify(*args) # id, options
+        <<-JS.gsub(/^ {10}/, '')
+          if (typeof(console) !== 'undefined' && console != null) {
+            console.log('Analytical identify', arguments)
+          }
+        JS
       end
 
-      def identify(id, *args)
-        data = args.first || {}
-        check_for_console <<-HERE
-        console.log("Analytical Identify: "+"#{escape id}");
-        // console.log(#{data.to_json});
-        HERE
+      def track(*args) # event, properties, callback
+        <<-JS.gsub(/^ {10}/, '')
+          if (typeof(console) !== 'undefined' && console != null) {
+            console.log('Analytical track', arguments)
+          }
+        JS
       end
 
-      def event(name, *args)
-        data = args.first || {}
-        check_for_console <<-HERE
-        console.log("Analytical Event: "+"#{escape name}");
-        // console.log(#{data.to_json});
-        HERE
+      def event(*args) # name, options
+        <<-JS.gsub(/^ {10}/, '')
+          if (typeof(console) !== 'undefined' && console != null) {
+            console.log('Analytical event', arguments)
+          }
+        JS
       end
 
-      def set(data)
-        check_for_console <<-HERE
-        console.log("Analytical Set: ");
-        // console.log(#{data.to_json});
-        HERE
+      def set(*args) # properties
+        <<-JS.gsub(/^ {10}/, '')
+          if (typeof(console) !== 'undefined' && console != null) {
+            console.log('Analytical set', arguments)
+          }
+        JS
       end
 
-      def alias_identity(old_identity,new_identity)
-        check_for_console <<-HERE
-        console.log("Analytical Alias: #{old_identity} => #{new_identity}");
-        HERE
-      end
-
-      private
-
-      CONSOLE_JS_ESCAPE_MAP = {
-        '\\' => '\\\\',
-        '</' => '<\/',
-        "\r\n" => '\n',
-        "\n" => '\n',
-        "\r" => '\n',
-        '"' => '\\"',
-        "'" => "\\'"
-      } unless defined?(CONSOLE_JS_ESCAPE_MAP)
-
-      def escape(js)
-        js.to_s.gsub(/(\\|<\/|\r\n|[\n\r"'])/) { CONSOLE_JS_ESCAPE_MAP[$1] }
-      end
-
-      def check_for_console(data)
-        "if(typeof(console) !== 'undefined' && console != null) { \n#{data} }"
+      def alias_identity(*args) # old_identity, new_identity
+        <<-JS.gsub(/^ {10}/, '')
+          if (typeof(console) !== 'undefined' && console != null) {
+            console.log('Analytical alias_identity', arguments)
+          }
+        JS
       end
 
     end

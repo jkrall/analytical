@@ -40,7 +40,7 @@ describe Analytical::Modules::Base do
     end
     describe 'ignoring duplicates' do
       before(:each) do
-        @api = BaseApiDummy.new(:parent=>mock('parent'), :ignore_duplicates=>true)
+        @api = BaseApiDummy.new(:parent=>mock('parent'))
         @api.command_store.commands = [[:a]]
       end
       it 'should store only unique commands' do

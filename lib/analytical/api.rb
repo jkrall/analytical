@@ -40,7 +40,7 @@ module Analytical
       elsif available_modules.include?(method)
         @dummy_module
       else
-        process_command method, *args
+        process_command(method, *args)
       end
     end
 
@@ -52,17 +52,18 @@ module Analytical
       def initialize(_parent)
         @parent = _parent
       end
+      
       def method_missing(method, *args, &block)
         @parent.modules.values.collect do |m|
           m.send(method, *args) if m.respond_to?(method)
         end.delete_if{|c| c.blank?}.join("\n")
       end
     end
-
+    
     #
     # Returns a new delegation object for immediate processing of a command
     #
-    def now
+    def javascript_for
       ImmediateDelegateHelper.new(self)
     end
 
@@ -109,7 +110,7 @@ module Analytical
 
     def process_command(command, *args)
       @modules.values.each do |m|
-        m.queue command, *args
+        m.queue(command, *args)
       end
     end
 

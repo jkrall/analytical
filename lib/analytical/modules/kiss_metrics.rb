@@ -27,23 +27,32 @@ module Analytical
         end
       end
 
-      def identify(id, *args)
-        data = args.first || {}
-        "_kmq.push([\"identify\", \"#{data[:email]}\"]);"
+      def identify(*args) # id, options
+        <<-JS.gsub(/^ {10}/, '')
+          if (options && options.email) {
+            _kmq.push(['identify', options.email]);
+          }
+        JS
       end
 
-      def event(name, *args)
-        data = args.first || {}
-        "_kmq.push([\"record\", \"#{name}\", #{data.to_json}]);"
+      def event(*args) # name, options, callback
+        <<-JS.gsub(/^ {10}/, '')
+          _kmq.push(['record', name, options]);
+        JS
       end
 
-      def set(data)
-        return '' if data.blank?
-        "_kmq.push([\"set\", #{data.to_json}]);"
+      def set(*args) # properties
+        <<-JS.gsub(/^ {10}/, '')
+          if (properties) {
+            _kmq.push(['set', properties]);
+          }
+        JS
       end
 
-      def alias_identity(old_identity, new_identity)
-        "_kmq.push([\"alias\", \"#{old_identity}\", \"#{new_identity}\"]);"
+      def alias_identity(*args) # old_identity, new_identity
+        <<-JS.gsub(/^ {10}/, '')
+          _kmq.push(['alias', old_identity, new_identity]);
+        JS
       end
 
     private

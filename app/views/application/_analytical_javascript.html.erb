@@ -1,10 +1,16 @@
 <script type="text/javascript">
 var Analytical = {
-  event: function(name, data) {
-    if (typeof data === 'undefined') {
-      data = {};
-    }
-<%= raw analytical.now.event('__EVENT__', {}).gsub(/"__EVENT__"/, 'name').gsub(/"?\{\}"?/, 'data') %>
+  identify: function(id, options) {
+    <%= raw(analytical.javascript_for.identify.gsub(/^/, " " * 4).strip) %>
+  },
+  event: function(name, options, callback) {
+    <%= raw(analytical.javascript_for.event.gsub(/^/, " " * 4).strip) %>
+  },
+  set: function(properties) {
+    <%= raw(analytical.javascript_for.set.gsub(/^/, " " * 4).strip) %>
+  },
+  alias_identity: function(old_identity, new_identity) {
+    <%= raw(analytical.javascript_for.alias_identity.gsub(/^/, " " * 4).strip) %>
   }
 };
 </script>

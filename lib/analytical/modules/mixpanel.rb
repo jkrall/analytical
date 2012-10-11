@@ -30,25 +30,33 @@ module Analytical
         end
       end
 
-      def track(event, properties = {})
-        callback = properties.delete(:callback) || "function(){}"
-        %(mixpanel.track("#{event}", #{properties.to_json}, #{callback});)
+      def identify(*args) # id, options
+        <<-JS.gsub(/^ {10}/, '')
+          mixpanel.identify(id);
+          if (options && options.name) {
+            mixpanel.name_tag(options.name);
+          }
+        JS
       end
+
+      def event(*args) # name, options, callback
+        <<-JS.gsub(/^ {10}/, '')
+          mixpanel.track(name, options || {});
+        JS
+      end
+
+      # def track(*args) # event, properties, callback
+      #   # event_name, properties, callback
+      #   <<-JS.gsub(/^ {10}/, '')
+      #     mixpanel.track(event, properties, callback);
+      #   JS
+      # end
 
       # Used to set "Super Properties" - http://mixpanel.com/api/docs/guides/super-properties
-      def set(properties)
-        "mixpanel.register(#{properties.to_json});"
-      end
-
-      def identify(id, *args)
-        opts = args.first || {}
-        name = opts.is_a?(Hash) ? opts[:name] : ""
-        name_str = name.blank? ? "" : " mixpanel.name_tag('#{name}');"
-        %(mixpanel.identify('#{id}');#{name_str})
-      end
-
-      def event(name, attributes = {})
-        %(mixpanel.track("#{name}", #{attributes.to_json});)
+      def set(*args) # properties
+        <<-JS.gsub(/^ {10}/, '')
+          mixpanel.register(properties);
+        JS
       end
 
     end

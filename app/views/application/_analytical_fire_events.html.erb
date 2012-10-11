@@ -1,19 +1,20 @@
 <script type="text/javascript">
-$(function() {
-  var eventsData;
+var commands;
+
+try {
+  commands = $.parseJSON(($.cookie('analytical') || '').replace(/\+/g, ' ')) || [];
+} catch(e) {
+  commands = [];
+}
+
+$.cookie('analytical', null, { path: '/' });
+
+$.each(commands, function(index, command) {
+  var method = command.shift(),
+      arguments = command;
   
-  try {
-    eventsData = $.parseJSON(($.cookie('analytical') || '').replace(/\+/g, ' ')) || [];
-  } catch(e) {
-    eventsData = [];
+  if ('function' === typeof Analytical[method]) {
+    Analytical[method].apply(this, arguments);
   }
-  
-  $.cookie('analytical', null, { path: '/' });
-  $.each(eventsData, function(index, eventData) {
-    var name = eventData[0],
-        options = eventData[1];
-    
-    Analytical.event(name, options);
-  });
 });
 </script>

@@ -57,7 +57,6 @@ Then, in your template files, you'll want to add the analytical helper methods f
         <%= stylesheet_link_tag :all %>
         <%= javascript_include_tag :defaults %>
         <%= csrf_meta_tag %>
-        <% analytical.identify '5', :email=>'josh@transfs.com' %>
         <%= raw analytical.head_append_javascript %>
       </head>
       <body>
@@ -67,9 +66,13 @@ Then, in your template files, you'll want to add the analytical helper methods f
       </body>
     </html>
 
-Note the example above also includes an identify() command that will apply to every page.  More likely, you'll want to make this identify() command conditional so that it only applies when you have a logged-in user:
+You'll want to add the identify() command as a before_filter:
 
-    <% analytical.identify(current_user.id, :email=>current_user.email) if current_user %>
+    before_filter :analytical_identify
+    protected
+    def analytical_identify
+      analytical.identify(current_user.id, :email => current_user.email) if current_user
+    end
 
 You can sprinkle the track() and event() tracking methods throughout your views & controllers as needed.
 

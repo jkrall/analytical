@@ -42,17 +42,13 @@ module Analytical
       # def init_javascript(location)
 
       def queue(*args)
-        return if @options[:ignore_duplicates] && @command_store.include?(args)
-        if args.first==:identify
+        return if @command_store.include?(args)
+        if args.first == :identify
           @command_store.unshift args
         else
-          # we only care about events, all other commands will be removed without having effect
-          if args[0] == :event
-            @options[:controller].env["analytical"] ||= []
-            @options[:controller].env["analytical"] << [args[1], args[2]]
-          end
           @command_store << args
         end
+        @options[:controller].env["analytical"] = @command_store.commands
       end
 
       def init_location?(location)
