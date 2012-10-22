@@ -12,6 +12,7 @@ module Analytical
         init_location(location) do
           js = <<-HTML
           <!-- Analytical Init: Mixpanel -->
+          <script type="text/javascript">
             (function(c,a){window.mixpanel=a;var b,d,h,e;b=c.createElement("script");
             b.type="text/javascript";b.async=!0;b.src=("https:"===c.location.protocol?"https:":"http:")+
             '//cdn.mxpnl.com/libs/mixpanel-2.1.min.js';d=c.getElementsByTagName("script")[0];
@@ -23,6 +24,7 @@ module Analytical
             'set_config','people.identify','people.set','people.increment'];for(e=0;e<h.length;e++)d(g,h[e]);
             a._i.push([b,c,f])};a.__SV=1.1;})(document,window.mixpanel||[]);
             mixpanel.init("#{options[:key]}");
+          </script>
           HTML
           js
         end
