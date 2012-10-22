@@ -48,7 +48,6 @@ describe "Analytical::Modules::Mixpanel" do
       @api.init_javascript(:body_prepend).should == ''
       @api.init_javascript(:body_append).should =~ %r(cdn\.mxpnl\.com\/libs/mixpanel-2\.1\.min\.js)
       @api.init_javascript(:body_append).should =~ %r(mixpanel\.init\("abcdef"\))
-      @api.init_javascript(:body_append).should =~ %r(mixpanel\.init\("abcdef"\))
       @api.init_javascript(:body_append).should =~ %r(<script type="text\/javascript">)
     end
   end
