@@ -22,7 +22,7 @@ module Analytical
       config = YAML.load(path.read).with_indifferent_access
 
       # Pull out the correct environment (or toplevel if there isn't an env)
-      env = ::Rails.env || :production
+      env = ::Rails.env.to_sym || :production
       config = config[env] if config.has_key?(env)
 
       # List the modules that were configured
