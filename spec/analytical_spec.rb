@@ -69,17 +69,18 @@ describe "Analytical" do
     end
 
     it 'should open the initialization file' do
-      File.should_receive(:'exists?').with("#{Rails.root}/config/analytical.yml").and_return(true)
+      FileTest.should_receive(:'exist?').with("#{Rails.root}/config/analytical.yml").and_return(true)
       DummyForInit.analytical
-      DummyForInit.analytical_options[:google].should == {:key=>'google_12345'}
-      DummyForInit.analytical_options[:kiss_metrics].should == {:key=>'kiss_metrics_12345'}
-      DummyForInit.analytical_options[:clicky].should == {:key=>'clicky_12345'}
-      DummyForInit.analytical_options[:chartbeat].should == {:key=>'chartbeat_12345', :domain => 'your.domain.com'}
+      DummyForInit.analytical_options[:google][:key].should == 'google_12345'
+      DummyForInit.analytical_options[:kiss_metrics][:key].should == 'kiss_metrics_12345'
+      DummyForInit.analytical_options[:clicky][:key].should == 'clicky_12345'
+      DummyForInit.analytical_options[:chartbeat][:key].should == 'chartbeat_12345'
+      DummyForInit.analytical_options[:chartbeat][:domain].should == 'your.domain.com'
     end
 
     it 'should allow for module-specific controller overrides' do
       DummyForInit.analytical :google=>{:key=>'override_google_key'}
-      DummyForInit.analytical_options[:google].should == {:key=>'override_google_key'}
+      DummyForInit.analytical_options[:google][:key].should == 'override_google_key'
     end
 
     describe 'in production mode' do
