@@ -17,6 +17,7 @@ module Analytical
             _gaq.push(['_setAccount', '#{options[:key]}']);
             #{"_gaq.push(['_setDomainName', '#{options[:domain]}']);" if options[:domain]}
             #{"_gaq.push(['_setAllowLinker', true]);" if options[:allow_linker]}
+            #{"_gaq.push(['_setSiteSpeedSampleRate', #{options[:sample_rate]}]);" if options[:sample_rate]}
             _gaq.push(['_trackPageview']);
             (function() {
               var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
