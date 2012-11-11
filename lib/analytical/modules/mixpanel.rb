@@ -12,14 +12,18 @@ module Analytical
         init_location(location) do
           js = <<-HTML
           <!-- Analytical Init: Mixpanel -->
-          <script type="text/javascript" src="https://api.mixpanel.com/site_media/js/api/mixpanel.js"></script>
           <script type="text/javascript">
-              try {
-                  var mpmetrics = new MixpanelLib('#{options[:key]}');
-              } catch(err) {
-                  null_fn = function () {};
-                  var mpmetrics = { track: null_fn, track_funnel: null_fn, register: null_fn, register_once: null_fn };
-              }
+            (function(c,a){window.mixpanel=a;var b,d,h,e;b=c.createElement("script");
+            b.type="text/javascript";b.async=!0;b.src=("https:"===c.location.protocol?"https:":"http:")+
+            '//cdn.mxpnl.com/libs/mixpanel-2.1.min.js';d=c.getElementsByTagName("script")[0];
+            d.parentNode.insertBefore(b,d);a._i=[];a.init=function(b,c,f){function d(a,b){
+            var c=b.split(".");2==c.length&&(a=a[c[0]],b=c[1]);a[b]=function(){a.push([b].concat(
+            Array.prototype.slice.call(arguments,0)))}}var g=a;"undefined"!==typeof f?g=a[f]=[]:
+            f="mixpanel";g.people=g.people||[];h=['disable','track','track_pageview','track_links',
+            'track_forms','register','register_once','unregister','identify','name_tag',
+            'set_config','people.identify','people.set','people.increment'];for(e=0;e<h.length;e++)d(g,h[e]);
+            a._i.push([b,c,f])};a.__SV=1.1;})(document,window.mixpanel||[]);
+            mixpanel.init("#{options[:key]}");
           </script>
           HTML
           js
@@ -28,23 +32,23 @@ module Analytical
 
       def track(event, properties = {})
         callback = properties.delete(:callback) || "function(){}"
-        %(mpmetrics.track("#{event}", #{properties.to_json}, #{callback});)
+        %(mixpanel.track("#{event}", #{properties.to_json}, #{callback});)
       end
 
       # Used to set "Super Properties" - http://mixpanel.com/api/docs/guides/super-properties
       def set(properties)
-        "mpmetrics.register(#{properties.to_json});"
+        "mixpanel.register(#{properties.to_json});"
       end
 
       def identify(id, *args)
         opts = args.first || {}
         name = opts.is_a?(Hash) ? opts[:name] : ""
-        name_str = name.blank? ? "" : " mpmetrics.name_tag('#{name}');"
-        %(mpmetrics.identify('#{id}');#{name_str})
+        name_str = name.blank? ? "" : " mixpanel.name_tag('#{name}');"
+        %(mixpanel.identify('#{id}');#{name_str})
       end
 
       def event(name, attributes = {})
-        %(mpmetrics.track("#{name}", #{attributes.to_json});)
+        %(mixpanel.track("#{name}", #{attributes.to_json});)
       end
 
     end
