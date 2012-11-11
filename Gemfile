@@ -13,6 +13,6 @@ group :development, :test do
   gem 'diff-lcs'
   gem 'guard'
   gem 'guard-rspec'
-  gem 'rb-fsevent'
+  gem 'rb-fsevent', ">= 0.9.2"
   gem 'growl'
 end

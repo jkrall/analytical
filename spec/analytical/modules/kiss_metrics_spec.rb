@@ -19,6 +19,10 @@ describe "Analytical::Modules::KissMetrics" do
       @api = Analytical::Modules::KissMetrics.new :parent=>@parent, :js_url_key=>'abcdef'
       @api.identify('id', {:email=>'test@test.com'}).should == "_kmq.push([\"identify\", \"test@test.com\"]);"
     end
+    it 'uses the id parameter when the email parameter is not present' do
+      @api = Analytical::Modules::KissMetrics.new :parent=>@parent, :js_url_key=>'abcdef'
+      @api.identify('id').should == "_kmq.push([\"identify\", \"id\"]);"
+    end
   end
   describe '#event' do
     it 'should return a js string' do
