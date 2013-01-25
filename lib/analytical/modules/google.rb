@@ -31,7 +31,7 @@ module Analytical
 
       def event(*args) # name, options, callback
         <<-JS.gsub(/^ {10}/, '')
-          _gaq.push(['_trackEvent', 'Event', name, options && options.value]);
+          _gaq.push(['_trackEvent', 'Event', name, '', options && options.value]);
         JS
       end
 
