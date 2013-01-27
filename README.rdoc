@@ -73,7 +73,7 @@ Note the example above also includes an identify() command that will apply to ev
 You can sprinkle the track() and event() tracking methods throughout your views & controllers as needed.
 
     analytical.track '/a/really/nice/url'
-    analytical.event 'Some Awesome Event', :property_name=>:value
+    analytical.event 'Some Awesome Event', data = {}
 
 It's possible to conditionally disable analytics by specifying a `disable_if` method.
 
