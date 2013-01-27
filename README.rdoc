@@ -40,7 +40,7 @@ Add a configuration file (config/analytical.yml) to declare your API keys, like 
    development:
    test:
 
-You can add different configurations for different environments. 
+You can add different configurations for different environments.
 
 By default, all the declared analytics modules are loaded. You can override this behavior in the controller.
 
@@ -73,7 +73,7 @@ Note the example above also includes an identify() command that will apply to ev
 You can sprinkle the track() and event() tracking methods throughout your views & controllers as needed.
 
     analytical.track '/a/really/nice/url'
-    analytical.event 'Some Awesome Event', :with=>:data
+    analytical.event 'Some Awesome Event', :property_name=>:value
 
 It's possible to conditionally disable analytics by specifying a `disable_if` method.
 
