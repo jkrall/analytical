@@ -82,7 +82,7 @@ module Analytical
 
       if options[:javascript_helpers]
         if Gem::Version.new(::Rails::VERSION::STRING) >= Gem::Version.new('3.1.0')  # Rails 3.1 lets us override views in engines
-          js << options[:controller].send(:render_to_string, :partial=>'analytical_javascript') if options[:controller]
+          js << options[:controller].send(:render_to_string, :partial=>'analytical_javascript', :formats => [:html], :handlers => [:erb]) if options[:controller]
         else # All other rails
           _partial_path = Pathname.new(__FILE__).dirname.join('..', '..', 'app/views/application', '_analytical_javascript.html.erb').to_s
           js << options[:controller].send(:render_to_string, :file=>_partial_path, :layout=>false) if options[:controller]
