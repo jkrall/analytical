@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ruby_string="ruby-1.8.7-p174"
-gemset_name="analytical"
+gemset_name="analytical_2"
 
 if rvm list strings | grep -q "${ruby_string}" ; then
 
@@ -10,15 +10,11 @@ if rvm list strings | grep -q "${ruby_string}" ; then
     && -s "${rvm_path:-$HOME/.rvm}/environments/${ruby_string}@${gemset_name}" ]] ; then
     \. "${rvm_path:-$HOME/.rvm}/environments/${ruby_string}@${gemset_name}"
   else
-    rvm --create  "${ruby_string}@${gemset_name}"
+    rvm use "${ruby_string}@${gemset_name}" --create
+    gem install bundler
   fi
 
   (
-    # Ensure that Bundler is installed, install it if it is not.
-    if ! command -v bundle ; then
-      gem install bundler
-    fi
-
     # Bundle while redcing excess noise.
     bundle | grep -v 'Using' | grep -v 'complete' | sed '/^$/d'
   )&
