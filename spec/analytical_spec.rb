@@ -30,6 +30,19 @@ describe "Analytical" do
       d.options[:string_option].should == "string"
     end
 
+    it 'should load modules from lambda when dynamic_modules option is set' do
+      class DummyForInit
+        def analytical_modules
+          { :console => { :some_key => 'rubberduck' } }
+        end
+      end
+      options = { :dynamic_modules => lambda { |controller| controller.analytical_modules }}
+      DummyForInit.analytical options
+      a = DummyForInit.new.analytical
+      a.options[:modules].should include(:console)
+      a.options[:console].should eq({ :some_key => 'rubberduck' })
+    end
+
     it 'should preserve :javascript_helpers option' do
       options = { :javascript_helpers => false, :modules => [] }
       DummyForInit.analytical options
