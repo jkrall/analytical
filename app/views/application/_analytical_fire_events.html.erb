@@ -2,7 +2,7 @@
 var commands;
 
 try {
-  commands = $.parseJSON(($.cookie('analytical') || '').replace(/\+/g, ' ')) || [];
+  commands = $.parseJSON(decodeURIComponent(($.cookie('analytical') || '').replace(/\+/g, '%20'))) || [];
 } catch(e) {
   commands = [];
 }
