@@ -15,8 +15,8 @@ describe "Analytical" do
 
       def self.helper_method(*a); end
       def request
-        RSpec::Mocks::Mock.new 'request', 
-          :'ssl?'=>true, 
+        RSpec::Mocks::Mock.new 'request',
+          :'ssl?'=>true,
           :user_agent=>'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3 GTB7.0'
       end
     end
@@ -30,13 +30,21 @@ describe "Analytical" do
       d.options[:string_option].should == "string"
     end
 
-    it 'should load modules from lambda when dynamic_modules option is set' do
+    it 'should load module configurations from hash' do
+      options = { :modules => { :console => { :some_key => 'rubberduck' } }}
+      DummyForInit.analytical options
+      a = DummyForInit.new.analytical
+      a.options[:modules].should include(:console)
+      a.options[:console].should eq({ :some_key => 'rubberduck' })
+    end
+
+    it 'should load module configurations from a lambda' do
       class DummyForInit
         def analytical_modules
           { :console => { :some_key => 'rubberduck' } }
         end
       end
-      options = { :dynamic_modules => lambda { |controller| controller.analytical_modules }}
+      options = { :modules => lambda { |controller| controller.analytical_modules }}
       DummyForInit.analytical options
       a = DummyForInit.new.analytical
       a.options[:modules].should include(:console)
@@ -55,12 +63,12 @@ describe "Analytical" do
       d = DummyForInit.new.analytical
       d.options[:modules].should == [:google]
     end
-    
+
     describe 'conditionally disabled' do
       it 'should set the modules to []' do
         DummyForInit.analytical :disable_if => lambda { |x| true }
         d = DummyForInit.new
-        d.analytical.options[:modules].should == []        
+        d.analytical.options[:modules].should == []
       end
     end
 
