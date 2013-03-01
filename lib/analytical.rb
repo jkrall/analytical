@@ -36,12 +36,14 @@ module Analytical
           :ssl => request.ssl?,
           :controller => self,
         })
-        if options[:dynamic_modules]
-          modules = options[:dynamic_modules].call(self)
-          modules.each do |k,v|
+        if options[:modules] && (options[:modules].is_a?(Hash) || options[:modules].is_a?(Proc))
+          items = options[:modules].is_a?(Hash) ? options[:modules] : options[:modules].call(self)
+          modules = []
+          items.each do |k,v|
             options[k.to_sym] = v.symbolize_keys
-            options[:modules] << k.to_sym
+            modules << k.to_sym
           end
+          options[:modules] = modules
         end
         if options[:disable_if] && options[:disable_if].call(self)
           options[:modules] = []
