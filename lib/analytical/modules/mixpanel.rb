@@ -30,10 +30,40 @@ module Analytical
         end
       end
 
-      def track(event, properties = {})
+      
+      # Examples:
+      #     analytical.track(url_viewed)
+      #     analytical.track(url_viewed, 'page name' => @page_title)
+      #     analytical.track(url_viewed, :event => 'pageview')
+      #
+      # By default, this module tracks all pageviews under a single Mixpanel event
+      # named 'page viewed'. This follows a recommendation in the Mixpanel docs for
+      # minimizing the number of distinct events you log, thus keeping your event data uncluttered.
+      #
+      # The url is followed by a Hash parameter that contains any other custom properties 
+      # you want logged along with the pageview event. The following Hash keys get special treatment:
+      # * :callback => String representing javascript function to callback
+      # * :event => overrides the default event name for pageviews
+      # * :url => gets assigned the url you pass in
+      #
+      # Mixpanel docs also recommend specifying a 'page name' property when tracking pageviews.
+      #
+      # To turn off pageview tracking for Mixpanel entirely, initialize analytical as follows: 
+      #        analytical( ... mixpanel: { key: ENV['MIXPANEL_KEY'], track: false } ... )
+      def track(*args)
+        return if args.empty?
+        url = args.first
+        properties = args.extract_options!
         callback = properties.delete(:callback) || "function(){}"
-        %(mixpanel.track("#{event}", #{properties.to_json}, #{callback});)
+        event = properties.delete(:event) || 'page viewed'
+        if options[:track] != false
+          properties[:url] = url
+          # Docs recommend: mixpanel.track('page viewed', {'page name' : document.title, 'url' : window.location.pathname});
+          %(mixpanel.track("#{event}", #{properties.to_json}, #{callback});)
+        end          
       end
+
+
 
       # Used to set "Super Properties" - http://mixpanel.com/api/docs/guides/super-properties
       def set(properties)
