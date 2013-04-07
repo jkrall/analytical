@@ -1,7 +1,10 @@
 = Analytical
-{<img src="https://secure.travis-ci.org/jkrall/analytical.png" />}[http://travis-ci.org/jkrall/analytical]
 
 Gem for managing multiple analytics services in your rails app.
+
+=== NOTE:  This gem is looking for a new maintainer, or some help from a committed user.  I haven't had enough time in a while to test & merge pull-requests, and I would love some help from anyone who is interested in picking it up.
+
+{<img src="https://secure.travis-ci.org/jkrall/analytical.png" />}[http://travis-ci.org/jkrall/analytical]
 
 Service implementations include:
 * Google Analytics
@@ -20,6 +23,7 @@ Service implementations include:
 * Quantcast[http://www.quantcast.com]
 * MixPanel[http://www.mixpanel.com]
 * Gauges[http://get.gaug.es]
+* Segment.io[http://segment.io]
 
 == Usage
 
@@ -37,7 +41,7 @@ Add a configuration file (config/analytical.yml) to declare your API keys, like 
    development:
    test:
 
-You can add different configurations for different environments. 
+You can add different configurations for different environments.
 
 By default, all the declared analytics modules are loaded. You can override this behavior in the controller.
 
@@ -88,6 +92,29 @@ This can be useful for enabling the console logger optionally in your app, based
       controller.use_console_logger? ? [:console] : modules
     }
 
+You can also configure modules in the controller by passing a hash to the :modules option
+
+    analytical :modules => { :google => { key: 'UA-5555555-5' } }
+
+Finally it is also possible to dynamically specify what modules to use and their configurations, which can come in handy if your site uses multi-tenancy, where every tenant might not wish to use the same modules or configurations for each module.
+
+    analytical :modules => lambda{ |controller| controller.analytical_modules }
+
+In this case we would then implement a method in the controller that could look like this:
+
+    def analytical_modules
+      case current_tenant.name.parameterize
+      when "site-1"
+        {
+          :google => { key: 'UA-5555555-5' }
+        }
+      when "site-2"
+        {
+          :google => { key: 'UA-1111111-1' }
+        }
+      end
+    end
+    hide_action :analytical_modules
 
 == Adding new modules
 
@@ -148,6 +175,7 @@ These fine folks have contributed patches and new features to this project:
 * {Kurt Werle}[http://github.com/kwerle]
 * {Olivier Lauzon}[http://github.com/olauzon]
 * {Chris Ricca}[https://github.com/ChrisRicca]
+* {Thomas Dippel}[https://github.com/dipth]
 
 Thanks guys!
 

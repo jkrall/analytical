@@ -15,8 +15,8 @@ describe "Analytical" do
 
       def self.helper_method(*a); end
       def request
-        RSpec::Mocks::Mock.new 'request', 
-          :'ssl?'=>true, 
+        RSpec::Mocks::Mock.new 'request',
+          :'ssl?'=>true,
           :user_agent=>'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3 GTB7.0'
       end
     end
@@ -28,6 +28,27 @@ describe "Analytical" do
       d.options[:true_option].should be_true
       d.options[:false_option].should be_false
       d.options[:string_option].should == "string"
+    end
+
+    it 'should load module configurations from hash' do
+      options = { :modules => { :console => { :some_key => 'rubberduck' } }}
+      DummyForInit.analytical options
+      a = DummyForInit.new.analytical
+      a.options[:modules].should include(:console)
+      a.options[:console].should eq({ :some_key => 'rubberduck' })
+    end
+
+    it 'should load module configurations from a lambda' do
+      class DummyForInit
+        def analytical_modules
+          { :console => { :some_key => 'rubberduck' } }
+        end
+      end
+      options = { :modules => lambda { |controller| controller.analytical_modules }}
+      DummyForInit.analytical options
+      a = DummyForInit.new.analytical
+      a.options[:modules].should include(:console)
+      a.options[:console].should eq({ :some_key => 'rubberduck' })
     end
 
     it 'should preserve :javascript_helpers option' do
@@ -42,12 +63,12 @@ describe "Analytical" do
       d = DummyForInit.new.analytical
       d.options[:modules].should == [:google]
     end
-    
+
     describe 'conditionally disabled' do
       it 'should set the modules to []' do
         DummyForInit.analytical :disable_if => lambda { |x| true }
         d = DummyForInit.new
-        d.analytical.options[:modules].should == []        
+        d.analytical.options[:modules].should == []
       end
     end
 
@@ -69,7 +90,7 @@ describe "Analytical" do
     end
 
     it 'should open the initialization file' do
-      FileTest.should_receive(:'exist?').with("#{Rails.root}/config/analytical.yml").and_return(true)
+      File.should_receive(:'exists?').with("#{Rails.root}/config/analytical.yml").and_return(true)
       DummyForInit.analytical
       DummyForInit.analytical_options[:google][:key].should == 'google_12345'
       DummyForInit.analytical_options[:kiss_metrics][:key].should == 'kiss_metrics_12345'
