@@ -27,12 +27,21 @@ describe "Analytical::Modules::Mixpanel" do
   describe '#track' do
     it 'should return the tracking javascript' do
       @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :key=>'abcdef'
-      @api.track('pagename', {:some=>'data'}).should == "mixpanel.track(\"pagename\", {\"some\":\"data\"}, function(){});"
+      @api.track('pagename', {'page title'=>'lovely day'}).should == "mixpanel.track(\"page viewed\", {\"url\":\"pagename\",\"page title\":\"lovely day\"}, function(){});"
     end
     it 'should return the tracking javascript with a callback' do
       @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :key=>'abcdef'
-      @api.track('pagename', {:some=>'data', :callback=>'fubar'}).should == "mixpanel.track(\"pagename\", {\"some\":\"data\"}, fubar);"
+      @api.track('pagename', {'page title'=>'lovely day', :callback=>'fubar'}).should == "mixpanel.track(\"page viewed\", {\"url\":\"pagename\",\"page title\":\"lovely day\"}, fubar);"
     end
+    it 'should return the tracking javascript with a custom event name' do
+      @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :key=>'abcdef'
+      @api.track('pagename', {:event=>'virtual pageview'}).should == "mixpanel.track(\"virtual pageview\", {\"url\":\"pagename\"}, function(){});"
+    end
+    it 'should return nil when Mixpanel pageview tracking is disabled' do
+      @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :key=>'abcdef', :track => false
+      @api.track('pagename', {'page title'=>'lovely day', :callback=>'fubar'}).should be_nil
+    end
+
   end
   describe '#event' do
     it 'should return a js string' do
