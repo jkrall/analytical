@@ -49,6 +49,48 @@ describe "Analytical::Modules::Mixpanel" do
       @api.event('An event happened', { :item => 43 }).should == "mixpanel.track(\"An event happened\", {\"item\":43});"
     end
   end
+  describe '#alias_identity' do
+    it 'should return a js string' do
+      @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :js_url_key=>'abcdef'
+      @api.alias_identity(nil, 'new identity').should == "mixpanel.alias(\"new identity\");"
+    end
+    it 'ignores the first parameter' do
+      @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :js_url_key=>'abcdef'
+      @api.alias_identity('foo', 'new identity').should == "mixpanel.alias(\"new identity\");"
+    end
+  end
+
+  describe '#queue' do
+    before(:each) do
+      @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :js_url_key=>'abcdef'
+      @api.command_store.commands = [:a, :b, :c]
+    end
+    describe 'with an alias_identity command' do
+      it 'should store it at the head of the command list' do
+        @api.queue :identify, 'someone', {:some=>:args}
+        @api.queue :alias_identity, 'someone new'
+        @api.command_store.commands.should == [[:alias_identity, 'someone new'], [:identify, 'someone', {:some=>:args}], :a, :b, :c]
+      end
+    end
+    describe 'with an identify command' do
+      it 'should store it at the head of the command list' do
+        @api.queue :identify, 'someone', {:some=>:args}
+        @api.command_store.commands.should == [[:identify, 'someone', {:some=>:args}], :a, :b, :c]
+      end
+      it 'should ignore it if head of queue is :alias_identity' do
+        @api.queue :alias_identity, 'someone new'
+        @api.queue :identify, 'someone', {:some=>:args}
+        @api.command_store.commands.should == [[:alias_identity, 'someone new'], :a, :b, :c]
+      end
+    end
+    describe 'with any other command' do
+      it 'should store it at the end of the command list' do
+        @api.queue :other, {:some=>:args}
+        @api.command_store.commands.should == [:a, :b, :c, [:other, {:some=>:args}]]
+      end
+    end
+  end
+
   describe '#init_javascript' do
     it 'should return the init javascript' do
       @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :key=>'abcdef'

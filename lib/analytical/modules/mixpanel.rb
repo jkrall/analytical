@@ -8,6 +8,24 @@ module Analytical
         @tracking_command_location = :body_append
       end
 
+      # Mixpanel-specific queueing behavior, overrides Base#queue
+      def queue(*args)
+        return if @options[:ignore_duplicates] && @command_store.include?(args)
+        if args.first==:alias_identity
+          @command_store.unshift args
+        elsif args.first==:identify
+          if @command_store.empty?
+            @command_store.unshift args
+          else
+            first_command = @command_store.first
+            first_command = first_command.first if first_command.respond_to?(:first)
+            @command_store.unshift args unless first_command == :alias_identity
+          end
+        else
+          @command_store << args
+        end
+      end
+
       def init_javascript(location)
         init_location(location) do
           js = <<-HTML
@@ -75,6 +93,14 @@ module Analytical
         name = opts.is_a?(Hash) ? opts[:name] : ""
         name_str = name.blank? ? "" : " mixpanel.name_tag('#{name}');"
         %(mixpanel.identify('#{id}');#{name_str})
+      end
+
+      # See https://mixpanel.com/docs/integration-libraries/using-mixpanel-alias
+      # For consistency with KissMetrics this method accepts two parameters.
+      # However, the first parameter is ignored because Mixpanel doesn't need it;
+      # pass any value for the first parameter, e.g. nil.
+      def alias_identity(_, new_identity)
+        %(mixpanel.alias("#{new_identity}");)
       end
 
       def event(name, attributes = {})
