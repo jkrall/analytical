@@ -1,4 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'json'
 
 describe "Analytical::Modules::Mixpanel" do
   before(:each) do
@@ -27,11 +28,19 @@ describe "Analytical::Modules::Mixpanel" do
   describe '#track' do
     it 'should return the tracking javascript' do
       @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :key=>'abcdef'
-      @api.track('pagename', {'page title'=>'lovely day'}).should == "mixpanel.track(\"page viewed\", {\"url\":\"pagename\",\"page title\":\"lovely day\"}, function(){});"
+      result = @api.track('pagename', {'page title'=>'lovely day'})
+      match = result.match /mixpanel.track\("page viewed", \{(.+)\}, function\(\)\{\}/ 
+      match.should_not be_nil
+      # parse the JSON to work around varying order of key/value pairs in analytical's result string
+      JSON.parse("{#{ match[1] }}").should == { 'url' => 'pagename', 'page title' => 'lovely day'}
     end
     it 'should return the tracking javascript with a callback' do
       @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :key=>'abcdef'
-      @api.track('pagename', {'page title'=>'lovely day', :callback=>'fubar'}).should == "mixpanel.track(\"page viewed\", {\"url\":\"pagename\",\"page title\":\"lovely day\"}, fubar);"
+      result = @api.track('pagename', {'page title'=>'lovely day', :callback=>'fubar'})
+      match = result.match /mixpanel.track\("page viewed", \{(.+)\}, fubar\);/ 
+      match.should_not be_nil
+      # parse the JSON to work around varying order of key/value pairs in analytical's result string
+      JSON.parse("{#{ match[1] }}").should == { 'url' => 'pagename', 'page title' => 'lovely day'}
     end
     it 'should return the tracking javascript with a custom event name' do
       @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :key=>'abcdef'
