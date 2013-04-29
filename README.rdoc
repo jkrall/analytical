@@ -175,6 +175,7 @@ These fine folks have contributed patches and new features to this project:
 * {Kurt Werle}[http://github.com/kwerle]
 * {Olivier Lauzon}[http://github.com/olauzon]
 * {Chris Ricca}[https://github.com/ChrisRicca]
+* {Rajiv Aaron Manglani}[https://github.com/rajiv]
 * {Thomas Dippel}[https://github.com/dipth]
 
 Thanks guys!
