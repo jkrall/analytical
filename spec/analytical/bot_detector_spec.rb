@@ -20,5 +20,15 @@ describe "Analytical::BotDetector" do
     end
   end
   
+  describe 'with whitelist user_agent' do
+    it 'should return false' do
+      @d.analytical_is_robot?('whitelist', ['whitelist']).should be_false
+    end
+  end
 
+  describe 'with whitelist user_agent' do
+    it 'should return true' do
+      @d.analytical_is_robot?('whitelist').should be_true
+    end
+  end
 end
