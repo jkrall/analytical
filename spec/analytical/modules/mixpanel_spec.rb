@@ -68,6 +68,20 @@ describe "Analytical::Modules::Mixpanel" do
       @api.alias_identity('foo', 'new identity').should == "mixpanel.alias(\"new identity\");"
     end
   end
+  
+  describe '#person' do
+    it 'should return a js string' do
+      @api = Analytical::Modules::Mixpanel.new :parent => @parent, :js_url_key => 'abcdef'
+      @api.person({ :name => 'P. Dummy', :email => 'p.dummy@ask.com' }).should == "mixpanel.people.set({\"name\":\"P. Dummy\",\"email\":\"p.dummy@ask.com\"});"
+    end
+  end
+  
+  describe '#revenue' do
+    it 'should return a js string' do
+      @api = Analytical::Modules::Mixpanel.new :parent => @parent, :js_url_key => 'abcdef'
+      @api.revenue(100, { :product => 'Book' }).should == "mixpanel.people.track_charge(100, {\"product\":\"Book\"});"
+    end
+  end
 
   describe '#queue' do
     before(:each) do
