@@ -81,8 +81,6 @@ module Analytical
         end          
       end
 
-
-
       # Used to set "Super Properties" - http://mixpanel.com/api/docs/guides/super-properties
       def set(properties)
         "mixpanel.register(#{properties.to_json});"
@@ -105,6 +103,14 @@ module Analytical
 
       def event(name, attributes = {})
         %(mixpanel.track("#{name}", #{attributes.to_json});)
+      end
+      
+      def person(attributes = {})
+        %(mixpanel.people.set(#{attributes.to_json});)
+      end
+      
+      def revenue(charge, attributes = {})
+        %(mixpanel.people.track_charge(#{charge}, #{attributes.to_json});)
       end
 
     end
