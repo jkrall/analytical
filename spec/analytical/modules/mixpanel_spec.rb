@@ -47,7 +47,7 @@ describe "Analytical::Modules::Mixpanel" do
       @api.track('pagename', {:event=>'virtual pageview'}).should == "mixpanel.track(\"virtual pageview\", {\"url\":\"pagename\"}, function(){});"
     end
     it 'should return nil when Mixpanel pageview tracking is disabled' do
-      @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :key=>'abcdef', :track => false
+      @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :key=>'abcdef', :track_pageview => false
       @api.track('pagename', {'page title'=>'lovely day', :callback=>'fubar'}).should be_nil
     end
 
@@ -121,8 +121,14 @@ describe "Analytical::Modules::Mixpanel" do
       @api.init_javascript(:head_append).should == ''
       @api.init_javascript(:body_prepend).should == ''
       @api.init_javascript(:body_append).should =~ %r(cdn\.mxpnl\.com\/libs/mixpanel-2\.2\.min\.js)
-      @api.init_javascript(:body_append).should =~ %r(mixpanel\.init\("abcdef"\))
+      @api.init_javascript(:body_append).should =~ %r(var config = { track_pageview: true };)
+      @api.init_javascript(:body_append).should =~ %r(mixpanel\.init\("abcdef"\, config)
       @api.init_javascript(:body_append).should =~ %r(<script type="text\/javascript">)
+    end
+    
+    context 'with track set to false' do
+      @api = Analytical::Modules::Mixpanel.new :parent=>@parent, :key=>'abcdef', :track_pageview => false
+      @api.init_javascript(:body_append).should =~ %r(var config = { track_pageview: false };)
     end
   end
 end
