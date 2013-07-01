@@ -41,7 +41,7 @@ module Analytical
             'track_forms','register','register_once','unregister','identify','alias','name_tag',
             'set_config','people.set','people.increment','people.track_charge','people.append'];
             for(e=0;e<h.length;e++)d(g,h[e]);a._i.push([b,c,f])};a.__SV=1.2;})(document,window.mixpanel||[]);
-            var config = { track_pageview: #{options.fetch(:track, true)} };
+            var config = { track_pageview: #{options.fetch(:track_pageview, true)} };
             mixpanel.init("#{options[:key]}", config);
           </script>
           HTML
@@ -68,14 +68,14 @@ module Analytical
       # Mixpanel docs also recommend specifying a 'page name' property when tracking pageviews.
       #
       # To turn off pageview tracking for Mixpanel entirely, initialize analytical as follows: 
-      #        analytical( ... mixpanel: { key: ENV['MIXPANEL_KEY'], track: false } ... )
+      #        analytical( ... mixpanel: { key: ENV['MIXPANEL_KEY'], track_pageview: false } ... )
       def track(*args)
         return if args.empty?
         url = args.first
         properties = args.extract_options!
         callback = properties.delete(:callback) || "function(){}"
         event = properties.delete(:event) || 'page viewed'
-        if options[:track] != false
+        if options[:track_pageview] != false
           properties[:url] = url
           # Docs recommend: mixpanel.track('page viewed', {'page name' : document.title, 'url' : window.location.pathname});
           %(mixpanel.track("#{event}", #{properties.to_json}, #{callback});)
