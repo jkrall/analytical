@@ -24,6 +24,7 @@ Service implementations include:
 * MixPanel[http://www.mixpanel.com]
 * Gauges[http://get.gaug.es]
 * Segment.io[http://segment.io]
+* Mouseflow[http://mouseflow.com]
 
 == Usage
 
