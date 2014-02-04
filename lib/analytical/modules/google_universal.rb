@@ -27,6 +27,12 @@ module Analytical
         end
       end
 
+      def event(name, *args)
+        data = args.first || {}
+        data = data[:value] if data.is_a?(Hash)
+        data_string = !data.nil? ? ", #{data}" : ""
+        "ga('send', 'event', 'Event', '#{name}' #{data_string});"
+      end
     end
   end
 end
