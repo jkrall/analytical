@@ -17,19 +17,19 @@ describe "Analytical::Modules::GoogleUniveresal" do
   describe '#event' do
     it 'should return the event javascript' do
       @api = Analytical::Modules::GoogleUniversal.new :parent=>@parent, :key=>'abcdef'
-      @api.event('pagename').should ==  "ga('send', 'event', 'Event', 'pagename' );"
+      @api.event('pagename').should ==  "ga('send', 'event', \"Event\", \"pagename\");"
     end
     it 'should include data value' do
       @api = Analytical::Modules::GoogleUniversal.new :parent=>@parent, :key=>'abcdef'
-      @api.event('pagename', {:value=>555, :more=>'info'}).should ==  "ga('send', 'event', 'Event', 'pagename' , 555);"
+      @api.event('pagename', {:value=>555, :more=>'info'}).should ==  "ga('send', 'event', \"Event\", \"pagename\", 555);"
     end
     it 'should not include data if there is no value' do
       @api = Analytical::Modules::GoogleUniversal.new :parent=>@parent, :key=>'abcdef'
-      @api.event('pagename', {:more=>'info'}).should ==  "ga('send', 'event', 'Event', 'pagename' );"
+      @api.event('pagename', {:more=>'info'}).should ==  "ga('send', 'event', \"Event\", \"pagename\");"
     end
     it 'should not include data if it is not a hash' do
       @api = Analytical::Modules::GoogleUniversal.new :parent=>@parent, :key=>'abcdef'
-      @api.event('pagename', 555).should ==  "ga('send', 'event', 'Event', 'pagename' , 555);"
+      @api.event('pagename', 555).should ==  "ga('send', 'event', \"Event\", \"pagename\", 555);"
     end
   end
 end
