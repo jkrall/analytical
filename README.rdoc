@@ -2,8 +2,6 @@
 
 Gem for managing multiple analytics services in your rails app.
 
-=== NOTE:  This gem is looking for a new maintainer, or some help from a committed user.  I haven't had enough time in a while to test & merge pull-requests, and I would love some help from anyone who is interested in picking it up.
-
 {<img src="https://secure.travis-ci.org/jkrall/analytical.png" />}[http://travis-ci.org/jkrall/analytical]
 
 Service implementations include:
