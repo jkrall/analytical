@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-describe "Analytical::Modules::GoogleUniveresal" do
+describe "Analytical::Modules::GoogleUniversal" do
   before(:each) do
     @parent = mock('api', :options=>{:google=>{:key=>'abc'}})
   end
