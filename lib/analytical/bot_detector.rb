@@ -1,7 +1,9 @@
 module Analytical
   module BotDetector
 
-    def analytical_is_robot?(user_agent)
+    def analytical_is_robot?(user_agent, whitelist = [])
+      whitelist = Array(whitelist)
+
       unless user_agent.blank?
         user_agent = user_agent.to_s.downcase
 
@@ -11,7 +13,7 @@ module Analytical
         # information. Finally anything that starts with a word in the $whitelist
         # is never considered a bot.
 
-        whitelist = %w(w3m dillo links elinks lynx)
+        whitelist.concat %w(w3m dillo links elinks lynx)
         whitelist.each do |word|
           return false if user_agent.index(word) == 0
         end

@@ -108,5 +108,13 @@ describe "Analytical::Modules::Google" do
       @api.init_javascript(:body_prepend).should == ''
       @api.init_javascript(:body_append).should == ''
     end
+
+    it 'should include enhanced link attribution code if required' do
+      @api = Analytical::Modules::Google.new :parent=>@parent, :key=>'abcdef', :enhanced_link_attribution => true
+      @api.init_javascript(:head_append).should =~ /plugins\/ga\/inpage_linkid\.js/
+
+      @api = Analytical::Modules::Google.new :parent=>@parent, :key=>'abcdef', :enhanced_link_attribution => false
+      @api.init_javascript(:head_append).should_not =~ /plugins\/ga\/inpage_linkid\.js/
+    end
   end
 end
