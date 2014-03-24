@@ -20,7 +20,8 @@ describe "Analytical::Modules::Chartbeat" do
       @api.init_javascript(:head_prepend).should =~ /_sf_startpt=\(new.Date\(\)\)\.getTime\(\);/
       @api.init_javascript(:head_append).should == ''
       @api.init_javascript(:body_prepend).should == ''
-      @api.init_javascript(:body_append).should =~ /_sf_async_config=\{uid:12345,.*domain:"abcdef\.com"\};/
+      @api.init_javascript(:body_append).should =~ /_sf_async_config.uid = 12345;/
+      @api.init_javascript(:body_append).should =~ /_sf_async_config.domain = 'abcdef\.com';/
     end
   end
 end
