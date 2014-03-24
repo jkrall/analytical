@@ -21,16 +21,18 @@ module Analytical
             js = <<-HTML
             <!-- Analytical Body Init: Chartbeat -->
             <script type="text/javascript">
-              var _sf_async_config={uid:#{options[:key]}, domain:"#{options[:domain]}"};
+              var _sf_async_config={};
+              /** CONFIGURATION START **/
+              _sf_async_config.uid = #{options[:key]};
+              _sf_async_config.domain = '#{options[:domain]}';
+              /** CONFIGURATION END **/
               (function(){
                 function loadChartbeat() {
                   window._sf_endpt=(new Date()).getTime();
                   var e = document.createElement('script');
                   e.setAttribute('language', 'javascript');
                   e.setAttribute('type', 'text/javascript');
-                  e.setAttribute('src',
-                     (("https:" == document.location.protocol) ? "https://s3.amazonaws.com/" : "http://") +
-                     "static.chartbeat.com/js/chartbeat.js");
+                  e.setAttribute('src', '//static.chartbeat.com/js/chartbeat.js');
                   document.body.appendChild(e);
                 }
                 var oldonload = window.onload;
