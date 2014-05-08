@@ -42,6 +42,16 @@ module Analytical
         JS
       end
 
+      # See https://mixpanel.com/docs/integration-libraries/using-mixpanel-alias
+      # For consistency with KissMetrics this method accepts two parameters.
+      # However, the first parameter is ignored because Mixpanel doesn't need it;
+      # pass any value for the first parameter, e.g. nil.
+      def alias_identity(*args) # old_identity, new_identity
+        <<-JS.gsub(/^ {10}/, '')
+          mixpanel.alias(new_identity);
+        JS
+      end
+
       def event(*args) # name, options, callback
         <<-JS.gsub(/^ {10}/, '')
           mixpanel.track(name, options || {});
