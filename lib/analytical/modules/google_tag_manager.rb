@@ -9,7 +9,9 @@ module Analytical
           init_javascript: [:head_prepend, :body_prepend],
           event: :body_append,
           track: :body_append,
-          set: :head_append
+          set: :head_append,
+          track_page: :body_append,
+          key_interaction: :body_append
         }
       end
 
@@ -42,6 +44,10 @@ module Analytical
         end
       end
 
+      def track_page(page_name, page_type)
+        "dataLayer.push({ 'page_pageName': '#{page_name}', 'page_pageType': '#{page_type}'});"
+      end
+
       def track(*args)
         name = args.first;
         "dataLayer.push({ 'page_virtualName': \"#{name}\", 'event': 'gtm.view' });"
@@ -54,6 +60,12 @@ module Analytical
         dataLayerEventData['event'] = "#{name}";
         dataLayer.push(dataLayerEventData);
         HTML
+      end
+
+      def key_interaction(name, *args)
+        params = args.first || {}
+        params.merge({'interactionType' => name});
+        self.event('key interaction', params)
       end
 
       def set(data)
