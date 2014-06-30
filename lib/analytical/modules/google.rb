@@ -10,7 +10,7 @@ module Analytical
 
       def init_javascript(location)
         init_location(location) do
-          js = <<-HTML
+          js = <<-HTML.gsub(/^ {10}/, '')
           <!-- Analytical Init: Google -->
           <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
