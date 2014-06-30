@@ -18,7 +18,7 @@ module Analytical
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
             })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
             
-            ga('create', '#{options[:key]}', 'auto');
+            ga('create', '#{options[:key]}', 'auto');#{linkid}
             ga('send', 'pageview');
           </script>
           HTML
@@ -30,6 +30,12 @@ module Analytical
         <<-JS.gsub(/^ {10}/, '')
           ga('send', 'event', name, options && options.action, options && options.label, options && options.value);
         JS
+      end
+      
+      def linkid
+        if options[:linkid]
+          "\n  ga('require', 'linkid', 'linkid.js');"
+        end
       end
 
       # def track(*args)
