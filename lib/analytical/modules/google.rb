@@ -28,7 +28,7 @@ module Analytical
 
       def event(*args) # name, options, callback
         <<-JS.gsub(/^ {10}/, '')
-          ga('send', 'event', name, options && options.action, options && options.label, options && options.value);
+          ga('send', 'event', name, options && options.action || 'undefined', options && options.label, options && options.value);
         JS
       end
       
