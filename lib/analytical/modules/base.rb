@@ -49,20 +49,31 @@ module Analytical
           @command_store << args
         end
       end
-      def process_queued_commands
-        command_strings = @command_store.collect do |c|
-          send(*c) if respond_to?(c.first)
+
+      def process_queued_commands(location)
+        processed_commands = []
+        command_strings = @command_store.collect do |command|
+          command_name = command.first
+          next unless respond_to?(command_name) && command_location?(location, command_name)
+          processed_commands << command
+          send(*command)
         end.compact
-        @command_store.flush
+        @command_store.remove(processed_commands)
         command_strings
       end
 
-      def init_location?(location)
-        if @tracking_command_location.is_a?(Array)
-          @tracking_command_location.map { |item|item.to_sym }.include?(location.to_sym)
+      def command_location?(location, command)
+        @location = @tracking_command_location.is_a?(Hash) ?
+                      @tracking_command_location[command.to_sym] : @tracking_command_location
+        if @location.is_a?(Array)
+          @location.map { |l| l.to_sym }.include?(location.to_sym)
         else
-          @tracking_command_location.to_sym == location.to_sym
+          @location.to_sym == location.to_sym
         end
+      end
+
+      def init_location?(location)
+        command_location?(location, :init_javascript)
       end
 
       def init_location(location, &block)
