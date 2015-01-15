@@ -45,6 +45,15 @@ describe Analytical::SessionCommandStore do
         @session[:analytical_some_module].should == []
       end
     end
+
+    describe 'when removing' do
+      it 'removes only given commands' do
+        @store = Analytical::SessionCommandStore.new @session, :some_module, ['a', 'b']
+        @store.remove(['a'])
+        expect(@store.size).to eq 1
+        expect(@store.commands).to eq ['b']
+      end
+    end
   end
   
 end

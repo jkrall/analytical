@@ -32,5 +32,14 @@ describe Analytical::CommandStore do
       @store.size.should == 0
     end
   end
+
+  describe 'when removing' do
+    it 'removes only given commands' do
+      @store = Analytical::CommandStore.new ['a', 'b']
+      @store.remove(['a'])
+      expect(@store.size).to eq 1
+      expect(@store.commands).to eq ['b']
+    end
+  end
   
 end
