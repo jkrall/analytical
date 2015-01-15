@@ -10,7 +10,7 @@ module Analytical
           event: :body_append,
           track: :body_append,
           set: :head_append,
-          track_page: :body_append,
+          track_page: :head_append,
           key_interaction: :body_append
         }
       end

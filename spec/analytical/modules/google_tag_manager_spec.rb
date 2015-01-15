@@ -11,7 +11,7 @@ describe "Analytical::Modules::GoogleTagManager" do
         event: :body_append,
         track: :body_append,
         set: :head_append,
-        track_page: :body_append,
+        track_page: :head_append,
         key_interaction: :body_append
       }
       expect(analytical.tracking_command_location).to eq expected
