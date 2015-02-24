@@ -49,7 +49,7 @@ module Analytical
         end
       end
 
-      
+
       # Examples:
       #     analytical.track(url_viewed)
       #     analytical.track(url_viewed, 'page name' => @page_title)
@@ -59,7 +59,7 @@ module Analytical
       # named 'page viewed'. This follows a recommendation in the Mixpanel docs for
       # minimizing the number of distinct events you log, thus keeping your event data uncluttered.
       #
-      # The url is followed by a Hash parameter that contains any other custom properties 
+      # The url is followed by a Hash parameter that contains any other custom properties
       # you want logged along with the pageview event. The following Hash keys get special treatment:
       # * :callback => String representing javascript function to callback
       # * :event => overrides the default event name for pageviews
@@ -67,7 +67,7 @@ module Analytical
       #
       # Mixpanel docs also recommend specifying a 'page name' property when tracking pageviews.
       #
-      # To turn off pageview tracking for Mixpanel entirely, initialize analytical as follows: 
+      # To turn off pageview tracking for Mixpanel entirely, initialize analytical as follows:
       #        analytical( ... mixpanel: { key: ENV['MIXPANEL_KEY'], track_pageview: false } ... )
       def track(*args)
         return if args.empty?
@@ -79,7 +79,7 @@ module Analytical
           properties[:url] = url
           # Docs recommend: mixpanel.track('page viewed', {'page name' : document.title, 'url' : window.location.pathname});
           %(mixpanel.track("#{event}", #{properties.to_json}, #{callback});)
-        end          
+        end
       end
 
       # Used to set "Super Properties" - http://mixpanel.com/api/docs/guides/super-properties
@@ -105,11 +105,11 @@ module Analytical
       def event(name, attributes = {})
         %(mixpanel.track("#{name}", #{attributes.to_json});)
       end
-      
+
       def person(attributes = {})
         %(mixpanel.people.set(#{attributes.to_json});)
       end
-      
+
       def revenue(charge, attributes = {})
         %(mixpanel.people.track_charge(#{charge}, #{attributes.to_json});)
       end
