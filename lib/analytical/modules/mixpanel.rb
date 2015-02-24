@@ -41,7 +41,7 @@ module Analytical
             'track_forms','register','register_once','unregister','identify','alias','name_tag',
             'set_config','people.set','people.increment','people.track_charge','people.append'];
             for(e=0;e<h.length;e++)d(g,h[e]);a._i.push([b,c,f])};a.__SV=1.2;})(document,window.mixpanel||[]);
-            var config = { track_pageview: #{options.fetch(:track_pageview, true)} };
+            var config = #{options.reject { |k,v| k == :key }.to_json};
             mixpanel.init("#{options[:key]}", config);
           </script>
           HTML
