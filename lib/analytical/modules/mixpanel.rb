@@ -28,6 +28,7 @@ module Analytical
 
       def init_javascript(location)
         init_location(location) do
+          config = options[:mixpanel] ? options[:mixpanel].reject { |k,v| k == :key }.to_json : {}.to_json
           js = <<-HTML
           <!-- Analytical Init: Mixpanel -->
           <script type="text/javascript">
@@ -41,8 +42,7 @@ module Analytical
             'track_forms','register','register_once','unregister','identify','alias','name_tag',
             'set_config','people.set','people.increment','people.track_charge','people.append'];
             for(e=0;e<h.length;e++)d(g,h[e]);a._i.push([b,c,f])};a.__SV=1.2;})(document,window.mixpanel||[]);
-            var config = #{options[:mixpanel].reject { |k,v| k == :key }.to_json};
-            mixpanel.init("#{options[:key]}", config);
+            mixpanel.init("#{options[:key]}", "#{config}");
           </script>
           HTML
           js
