@@ -42,9 +42,11 @@ module Analytical
         if options[:disable_if] && options[:disable_if].call(self)
           options[:modules] = []
         end
-        if analytical_is_robot?(request.user_agent)
-          options[:modules] = []
-        end
+        # Don't check for robots, robots can cause a page to be cached. And that cached page will be used by normal
+        # users with analytical disabled.
+        # if analytical_is_robot?(request.user_agent)
+        #   options[:modules] = []
+        # end
         options[:modules] = options[:filter_modules].call(self, options[:modules]) if options[:filter_modules]
         Analytical::Api.new options
       end
