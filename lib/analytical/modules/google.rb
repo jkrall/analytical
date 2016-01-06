@@ -26,6 +26,12 @@ module Analytical
         end
       end
 
+      def track(*args) # page
+        <<-JS.gsub(/^ {10}/, '')
+          ga('send', 'pageview', page);
+        JS
+      end
+
       def event(*args) # name, options, callback
         <<-JS.gsub(/^ {10}/, '')
           ga('send', 'event', name, options && options.action || 'undefined', options && options.label, options && options.value);

@@ -30,7 +30,7 @@ module Analytical
         JS
       end
 
-      def track(*args) # event, properties, callback
+      def track(*args) # page
         <<-JS.gsub(/^ {10}/, '')
           if (typeof(console) !== 'undefined' && console != null) {
             console.log('Analytical track', arguments)
