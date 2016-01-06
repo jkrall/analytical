@@ -3,6 +3,9 @@ var Analytical = {
   identify: function(id, options) {
     <%= raw(analytical.javascript_for.identify.gsub(/^/, " " * 4).strip) %>
   },
+  track: function(page) {
+    <%= raw(analytical.javascript_for.track.gsub(/^/, " " * 4).strip) %>
+  },
   event: function(name, options, callback) {
     <%= raw(analytical.javascript_for.event.gsub(/^/, " " * 4).strip) %>
   },
