@@ -26,6 +26,14 @@ module Analytical
         end
       end
 
+      # note that "Session Unification" must be enabled in the GA User-ID feature
+      # because the page view event happens before the identify
+      def identify(*args) # id, options
+        <<-JS.gsub(/^ {10}/, '')
+          ga('set', 'userId', id);
+        JS
+      end
+
       def track(*args) # page
         <<-JS.gsub(/^ {10}/, '')
           ga('send', 'pageview', page);
