@@ -58,13 +58,6 @@ module Analytical
         JS
       end
 
-      # def track(*args) # event, properties, callback
-      #   # event_name, properties, callback
-      #   <<-JS.gsub(/^ {10}/, '')
-      #     mixpanel.track(event, properties, callback);
-      #   JS
-      # end
-
       # Used to set "Super Properties" - http://mixpanel.com/api/docs/guides/super-properties
       def set(*args) # properties
         <<-JS.gsub(/^ {10}/, '')
