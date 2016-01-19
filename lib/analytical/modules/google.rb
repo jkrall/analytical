@@ -34,9 +34,9 @@ module Analytical
         JS
       end
 
-      def track(*args) # page
+      def track(*args) # page, options
         <<-JS.gsub(/^ {10}/, '')
-          ga('send', 'pageview', page);
+          ga('send', 'pageview', page, options || {});
         JS
       end
 
