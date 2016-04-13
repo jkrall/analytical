@@ -23,6 +23,11 @@ module Analytical
             if(userId.length > 0) {
               ga('set', 'userId', userId);
             }
+
+            // Optimizely Universal Analytics Integration Code
+            window.optimizely = window.optimizely || [];
+            window.optimizely.push("activateUniversalAnalytics");
+
             ga('send', 'pageview');
           </script>
           HTML
