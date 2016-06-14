@@ -8,7 +8,7 @@ module Analytical
         @tracking_command_location = :body_append
       end
 
-      # Intercom indentification is being done through the intercom-rails gem
+      # Intercom identification is being done through the intercom-rails gem
 
       def event(*args) # name, options, callback
         <<-JS.gsub(/^ {10}/, '')
