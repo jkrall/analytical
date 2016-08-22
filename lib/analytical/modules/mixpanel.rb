@@ -55,6 +55,13 @@ module Analytical
         JS
       end
 
+      # Clears super properties and generates a new random distinct_id for this instance
+      # https://mixpanel.com/help/reference/javascript-full-api-reference#mixpanel.reset
+      def reset
+        <<-JS.gsub(/^ {10}/, '')
+          mixpanel.reset();
+        JS
+      end
     end
   end
 end

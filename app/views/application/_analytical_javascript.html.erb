@@ -12,6 +12,9 @@ var Analytical = {
   set: function(properties) {
     <%= raw(analytical.javascript_for.set.gsub(/^/, " " * 4).strip) %>
   },
+  reset: function(properties) {
+    <%= raw(analytical.javascript_for.reset.gsub(/^/, " " * 4).strip) %>
+  },
   alias_identity: function(old_identity, new_identity) {
     <%= raw(analytical.javascript_for.alias_identity.gsub(/^/, " " * 4).strip) %>
   }
