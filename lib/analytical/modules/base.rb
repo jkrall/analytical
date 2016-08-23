@@ -41,6 +41,10 @@ module Analytical
       # This method generates the initialization javascript that an analytics service uses to track your site
       # def init_javascript(location)
 
+      # The reset method should be implemented when the service provides some kind of clean up task to be executed
+      # when the user logs out
+      # def reset
+
       def queue(*args)
         return if @command_store.include?(args)
         if args.first == :identify

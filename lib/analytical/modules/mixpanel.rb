@@ -11,20 +11,10 @@ module Analytical
       def init_javascript(location)
         init_location(location) do
           js = <<-HTML
-          <!-- Analytical Init: Mixpanel -->
-          <script type="text/javascript">
-            (function(c,a){window.mixpanel=a;var b,d,h,e;b=c.createElement("script");
-            b.type="text/javascript";b.async=!0;b.src=("https:"===c.location.protocol?"https:":"http:")+
-            '//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';d=c.getElementsByTagName("script")[0];
-            d.parentNode.insertBefore(b,d);a._i=[];a.init=function(b,c,f){function d(a,b){
-            var c=b.split(".");2==c.length&&(a=a[c[0]],b=c[1]);a[b]=function(){a.push([b].concat(
-            Array.prototype.slice.call(arguments,0)))}}var g=a;"undefined"!==typeof f?g=a[f]=[]:
-            f="mixpanel";g.people=g.people||[];h=['disable','track','track_pageview','track_links',
-            'track_forms','register','register_once','unregister','identify','alias','name_tag','set_config',
-            'people.set','people.set_once','people.increment','people.track_charge','people.append'];
-            for(e=0;e<h.length;e++)d(g,h[e]);a._i.push([b,c,f])};a.__SV=1.2;})(document,window.mixpanel||[]);
-            mixpanel.init('#{options[:key]}');
-          </script>
+          <!-- start Mixpanel --><script type="text/javascript">(function(e,a){if(!a.__SV){var b=window;try{var c,l,i,j=b.location,g=j.hash;c=function(a,b){return(l=a.match(RegExp(b+"=([^&]*)")))?l[1]:null};g&&c(g,"state")&&(i=JSON.parse(decodeURIComponent(c(g,"state"))),"mpeditor"===i.action&&(b.sessionStorage.setItem("_mpcehash",g),history.replaceState(i.desiredHash||"",e.title,j.pathname+j.search)))}catch(m){}var k,h;window.mixpanel=a;a._i=[];a.init=function(b,c,f){function e(b,a){var c=a.split(".");2==c.length&&(b=b[c[0]],a=c[1]);b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,
+          0)))}}var d=a;"undefined"!==typeof f?d=a[f]=[]:f="mixpanel";d.people=d.people||[];d.toString=function(b){var a="mixpanel";"mixpanel"!==f&&(a+="."+f);b||(a+=" (stub)");return a};d.people.toString=function(){return d.toString(1)+".people (stub)"};k="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+          for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";c=e.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}})(document,window.mixpanel||[]);
+          mixpanel.init('#{options[:key]}');</script><!-- end Mixpanel -->
           HTML
           js
         end
@@ -65,6 +55,13 @@ module Analytical
         JS
       end
 
+      # Clears super properties and generates a new random distinct_id for this instance
+      # https://mixpanel.com/help/reference/javascript-full-api-reference#mixpanel.reset
+      def reset
+        <<-JS.gsub(/^ {10}/, '')
+          mixpanel.reset();
+        JS
+      end
     end
   end
 end
