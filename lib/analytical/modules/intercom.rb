@@ -12,10 +12,12 @@ module Analytical
 
       def event(*args) # name, options, callback
         <<-JS.gsub(/^ {10}/, '')
-          Intercom('trackEvent', name, options || {});
-          setTimeout(function() {
-            Intercom('update');
-          }, 2000);
+          if (typeof(Intercom) !== 'undefined') {
+            Intercom('trackEvent', name, options || {});
+            setTimeout(function() {
+              Intercom('update');
+            }, 2000);
+          }
         JS
       end
     end
