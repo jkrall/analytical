@@ -49,8 +49,11 @@ module Analytical
           options[:modules] = []
         end
         options[:session] = session if options[:use_session_store]
-        if analytical_is_robot?(request.user_agent, options[:user_agent_whitelist] || [])
-          options[:modules] = []
+
+        unless options[:disable_bot_detection]
+          if analytical_is_robot?(request.user_agent, options[:user_agent_whitelist] || [])
+            options[:modules] = []
+          end
         end
         options[:modules] = options[:filter_modules].call(self, options[:modules]) if options[:filter_modules]
         options[:javascript_helpers] ||= true if options[:javascript_helpers].nil?

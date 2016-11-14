@@ -10,6 +10,10 @@ module Analytical
       @commands = []
     end
 
+    def remove(processed_commands)
+      @commands -= processed_commands
+    end
+
     # Pass any array methods on to the internal array
     def method_missing(method, *args, &block)
       @commands.send(method, *args, &block)

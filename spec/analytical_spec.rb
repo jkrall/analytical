@@ -87,6 +87,14 @@ describe "Analytical" do
         d.stub!(:'analytical_is_robot?').and_return(true)
         d.analytical.options[:modules].should == []
       end
+
+      it 'should not set the modules to [] if bot detection disabled via configuration' do
+        DummyForInit.analytical
+        DummyForInit.analytical_options[:disable_bot_detection] = 'true'
+        d = DummyForInit.new
+        d.stub!(:'analytical_is_robot?').and_return(true)
+        d.analytical.options[:modules].should_not eq []
+      end
     end
 
     it 'should open the initialization file' do

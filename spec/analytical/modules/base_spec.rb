@@ -54,43 +54,115 @@ describe Analytical::Modules::Base do
   end
 
   describe '#process_queued_commands' do
-    before(:each) do
-      @api = BaseApiDummy.new(:parent=>mock('parent'))
-      @api.command_store.commands = [[:a, 1, 2, 3], [:b, {:some=>:args}]]
-      @api.stub!(:a).and_return('a')
-      @api.stub!(:b).and_return('b')
+    describe 'when commands share a single location' do
+      before(:each) do
+        @api = BaseApiDummy.new(:parent=>mock('parent'))
+        @api.instance_variable_set '@tracking_command_location', :some_location
+        @api.command_store.commands = [[:a, 1, 2, 3], [:b, {:some=>:args}]]
+        @api.stub!(:a).and_return('a')
+        @api.stub!(:b).and_return('b')
+      end
+      it 'should send each of the args arrays in the command list' do
+        @api.should_receive(:a).with(1, 2, 3).and_return('a')
+        @api.should_receive(:b).with({:some=>:args}).and_return('b')
+        @api.process_queued_commands(:some_location)
+      end
+      it 'should return the results as an array' do
+        @api.process_queued_commands(:some_location).should == ['a', 'b']
+      end
+      it 'should clear the commands list' do
+        @api.process_queued_commands(:some_location)
+        @api.command_store.commands == []
+      end
+      it "should not store an unrecognized command" do
+        @api.command_store.commands << [:c, 1]
+        @api.process_queued_commands(:some_location).should == ['a','b']
+      end
     end
-    it 'should send each of the args arrays in the command list' do
-      @api.should_receive(:a).with(1, 2, 3).and_return('a')
-      @api.should_receive(:b).with({:some=>:args}).and_return('b')
-      @api.process_queued_commands
-    end
-    it 'should return the results as an array' do
-      @api.process_queued_commands.should == ['a', 'b']
-    end
-    it 'should clear the commands list' do
-      @api.process_queued_commands
-      @api.command_store.commands == []
-    end
-    it "should not store an unrecognized command" do
-      @api.command_store.commands << [:c, 1]
-      @api.process_queued_commands.should == ['a','b']
+
+    describe 'when commands have different locations' do
+      before(:each) do
+        @api = BaseApiDummy.new(:parent=>mock('parent'))
+        @api.instance_variable_set '@tracking_command_location', {
+          a: :command_a_location,
+          b: [:command_b_location]
+        }
+        @api.command_store.commands = [[:a, 1, 2, 3], [:b, {:some=>:args}]]
+        @api.stub!(:a).and_return('a')
+        @api.stub!(:b).and_return('b')
+      end
+
+      it 'only process commands for that specific location' do
+        expect(@api.process_queued_commands(:command_a_location)).to eq ['a']
+      end
+
+      it 'removes only process command from the list' do
+        @api.process_queued_commands(:command_a_location)
+        expect(@api.command_store.commands).to_not include [[:a, 1, 2, 3]]
+        expect(@api.command_store.commands).to include [:b, {:some=>:args}]
+      end
     end
   end
 
   describe '#init_location?' do
-    before(:each) do
-      @api = BaseApiDummy.new(:parent=>mock('parent'))
-      @api.instance_variable_set '@tracking_command_location', :my_location
-    end
-    describe 'when the command location matches the init location' do
-      it 'should return true' do
-        @api.init_location?(:my_location).should be_true
+    describe 'when tracking command location is a symbol' do
+      before(:each) do
+        @api = BaseApiDummy.new(:parent=>mock('parent'))
+        @api.instance_variable_set '@tracking_command_location', :my_location
+      end
+      describe 'when the command location matches the init location' do
+        it 'should return true' do
+          @api.init_location?(:my_location).should be_true
+        end
+      end
+      describe 'when the command location does not match the init location' do
+        it 'should return false' do
+          @api.init_location?(:not_my_location).should be_false
+        end
       end
     end
-    describe 'when the command location does not match the init location' do
-      it 'should return false' do
-        @api.init_location?(:not_my_location).should be_false
+
+    describe 'when tracking command location is a hash' do
+      before(:each) do
+        @api = BaseApiDummy.new(:parent=>mock('parent'))
+        @api.instance_variable_set '@tracking_command_location', {
+          init_javascript: [:my_location]
+        }
+      end
+
+      describe 'when the command location match the init location' do
+        it 'should return false' do
+          @api.init_location?(:my_location).should be_true
+        end
+      end
+
+      describe 'when the command location does not match the init location' do
+        it 'should return false' do
+          @api.init_location?(:not_my_location).should be_false
+        end
+      end
+    end
+  end
+
+  describe '#command_location?' do
+    describe 'when tracking command location is a hash' do
+      before(:each) do
+        @api = BaseApiDummy.new(:parent=>mock('parent'))
+        @api.instance_variable_set '@tracking_command_location', {
+          command: [:my_location]
+        }
+      end
+
+      describe 'when it matches the command location' do
+        it 'should return true' do
+          @api.command_location?(:my_location, :command).should be_true
+        end
+      end
+
+      describe 'when it does not match the command location' do
+        it 'should return false' do
+          @api.command_location?(:not_my_location, :command).should be_false
+        end
       end
     end
   end

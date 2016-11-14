@@ -6,6 +6,9 @@ var Analytical = {
   event: function(name, data) {
     if (typeof data === 'undefined') { data = {}; }
 <%= raw analytical.now.event('__EVENT__', {}).gsub(/"__EVENT__"/,'name').gsub(/"?\{\}"?/,'data') %>
+  },
+  set: function(data) {
+<%= raw analytical.now.set({}).gsub(/"?\{\}"?/,'data') %>
   }
 };
 </script>
