@@ -120,6 +120,12 @@ module Analytical
         JS
       end
 
+      def track(*args) # page, options
+        <<-JS.gsub(/^ {10}/, '')
+          analytics.page({'path': page})
+        JS
+      end
+
       def event(*args) # name, options, callback
         <<-JS.gsub(/^ {10}/, '')
           analytics.track(name, options || {});
