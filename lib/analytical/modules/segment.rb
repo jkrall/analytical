@@ -122,7 +122,7 @@ module Analytical
 
       def track(*args) # page, options
         <<-JS.gsub(/^ {10}/, '')
-          analytics.page({'path': page})
+          analytics.page({'path': page, 'url': 'https://www.seedrs.com'.concat(page)})
         JS
       end
 
