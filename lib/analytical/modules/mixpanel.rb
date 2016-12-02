@@ -5,7 +5,7 @@ module Analytical
 
       def initialize(options={})
         super
-        @tracking_command_location = :body_append
+        @tracking_command_location = :head_prepend
       end
 
       # Mixpanel-specific queueing behavior, overrides Base#queue

@@ -57,6 +57,13 @@ module Analytical
         HERE
       end
 
+      def person(data)
+        check_for_console <<-HERE
+        console.log("Analytical Person: ");
+        console.log(#{data.to_json});
+        HERE
+      end
+
       private
 
       CONSOLE_JS_ESCAPE_MAP = {
