@@ -27,11 +27,13 @@ module Analytical
       end
 
       def init_javascript(location)
+
         init_location(location) do
           config = options[:mixpanel] ? options[:mixpanel].reject { |k,v| k == :key }.to_json : {}.to_json
           js = <<-HTML
           <!-- Analytical Init: Mixpanel -->
           <script type="text/javascript">
+          try{
             if(!(typeof analytics !== 'undefined' && typeof analytics.Integrations !== 'undefined' && analytics.Integrations.hasOwnProperty("Mixpanel"))) {
               (function(c,a){window.mixpanel=a;var b,d,h,e;b=c.createElement("script");
               b.type="text/javascript";b.async=!0;b.src=("https:"===c.location.protocol?"https:":"http:")+
@@ -45,6 +47,10 @@ module Analytical
               for(e=0;e<h.length;e++)d(g,h[e]);a._i.push([b,c,f])};a.__SV=1.2;})(document,window.mixpanel||[]);
               mixpanel.init("#{options[:key]}", #{config});
             }
+          }
+          catch(e) {
+            console.log(e);
+          }
           </script>
           HTML
           js
