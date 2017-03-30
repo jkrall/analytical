@@ -32,7 +32,9 @@ module Analytical
           js = <<-HTML
           <!-- Analytical Init: Mixpanel -->
           <script type="text/javascript">
-            if(!(typeof window.mixpanel !== 'undefined' && typeof analytics !== 'undefined' && typeof analytics.Integrations !== 'undefined' && analytics.Integrations.hasOwnProperty("Mixpanel"))) {
+          var run = true;
+          debugger;
+            if(run) {
               (function(c,a){window.mixpanel=a;var b,d,h,e;b=c.createElement("script");
               b.type="text/javascript";b.async=!0;b.src=("https:"===c.location.protocol?"https:":"http:")+
               '//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';d=c.getElementsByTagName("script")[0];
