@@ -115,8 +115,11 @@ module Analytical
         commands += m.process_queued_commands if m.init_location?(location) || m.initialized
       end
       commands = commands.delete_if{|c| c.blank? || c.empty?}
+      ready_module = options[:ready_module]
       unless commands.empty?
+        commands.unshift "#{ready_module}.ready(function(){" if ready_module
         commands.unshift "<script type='text/javascript'>"
+        commands << "});" if ready_module
         commands << "</script>"
       end
       commands.join("\n")
