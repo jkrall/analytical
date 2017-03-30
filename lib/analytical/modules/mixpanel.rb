@@ -32,8 +32,7 @@ module Analytical
           js = <<-HTML
           <!-- Analytical Init: Mixpanel -->
           <script type="text/javascript">
-          var run = true;
-          debugger;
+          var run = false;
             if(run) {
               (function(c,a){window.mixpanel=a;var b,d,h,e;b=c.createElement("script");
               b.type="text/javascript";b.async=!0;b.src=("https:"===c.location.protocol?"https:":"http:")+
