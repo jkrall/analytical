@@ -19,6 +19,10 @@ module Analytical
             })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
             
             ga('create', '#{options[:key]}', 'auto');#{linkid}
+            var match = document.cookie.match(new RegExp('(^| )ignored_referrer=([^;]+)'));
+            if (match && decodeURIComponent(match[2]) === document.referrer) {
+              ga('set', 'referrer', window.location.origin);
+            }
             var userId = document.cookie.replace(/(?:(?:^|.*;\s*)external_user_id\s*\=\s*([^;]*).*$)|^.*$/, "$1");
             if(userId.length > 0) {
               ga('set', 'userId', userId);
