@@ -52,7 +52,7 @@ module Analytical
         else
           @command_store << args
         end
-        @options[:controller].env["analytical"] = @command_store.commands
+        @options[:controller].request.env["analytical"] = @command_store.commands
       end
 
       def init_location?(location)
