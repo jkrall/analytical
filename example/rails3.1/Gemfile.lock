@@ -1,7 +1,7 @@
 PATH
   remote: ../..
   specs:
-    analytical (3.0.8)
+    analytical (3.0.12)
 
 GEM
   remote: http://rubygems.org/
@@ -53,7 +53,7 @@ GEM
     jquery-rails (1.0.14)
       railties (~> 3.0)
       thor (~> 0.14)
-    json (1.6.1)
+    json (2.3.0)
     mail (2.3.0)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
